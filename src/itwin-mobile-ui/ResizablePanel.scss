@@ -1,0 +1,49 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+.mui-draggable-component {
+  pointer-events: auto;
+}
+
+.mui-drag-container {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ns-resize;
+  flex-shrink: 0;
+}
+
+.mui-drag-handle {
+  width: 36px;
+  height: 5px;
+  border: 0px;
+  border-radius: 2.5px;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.mui-vertical-scroll {
+  overflow-y: auto;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.mui-resizable-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.mui-panel-animate-height {
+  transition-property: height;
+  transition-duration: var(--mui-bottom-panel-animation-duration);
+  transition-timing-function: ease-out;
+}
+
+.mui-panel-pointer-event-blocker {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

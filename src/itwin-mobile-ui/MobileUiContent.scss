@@ -1,0 +1,18 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+.mobile-ui-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  box-sizing: border-box;
+  pointer-events: none;
+
+  padding-top: var(--mui-safe-area-top);
+  padding-right: var(--mui-safe-area-right);
+  padding-bottom: var(--mui-safe-area-bottom);
+  padding-left: var(--mui-safe-area-left);
+}

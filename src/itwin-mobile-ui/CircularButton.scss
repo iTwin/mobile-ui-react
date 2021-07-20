@@ -1,0 +1,63 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+@import "./CenterDiv";
+
+.mui-circular-button-container {
+  @extend .mui-center-div;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.mui-circular-button-circle {
+  @extend .mui-center-div;
+  position: relative;
+  border-radius: 50%;
+  border: none;
+  --circle-color: var(--muic-gray-9);
+  --selected-circle-color: white;
+  background-color: var(--circle-color);
+  flex-shrink: 0;
+
+  &.selected, &:active {
+    background-color: var(--selected-circle-color);
+  }
+}
+
+.mui-circular-button-label {
+  color: var(--muic-gray-2);
+  font-size: 11px;
+  padding-top: 5px;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.mui-circular-button-default-chip {
+  width: 60%;
+  height: 60%;
+  border-radius: 6px;
+  opacity: 0.37;
+  background-color: white;
+}
+
+.mui-circular-button-icon {
+  --icon-color: white;
+  --selected-icon-color: black;
+  color: var(--icon-color);
+  font-size: 20px;
+  font-weight: bold;
+  &.selected, &:active {
+    color: var(--selected-icon-color);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mui-circular-button-badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

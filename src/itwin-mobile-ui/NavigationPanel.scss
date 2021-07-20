@@ -1,0 +1,47 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+@import "MobileUI";
+
+:root {
+  --mui-navigation-gradient-height: 80px;
+}
+
+.mui-navigation-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  color: var(--muic-foreground-navigation-button);
+  stroke-width: 2px;
+  filter:drop-shadow(0px 0px 1px rgba(0, 0, 0, .7));
+}
+
+.mui-navigation-button.disabled {
+  opacity: 0.5;
+}
+
+.mui-navigation-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mui-navigation-panel-section {
+  display: flex;
+  z-index: 1;
+}
+
+.mui-navigation-gradient {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
+  height: var(--mui-navigation-gradient-height);
+  opacity: 0.5;
+  pointer-events: none;
+  @include mui-navigation-background-gradient;
+  padding-top: var(--mui-safe-area-top);
+}

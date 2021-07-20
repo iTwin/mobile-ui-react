@@ -1,0 +1,49 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+.mui-tab-strip-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--light-border-color);
+  width: 100%;
+}
+
+.mui-tab-strip {
+  // Flex box min-width defaults to auto, which shoves any sibling elements off to the right without this.
+  min-width: 100px;
+}
+
+.mui-tab-strip-tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: 14px;
+  padding-right: 14px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mui-tab-strip-tab {
+  padding-bottom: 9px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 13px;
+  color: var(--light-text-color);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent; // so that it doesn't shift position when selected
+}
+
+.mui-tab-strip-tab-selected {
+  border-bottom: 2px solid;
+  color: var(--buic-foreground-primary); // --muic-active?
+}
+
+.mui-tab-strip-tab-contents {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

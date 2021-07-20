@@ -1,0 +1,57 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+.mui-panel-header-title-container {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.mui-panel-header-height {
+  line-height: 22px;
+  height: 22px;
+  padding-bottom: 14px;
+}
+
+.mui-panel-header-title {
+  @extend .mui-panel-header-height;
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--muic-gray-2);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.mui-panel-header-button-container {
+  width: 100%;
+  display: flex;
+}
+
+.mui-panel-header-button {
+  @extend .mui-panel-header-height;
+  font-size: 14px;
+  color: var(--muic-active);
+  display: flex;
+  white-space: nowrap;
+}
+
+.mui-panel-header-button-left {
+  @extend .mui-panel-header-button;
+  padding-left: 14px;
+  padding-right: 4px;
+}
+
+.mui-panel-header-button-right {
+  @extend .mui-panel-header-button;
+  padding-left: 4px;
+  padding-right: 14px;
+}
+
+.mui-panel-header-draggable {
+  @extend .mui-panel-header-height;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent; // never want to highlight the draggable divs
+
+  &.non-dragable {
+    padding-top: 14px;
+  }
+}

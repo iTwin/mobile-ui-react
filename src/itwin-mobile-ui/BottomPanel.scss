@@ -1,0 +1,97 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+@import "@bentley/ui-ninezone/lib/ui-ninezone/_prefix";
+
+:root {
+  --mui-bottom-panel-animation-duration: .3s;
+}
+
+.mui-bottom-panel-body {
+  --bottom-panel-opacity: 1.0;
+  --bottom-panel-blur: unset;
+  border-radius: 10px 10px 0px 0px;
+  background-color: rgba(255,255,255,var(--bottom-panel-opacity));
+  width: 100%;
+  -webkit-backdrop-filter: blur(var(--bottom-panel-blur));
+  backdrop-filter: blur(var(--bottom-panel-blur));
+  box-sizing: border-box;
+  padding-right: var(--mui-safe-area-right);
+  padding-left: var(--mui-safe-area-left);
+}
+
+.mui-bottom-panel-shadow {
+  z-index: 102;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 10px 10px 0px 0px;
+  background-color: transparent;
+  width: 100%;
+  box-shadow: 0px -2px 4px rgba(0,0,0,0.12);
+  pointer-events: none;
+}
+
+.mui-bottom-panel {
+  pointer-events: auto;
+  min-height: 40px;
+  max-height: calc(100vh - var(--mui-safe-area-top) - var(--mui-safe-area-bottom) - 100px);
+  width: 100%;
+  left: 0px;
+  bottom: calc(var(--mui-tab-bar-height) + var(--mui-safe-area-bottom));
+  position: absolute;
+  background-color: transparent;
+
+  transition-property: transform, visibility;
+  transition-duration: var(--mui-bottom-panel-animation-duration);
+  transition-timing-function: ease-in-out;
+  transform: translateY(100%);
+  visibility: hidden;
+  z-index: 111;
+
+  &.opening {
+    transform: translateY(0);
+    visibility: visible;
+    z-index: 112;
+  }
+  &.flicking {
+    transition-timing-function: ease-out;
+  }
+}
+
+.mui-bottom-panel-overlay {
+  max-height: calc(100vh - var(--mui-safe-area-top) - var(--mui-safe-area-bottom) - 60px);
+  z-index: 120;
+  bottom: 0;
+  
+  >.mui-bottom-panel-body {
+    bottom: 0;
+    > :last-child:not(.mui-resizable-panel)::after, > .mui-resizable-panel > :last-child:last-child::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: var(--mui-safe-area-bottom);
+      background-color: transparent;
+    }
+  }
+  &.opening {
+    z-index: 120;
+  }
+  &.closing {
+    z-index: 120;
+  }
+}
+
+.mui-bottom-panel-split-screen {
+  >.mui-bottom-panel-body {
+    background-color: white;
+    border-radius: 0px;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+   }
+  >.mui-bottom-panel-shadow {
+    border-radius: 0px;
+  }
+}

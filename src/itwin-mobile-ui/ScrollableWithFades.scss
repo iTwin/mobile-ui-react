@@ -1,0 +1,45 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+@import "./MobileUi";
+
+.mui-horizontal-scrollable-with-fades-relative {
+  position: relative;
+}
+
+.mui-horizontal-scrollable-with-fades-scrollable {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mui-fade {
+  --background-r: 255;
+  --background-g: 255;
+  --background-b: 255;
+  height: var(--mui-tab-bar-height);
+  bottom: var(--mui-safe-area-bottom);
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 50px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity var(--mui-fade-duration) ease;
+}
+
+.mui-fade-left {
+  @extend .mui-fade;
+  left: 0px;
+  @include mui-fade-gradient(right, var(--background-r), var(--background-g), var(--background-b));
+}
+
+.mui-fade-right {
+  @extend .mui-fade;
+  right: 0px;
+  @include mui-fade-gradient(left, var(--background-r), var(--background-g), var(--background-b));
+}

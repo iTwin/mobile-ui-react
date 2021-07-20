@@ -1,0 +1,128 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+.mui-modal-dialog-screen-cover {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  pointer-events: auto;
+  z-index: 9001; // Above everything (maybe), including visible-back-button.
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: var(--mui-fade-duration);
+}
+
+.mui-modal-dialog-parent {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
+  height: 100vh;
+  // NOTE: align-items: center does not work if content has to scroll. So mui-modal-dialog uses margin: auto.
+  // Also note that margin: auto does not center vertically in a non-flex parent, but does in a flex parent. I do not
+  // know why this is the case.
+  display: flex;
+  box-sizing: border-box;
+  padding-top: calc(10px + var(--mui-safe-area-top));
+  padding-right: calc(10px + var(--mui-safe-area-right));
+  padding-bottom: calc(10px + var(--mui-safe-area-bottom));
+  padding-left: calc(10px + var(--mui-safe-area-left));
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  transition-property: height;
+  transition-duration: var(--mui-keyboard-animation-duration);
+  transition-timing-function: ease-out;
+}
+
+.mui-modal-dialog {
+  margin: auto;
+  flex-shrink: 0;
+  padding: 25px;
+  padding-top: 17.5px;
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+  background-color: white;
+  border-radius: 3px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 83px 0px #00000045;
+  input[type=text] {
+    height: 38px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    font-family: OpenSans;
+    font-size: 14px;
+    color: var(--muic-gray-2);
+    padding-left: 13px;
+    padding-right: 13px;
+    -webkit-appearance: none;
+    border: 1px solid var(--muic-gray-9);
+    border-radius: 3px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.mui-modal-close-button {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  color: var(--muic-gray-5);
+  filter: none;
+}
+
+.mui-modal-title {
+  font-size: 24px;
+  margin-bottom: 17.5px;
+  white-space: nowrap;
+}
+
+.mui-modal-entry-form-field-label-row {
+  margin-top: 10px;
+  display: flex;
+}
+
+.mui-modal-entry-form-field-label {
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 600; // Semi-bold
+}
+
+.mui-required {
+  font-weight: bold;
+}
+
+.mui-required-red {
+  color: #cc0000;
+}
+
+.mui-modal-button-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mui-modal-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  margin-left: 10px;
+  box-sizing: border-box;
+  height: 38px;
+  border: 1px solid var(--muic-gray-a);
+  border-radius: 3px;
+  min-width: 82.5px;
+}
+
+.mui-default {
+  background-color: var(--muic-active);
+  color: var(--muic-active-contrast);
+  border-width: 0px;
+}

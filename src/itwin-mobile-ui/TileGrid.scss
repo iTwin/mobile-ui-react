@@ -1,0 +1,95 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+:root {
+  --mui-tile-grid-margin: 10px;
+}
+
+.mui-tile-grid-scroll-container {
+  padding: var(--mui-tile-grid-margin);
+  padding-bottom: 0px;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  margin-top: -20px; // matches the height of the gradient above
+  bottom: 0;
+  left: 0;
+  right: 0;
+  > *:last-child {
+    padding-bottom: var(--mui-tile-grid-margin);
+  }
+}
+
+.mui-tile-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  box-sizing: border-box;
+  gap: var(--mui-tile-grid-margin);
+  align-content: start;
+}
+
+@media (min-width: 400px) and (min-height: 400px) {
+  :root {
+    --mui-tile-grid-margin: 15px;
+  }
+}
+
+.mui-grid-tile-container {
+  position: relative;
+  height: 0;
+  box-sizing: border-box;
+}
+
+.mui-grid-tile {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  // Because the border is another element outside this one with a width of 1px, the border-radius
+  // here is decreased by 1px to result in match for the border's 5px radius.
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--muic-foreground-tile);
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+// The border must be separate in order to adjust outwards without affecting the size of the grid-tile.
+.mui-grid-tile-border {
+  position: absolute;
+  background-color: transparent;
+  left: -1px;
+  top: -1px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--muic-border-tile);
+  border-radius: 5px;
+  pointer-events: none;
+  transition-duration: 150ms;
+}
+
+@mixin mui-grid-tile-selected {
+  left: -2px;
+  top: -2px;
+  border-color: var(--muic-active);
+  border-width: 2px;
+  border-radius: 6px;
+}
+
+// When the grid-tile is active (pressed), highlight the border and make it thicker.
+.mui-grid-tile:active + .mui-grid-tile-border {
+  transition-duration: 150ms;
+  @include mui-grid-tile-selected;
+}
+
+.mui-tile-grid.scrolling .mui-grid-tile-border {
+  left: -1px;
+  top: -1px;
+  border: 1px solid var(--muic-border-tile);
+  border-radius: 5px;
+}

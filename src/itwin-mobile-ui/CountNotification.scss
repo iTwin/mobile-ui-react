@@ -1,0 +1,73 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+:root {
+  --mui-pill-height: 28px;
+}
+
+.mui-pill {
+  height: var(--mui-pill-height);
+  border-radius: calc(var(--mui-pill-height) / 2);
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.12);
+  padding: 4px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.mui-count-notification {
+  position: relative;
+  color: var(--muic-foreground-count-notification);
+  background-color: var(--muic-background-count-notification);
+}
+
+.mui-count-notification-count {
+  color: var(--muic-foreground-count-notification-count);
+  background-color: var(--muic-background-count-notification-count);
+  height: 20px;
+  min-width: 12px;
+  border-radius: 10px;
+  padding: 0px 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mui-count-notification-label {
+  padding: 0px 6px 0px 6px;
+}
+
+.mui-count-notification-label-more {
+  // The extra right padding is to leave space for the absolute positioned more button.
+  padding-right: 22px;
+}
+
+.mui-count-notification-more {
+  // This button needs to expand beyond the bounds of the parent div, so use position: absolute and
+  // adjust the right padding of the label that is to the left of it.
+  position: absolute;
+  justify-content: flex-end;
+  right: 0px;
+  top: -7px;
+  color: var(--muic-foreground-count-notification-more);
+  filter: none;
+  padding-right: 4px;
+  box-sizing: border-box;
+}
+
+.mui-count-notification-button {
+  position: absolute;
+  right: 0px;
+  top: -7px;
+  width: 100%;
+  height: 42px;
+  pointer-events: auto;
+}
+
+.mui-closeable-count-notification {
+  .font-image {
+    stroke-width: 3px;
+    margin-right: 4px;
+  }
+}

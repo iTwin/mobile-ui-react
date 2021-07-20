@@ -1,0 +1,42 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+@import "@bentley/ui-ninezone/lib/ui-ninezone/_prefix";
+
+.mui-suggestion-container {
+  display: flex;
+  justify-content: space-between;
+  pointer-events: auto;
+  margin-left: 3px;
+  margin-top: 8px;
+  padding: 8px;
+}
+
+.mui-suggestion {
+  color: var(--muic-foreground-suggestion);
+  background-color: rgba(var(--muic-background-suggestion-rgb), 0.5);
+  border-radius: calc(var(--mui-pill-height) / 2);
+  min-height: var(--mui-pill-height);
+  min-width: var(--mui-pill-height);
+  margin-right: var(--mui-pill-height);
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+
+  &.closed {
+    width: 0;
+    height: 0;
+  }
+
+  >.font-image {
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+  }
+}
+
+.mui-suggestion-label {
+  line-height: 14px;
+  font-size: 11px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-right: 7px;
+}

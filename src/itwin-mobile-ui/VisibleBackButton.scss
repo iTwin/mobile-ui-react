@@ -1,0 +1,11 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) 2020 Bentley Systems, Incorporated. All rights reserved.
+*--------------------------------------------------------------------------------------------*/
+.visible-back-button {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  z-index: 8000; // Just above loading-overlay
+  margin-top: var(--mui-safe-area-top);
+  margin-left: var(--mui-safe-area-left);
+}
