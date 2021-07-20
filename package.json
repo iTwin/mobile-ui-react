@@ -31,7 +31,6 @@
     "@bentley/presentation-frontend": "2.16.3",
     "@bentley/product-settings-client": "2.16.3",
     "@bentley/rbac-client": "2.16.3",
-    "@bentley/react-scripts": "3.4.2-dev.0",
     "@bentley/telemetry-client": "2.16.3",
     "@bentley/ui-abstract": "2.16.3",
     "@bentley/ui-components": "2.16.3",
