@@ -4,7 +4,8 @@
   "description": "Bentley iTwin Mobile UI module",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "copy:assets": "cpx \"./src/**/*.{*css}\" ./lib && cpx \"./public/**/*\" ./lib/public",
+    "build": "npm run copy:assets && tsc 1>&2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -31,6 +32,7 @@
     "@bentley/presentation-frontend": "2.16.3",
     "@bentley/product-settings-client": "2.16.3",
     "@bentley/rbac-client": "2.16.3",
+    "@bentley/react-scripts": "3.4.2-dev.0",
     "@bentley/telemetry-client": "2.16.3",
     "@bentley/ui-abstract": "2.16.3",
     "@bentley/ui-components": "2.16.3",
@@ -44,6 +46,7 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "16.8.4",
     "@types/react-redux": "^7.0.1",
+    "cpx": "^1.5.0",
     "eslint": "^6.0.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "fibers": "^3.1.0",
@@ -53,7 +56,9 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "sass": "^1.3.0",
+    "svg-sprite-loader": "4.2.1",
     "typedoc": "0.14.0",
-    "typescript": "~3.7.4"
+    "typescript": "~3.7.4",
+    "webpack": "4.42.0"
   }
 }
