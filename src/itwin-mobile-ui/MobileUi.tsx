@@ -89,7 +89,7 @@ export class MobileUi {
    * @returns The translated string, or key if it is not found.
    */
   public static translate(key: string, options?: any) {
-    return this._i18n.translate("MobileUi:" + key, options);
+    return this._i18n.translate("iTwinMobileUI:" + key, options);
   }
 
   /** Property indicating if the software keyboard is currently visible. */
