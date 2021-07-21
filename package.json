@@ -2,9 +2,10 @@
   "name": "@bentley/itwin-mobile-ui",
   "version": "1.0.0",
   "description": "Bentley iTwin Mobile UI module",
-  "main": "index.js",
+  "main": "lib/itwin-mobile-ui.js",
+  "types": "lib/itwin-mobile-ui.d.ts",
   "scripts": {
-    "copy:assets": "cpx \"./src/**/*.{*css}\" ./lib && cpx \"./public/**/*\" ./lib/public",
+    "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "build": "npm run copy:assets && tsc 1>&2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
