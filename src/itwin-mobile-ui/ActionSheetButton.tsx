@@ -132,7 +132,7 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
   private static initListener() {
     if (this._haveListener) return;
     // Note: one global (static member variable) handler for actionSheetAction.
-    Messenger.onQuery("Bentley_ITM_actionSheetAction").setHandler(this._onActionSheetAction);
+    Messenger.onQuery("Bentley_WMU_actionSheetAction").setHandler(this._onActionSheetAction);
     this._haveListener = true;
   }
 
@@ -183,7 +183,7 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
         onSelected: () => { },
       });
     }
-    await Messenger.query("Bentley_ITM_presentActionSheet", messageData);
+    await Messenger.query("Bentley_WMU_presentActionSheet", messageData);
     ActionSheetButton._waiting[senderId] = false;
   }
 

@@ -44,5 +44,5 @@ export async function presentAlert(props: AlertProps): Promise<string> {
       action.style = ActionStyle.Default;
     }
   }
-  return Messenger.query("Bentley_ITM_presentAlert", messageData);
+  return Messenger.query("Bentley_WMU_presentAlert", messageData);
 }

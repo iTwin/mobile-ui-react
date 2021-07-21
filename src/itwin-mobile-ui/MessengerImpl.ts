@@ -27,17 +27,17 @@ export class MessengerImpl {
   public static initialize() {
     if (MessengerImpl._anyWindow.webkit) {
       // iOS
-      MessengerImpl._queryResponse = (responseJson) => MessengerImpl._anyWindow.webkit.messageHandlers.Bentley_ITMMessenger_QueryResponse.postMessage(responseJson);
-      MessengerImpl._query = (messageJson) => MessengerImpl._anyWindow.webkit.messageHandlers.Bentley_ITMMessenger_Query.postMessage(messageJson);
-    } else if (MessengerImpl._anyWindow.Bentley_ITMMessenger) {
+      MessengerImpl._queryResponse = (responseJson) => MessengerImpl._anyWindow.webkit.messageHandlers.Bentley_WMUMessenger_QueryResponse.postMessage(responseJson);
+      MessengerImpl._query = (messageJson) => MessengerImpl._anyWindow.webkit.messageHandlers.Bentley_WMUMessenger_Query.postMessage(messageJson);
+    } else if (MessengerImpl._anyWindow.Bentley_WMUMessenger) {
       // Android
-      MessengerImpl._queryResponse = (responseJson) => MessengerImpl._anyWindow.Bentley_ITMMessenger.queryResponse(responseJson);
-      MessengerImpl._query = (messageJson) => MessengerImpl._anyWindow.Bentley_ITMMessenger.query(messageJson);
+      MessengerImpl._queryResponse = (responseJson) => MessengerImpl._anyWindow.Bentley_WMUMessenger.queryResponse(responseJson);
+      MessengerImpl._query = (messageJson) => MessengerImpl._anyWindow.Bentley_WMUMessenger.query(messageJson);
     } else {
       throw new Error("This MessengerImpl only supports iOS and Android.");
     }
 
-    MessengerImpl._anyWindow.Bentley_ITMMessenger_Query = async (name: string, queryId: number, messageJson: string) => {
+    MessengerImpl._anyWindow.Bentley_WMUMessenger_Query = async (name: string, queryId: number, messageJson: string) => {
       const message: any = { queryId };
       try {
         const response = await MessengerImpl.receiveQuery(name, messageJson);
@@ -50,7 +50,7 @@ export class MessengerImpl {
   }
 
   public static async query(name: string, message?: any) {
-    const responseName = "Bentley_ITMMessenger_QueryResponse" + MessengerImpl._queryId;
+    const responseName = "Bentley_WMUMessenger_QueryResponse" + MessengerImpl._queryId;
     const messageResponse = new Promise<string | undefined>((resolve) => {
       MessengerImpl._anyWindow[responseName] = resolve;
     });

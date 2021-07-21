@@ -56,7 +56,7 @@ export function DatePicker(props: DatePickerProps) {
           value,
           sourceRect,
         };
-        const pickedDateString = await Messenger.query("Bentley_ITM_presentDatePicker", messageData);
+        const pickedDateString = await Messenger.query("Bentley_WMU_presentDatePicker", messageData);
         if (pickedDateString) {
           const newValue = new Date(pickedDateString);
           setValue(newValue);
