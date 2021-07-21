@@ -4,6 +4,9 @@
   "description": "Bentley iTwin Mobile UI module",
   "main": "lib/itwin-mobile-ui.js",
   "types": "lib/itwin-mobile-ui.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "build": "npm run copy:assets && tsc 1>&2",
