@@ -145,7 +145,7 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
     action.onSelected(action);
   }
 
-  public componentWillUnmount() {
+  public override componentWillUnmount() {
     ActionSheetButton.unregisterActions(this._senderId);
   }
 
@@ -187,7 +187,7 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
     ActionSheetButton._waiting[senderId] = false;
   }
 
-  public render() {
+  public override render() {
     const { iconSpec, size, width, height, iconSize } = this.props;
     const onClick = async (e: React.MouseEvent) => {
       return ActionSheetButton.onClick(this._senderId, this.props, e);

@@ -342,17 +342,17 @@ interface TouchCaptorProps extends CommonProps {
 
 // This is a copy of PointerCaptor that has been changed to work with touch events instead.
 class TouchCaptor extends React.PureComponent<TouchCaptorProps> {
-  public componentDidMount() {
+  public override componentDidMount() {
     document.addEventListener("touchend", this._handleDocumentTouchEnd);
     document.addEventListener("touchmove", this._handleDocumentTouchMove);
   }
 
-  public componentWillUnmount() {
+  public override componentWillUnmount() {
     document.removeEventListener("touchend", this._handleDocumentTouchEnd);
     document.removeEventListener("touchmove", this._handleDocumentTouchMove);
   }
 
-  public render() {
+  public override render() {
     const className = classnames(
       "nz-base-pointerCaptor",
       this.props.isTouchStarted && "nz-captured",
@@ -398,11 +398,11 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
   private _initial: Point | undefined = undefined;
   // private _isDragged = false;
 
-  public readonly state: TouchDragHandleState = {
+  public override readonly state: TouchDragHandleState = {
     isPointerDown: false,
   };
 
-  public render() {
+  public override render() {
     return (
       <TouchCaptor
         children={this.props.children} // eslint-disable-line react/no-children-prop

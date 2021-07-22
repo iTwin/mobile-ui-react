@@ -474,14 +474,14 @@ export const useScrolling = (scrollable: HTMLElement | undefined | null) => {
 
 /** Convenience class for a [[UiEvent]] without any parameters */
 export class NullUiEvent extends UiEvent<null> {
-  public emit() {
+  public override emit() {
     super.emit(null);
   }
 }
 
 /** Delays the emit with a setTimeout call to allow for any new state to settle. */
 export class ReloadedEvent extends NullUiEvent {
-  public emit() {
+  public override emit() {
     setTimeout(() => super.emit(), 0);
   }
 }
