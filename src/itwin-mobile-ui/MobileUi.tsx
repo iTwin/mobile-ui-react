@@ -102,7 +102,7 @@ export class MobileUi {
    */
   public static async initialize(i18n: I18N): Promise<void> {
     this._i18n = i18n;
-    i18n.registerNamespace("MobileUi");
+    i18n.registerNamespace("iTwinMobileUI");
     Messenger.onQuery("keyboardWillShow").setHandler(MobileUi._keyboardWillShow);
     Messenger.onQuery("keyboardDidShow").setHandler(MobileUi._keyboardDidShow);
     Messenger.onQuery("keyboardWillHide").setHandler(MobileUi._keyboardWillHide);
