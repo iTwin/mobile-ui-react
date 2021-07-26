@@ -10,6 +10,7 @@
   "scripts": {
     "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "build": "npm run copy:assets && tsc 1>&2",
+    "build:debug": "npm run build && ./syncToTestApp.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
