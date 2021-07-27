@@ -19,10 +19,6 @@
     "type": "git",
     "url": "https://github.com/iTwin/itwin-mobile-ui"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://pkgs.dev.azure.com/bentleycs/_packaging/Packages/npm/registry/"
-  },
   "dependencies": {
     "@babel/core": "^7.14.8",
     "@bentley/bentleyjs-core": "2.19.0-dev.22",
