@@ -54,10 +54,3 @@ jobs:
       artifact: tarball
       displayName: Publish packed file
       condition: and(succeeded(), eq(variables['checkPublish.shouldPublish'], 'true'))
-    - task: Npm@1
-      displayName: 'npm publish'
-      inputs:
-        command: publish
-        publishRegistry: useFeed
-        publishFeed: 'cddcc498-6606-47b5-b068-e9fa20167bf8'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['checkPublish.shouldPublish'], 'true'))
