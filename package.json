@@ -1,5 +1,5 @@
 {
-  "name": "@bentley/itwin-mobile-ui",
+  "name": "@itwin/itwinui-mobile",
   "version": "0.1.0",
   "description": "Bentley iTwin Mobile UI module",
   "main": "lib/itwin-mobile-ui.js",
