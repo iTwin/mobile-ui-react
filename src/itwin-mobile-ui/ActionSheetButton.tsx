@@ -7,7 +7,6 @@ import { Messenger, MobileUi, NavigationButton } from ".";
 
 import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
 
-
 /**
  * Style used by [[ActionSheetAction]] and [[AlertAction]].
  * @public

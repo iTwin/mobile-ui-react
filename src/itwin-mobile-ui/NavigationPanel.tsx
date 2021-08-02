@@ -9,10 +9,12 @@ import { SyncUiEventArgs } from "@bentley/ui-framework";
 import { IconImage, useSyncUiEvent } from ".";
 import "./NavigationPanel.scss";
 
-import { Close as CloseSvg } from "./images-tsx";
-import { CloseCircle as CloseCircleSvg } from "./images-tsx";
-import { Minimize as MinimizeSvg } from "./images-tsx";
-import { MinimizeCircle as MinimizeCircleSvg } from "./images-tsx";
+import {
+  Close as CloseSvg,
+  CloseCircle as CloseCircleSvg,
+  Minimize as MinimizeSvg,
+  MinimizeCircle as MinimizeCircleSvg,
+} from "./images-tsx";
 
 /** Properties for the [[NavigationPanel]] component.
  * @public

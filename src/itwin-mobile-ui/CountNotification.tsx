@@ -7,8 +7,10 @@ import { CommonProps, IconSpec } from "@bentley/ui-core";
 import { ActionSheetAction, ActionSheetButton, IconImage, MobileUi } from ".";
 import "./CountNotification.scss";
 
-import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
-import { Close as CloseSvg } from "./images-tsx";
+import {
+  Close as CloseSvg,
+  MeatballVerticalFill as MoreSvg,
+} from "./images-tsx";
 
 /** A simple pill shaped component. */
 export function Pill(props: React.HTMLAttributes<HTMLDivElement>) {

@@ -10,8 +10,10 @@ import {
 
 import "./AcceptButton.scss";
 
-import { Arrow as ArrowSvg } from "./images-tsx";
-import { Confirmation as ConfirmationSvg } from "./images-tsx";
+import {
+  Arrow as ArrowSvg,
+  Confirmation as ConfirmationSvg,
+} from "./images-tsx";
 
 /** Properties for the [[AcceptButton]] component.
  * @public
