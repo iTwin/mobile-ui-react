@@ -3,9 +3,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
-import { IconSpecUtilities } from "@bentley/ui-abstract";
 import { Messenger, MobileUi, NavigationButton } from ".";
-import moreSvg from "./images/meatball_vertical_fill.svg?sprite";
+
+import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
+
 
 /**
  * Style used by [[ActionSheetAction]] and [[AlertAction]].
@@ -201,7 +202,7 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
         size={size}
         width={width}
         height={height}
-        iconSpec={iconSpec || IconSpecUtilities.createSvgIconSpec(moreSvg)}
+        iconSpec={iconSpec || <MoreSvg />}
         iconSize={iconSize}
       />
     );

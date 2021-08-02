@@ -4,11 +4,10 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
-import { IconSpecUtilities } from "@bentley/ui-abstract";
 import { IconImage, Messenger, MobileUi } from ".";
 import "./DatePicker.scss";
 
-import calendarSvg from "./images/calendar.svg?sprite";
+import { Calendar as CalendarSvg } from "./images-tsx";
 
 /** Properties for [[DatePicker]] component
  * @public
@@ -93,7 +92,7 @@ export function DatePicker(props: DatePickerProps) {
   }
   return (
     <div className={classnames("mui-date-picker", className)} style={style} >
-      <IconImage iconSpec={IconSpecUtilities.createSvgIconSpec(calendarSvg)} size="12px" margin="8px 8px 8px 8px" style={{ color: "var(--muic-active)" }} />
+      <IconImage iconSpec={<CalendarSvg />} size="12px" margin="8px 8px 8px 8px" style={{ color: "var(--muic-active)" }} />
       <div className="mui-date-picker-value">{value?.toLocaleDateString()}</div>
       {datePicker}
     </div>

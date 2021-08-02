@@ -5,11 +5,10 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import classnames from "classnames";
 import { IconSpec } from "@bentley/ui-core";
-import { IconSpecUtilities } from "@bentley/ui-abstract";
 import { NavigationButton, NavigationButtonProps } from ".";
 import "./VisibleBackButton.scss";
 
-import backSvg from "./images/back.svg?sprite";
+import { Back as BackSvg } from "./images-tsx";
 
 /**
  * Override NavigationButtonProps without iconSpec, then add iconSpec back in as optional.
@@ -59,5 +58,5 @@ export function VisibleBackButton(props: VisibleBackButtonProps) {
  */
 export function BackButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "3px", ...otherProps } = props;
-  return <NavigationButton strokeWidth={strokeWidth} iconSpec={IconSpecUtilities.createSvgIconSpec(backSvg)} {...otherProps} />;
+  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<BackSvg />} {...otherProps} />;
 }

@@ -4,15 +4,15 @@
 import * as React from "react";
 import classnames from "classnames";
 import { ClassNameProps, CommonProps, IconSpec } from "@bentley/ui-core";
-import { ConditionalBooleanValue, ConditionalStringValue, IconSpecUtilities } from "@bentley/ui-abstract";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@bentley/ui-abstract";
 import { SyncUiEventArgs } from "@bentley/ui-framework";
 import { IconImage, useSyncUiEvent } from ".";
 import "./NavigationPanel.scss";
 
-import closeSvg from "./images/close.svg?sprite";
-import minimizeSvg from "./images/minimize.svg?sprite";
-import minimizeCircleSvg from "./images/minimize_circle.svg?sprite";
-import closeCircleSvg from "./images/close_circle.svg?sprite";
+import { Close as CloseSvg } from "./images-tsx";
+import { CloseCircle as CloseCircleSvg } from "./images-tsx";
+import { Minimize as MinimizeSvg } from "./images-tsx";
+import { MinimizeCircle as MinimizeCircleSvg } from "./images-tsx";
 
 /** Properties for the [[NavigationPanel]] component.
  * @public
@@ -85,7 +85,7 @@ export function NavigationButton(props: NavigationButtonProps) {
  */
 export function CloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "2px", ...otherProps } = props;
-  return <NavigationButton strokeWidth={strokeWidth} iconSpec={IconSpecUtilities.createSvgIconSpec(closeSvg)} {...otherProps} />;
+  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<CloseSvg />} {...otherProps} />;
 }
 
 /**
@@ -94,7 +94,7 @@ export function CloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
  */
 export function MinimizeButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "3px", ...otherProps } = props;
-  return <NavigationButton strokeWidth={strokeWidth} iconSpec={IconSpecUtilities.createSvgIconSpec(minimizeSvg)} {...otherProps} />;
+  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<MinimizeSvg />} {...otherProps} />;
 }
 
 /**
@@ -103,7 +103,7 @@ export function MinimizeButton(props: Omit<NavigationButtonProps, "iconSpec">) {
  */
 export function CircularMinimizeButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "2px", ...otherProps } = props;
-  return <NavigationButton strokeWidth={strokeWidth} iconSpec={IconSpecUtilities.createSvgIconSpec(minimizeCircleSvg)} {...otherProps} />;
+  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<MinimizeCircleSvg />} {...otherProps} />;
 }
 
 /**
@@ -112,7 +112,7 @@ export function CircularMinimizeButton(props: Omit<NavigationButtonProps, "iconS
  */
 export function CircularCloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "2px", ...otherProps } = props;
-  return <NavigationButton strokeWidth={strokeWidth} iconSpec={IconSpecUtilities.createSvgIconSpec(closeCircleSvg)} {...otherProps} />;
+  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<CloseCircleSvg />} {...otherProps} />;
 }
 
 /** Properties for the [[ConditionalNavigationButton]] component.

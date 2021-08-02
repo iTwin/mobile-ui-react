@@ -4,12 +4,11 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
-import { IconSpecUtilities } from "@bentley/ui-abstract";
 import { ActionSheetAction, ActionSheetButton, IconImage, MobileUi } from ".";
 import "./CountNotification.scss";
 
-import moreSvg from "./images/meatball_vertical_fill.svg?sprite";
-import closeSvg from "./images/close.svg?sprite";
+import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
+import { Close as CloseSvg } from "./images-tsx";
 
 /** A simple pill shaped component. */
 export function Pill(props: React.HTMLAttributes<HTMLDivElement>) {
@@ -76,7 +75,7 @@ export function CountNotification(props: CountNotificationProps) {
           width="100%"
           className="mui-count-notification-more"
           {...props.moreButtonProps}
-          iconSpec={IconSpecUtilities.createSvgIconSpec(moreSvg)}
+          iconSpec={<MoreSvg />}
           iconSize="20px"
         />
       }
@@ -111,7 +110,7 @@ export function CloseableCountNotification(props: CloseableCountNotificationProp
         onClick={() => {
           onClose?.();
         }}
-        iconSpec={IconSpecUtilities.createSvgIconSpec(closeSvg)}
+        iconSpec={<CloseSvg />}
         iconSize="18px"
       />
     </div>
