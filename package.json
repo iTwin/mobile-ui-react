@@ -1,6 +1,6 @@
 {
   "name": "@itwin/mobileui",
-  "version": "0.1.0",
+  "version": "0.1.1-dev.1",
   "description": "Bentley iTwin Mobile UI module",
   "main": "lib/itwin-mobile-ui.js",
   "types": "lib/itwin-mobile-ui.d.ts",
@@ -76,7 +76,7 @@
     "typedoc": "0.14.0",
     "typescript": "~4.3.5",
     "utf-8-validate": "^5.0.5",
-    "webpack": "^4.46.0",
+    "webpack": "^4.44.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-plugin-serve": "^0.12.1"
   }
