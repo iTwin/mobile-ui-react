@@ -8,6 +8,6 @@ else
   echo variable.
   exit 1
 fi
-destDir=${appDir}/node_modules/@bentley/itwin-mobile-ui
+destDir=${appDir}/node_modules/@itwin/mobileui
 [ -d "${destDir}" ] || mkdir "${destDir}"
 rsync -aL --delete lib LICENSE.md package.json README.md "${destDir}/"
