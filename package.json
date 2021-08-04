@@ -13,7 +13,7 @@
     "clean": "rimraf lib",
     "lint": "tslint --project . 1>&2",
     "build:debug": "npm run build && ./syncToTestApp.sh",
-    "images:gen": "svgr --typescript ./src/itwin-mobile-ui/images --out-dir src/itwin-mobile-ui/images-tsx --no-svgo --no-prettier",
+    "images:gen": "svgr --typescript ./src/itwin-mobile-ui/images --out-dir src/itwin-mobile-ui/images-tsx --no-svgo --no-prettier --memo --svg-props className=\"core-icons-svgSprite\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {

@@ -37,6 +37,7 @@ function getDateString(value: Date | undefined) {
 export function DatePicker(props: DatePickerProps) {
   const { className, style, onChange, min, max } = props;
   const [value, setValue] = React.useState(props.value);
+  const calendarKey = React.useMemo(() => "itm-date-picker-icon-" + (++DatePicker.calenderKey).toString(), []);
 
   React.useEffect(() => {
     setValue(props.value);
@@ -92,9 +93,11 @@ export function DatePicker(props: DatePickerProps) {
   }
   return (
     <div className={classnames("mui-date-picker", className)} style={style} >
-      <IconImage iconSpec={<CalendarSvg />} size="12px" margin="8px 8px 8px 8px" style={{ color: "var(--muic-active)" }} />
+      <IconImage iconSpec={<CalendarSvg key={calendarKey}/>} size="12px" margin="8px 8px 8px 8px" style={{ color: "var(--muic-active)" }} />
       <div className="mui-date-picker-value">{value?.toLocaleDateString()}</div>
       {datePicker}
     </div>
   );
 }
+
+DatePicker.calenderKey = 0;

@@ -814,3 +814,8 @@ export function makeRefHandler<T>(ref: MutableRefOrFunction<T>, mutableRef?: Rea
     assignRef(ref, instance);
   };
 }
+
+export function useForceUpdate() {
+  const [value, setValue] = React.useState(0); // integer state
+  return () => setValue(valueParam => valueParam + 1); // update the state to force render
+}
