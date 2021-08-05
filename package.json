@@ -60,6 +60,7 @@
     "@typescript-eslint/parser": "^4.28.4",
     "bufferutil": "^4.0.3",
     "canvas": "^2.8.0",
+    "classnames": "^2.2.6",
     "cpx": "^1.5.0",
     "eslint": "^7.31.0",
     "eslint-plugin-react-hooks": "^4.2.0",
