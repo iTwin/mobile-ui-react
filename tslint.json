@@ -3,6 +3,11 @@
     "extends": [
       "tslint:recommended"
     ],
+    "linterOptions": {
+      "exclude": [
+        "src/mobileui-react/images-tsx/*"
+      ]
+    },
     "jsRules": {},
     "rules": {
       "await-promise": [
