@@ -93,7 +93,7 @@ export class Messenger {
 
   /** Must be called during application startup before any messages are sent in either direction. */
   public static async initialize() {
-    if (MobileUi.isIosPlatform || MobileUi.isAndroidPlatform) {
+    if (Messenger._impl === undefined && (MobileUi.isIosPlatform || MobileUi.isAndroidPlatform)) {
       Messenger._impl = await import("./MessengerImpl");
     }
   }
