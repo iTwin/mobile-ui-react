@@ -9,5 +9,5 @@ else
   exit 1
 fi
 destDir=${appDir}/node_modules/@itwin/mobileui-react
-[ -d "${destDir}" ] || mkdir "${destDir}"
+[ -d "${destDir}" ] || mkdir -p "${destDir}"
 rsync -aL --delete lib LICENSE.md package.json README.md "${destDir}/"
