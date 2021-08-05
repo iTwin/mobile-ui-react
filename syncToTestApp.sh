@@ -9,5 +9,7 @@ else
   exit 1
 fi
 destDir=${appDir}/node_modules/@itwin/mobileui-react
+# If destDir is a symlink, it probably came from nmp link or a file: package.json reference. Delete the link.
+[ -L "${destDir}" ] && rm "${destDir}"
 [ -d "${destDir}" ] || mkdir -p "${destDir}"
 rsync -aL --delete lib LICENSE.md package.json README.md "${destDir}/"
