@@ -164,7 +164,7 @@ export class MobileUi {
   private static get urlSearchParams(): URLSearchParams {
     if (this._urlSearchParams === undefined) {
       const hash = new URL(document.URL).hash;
-      this._urlSearchParams = new URLSearchParams(hash);
+      this._urlSearchParams = new URLSearchParams(hash.substr(1));
     }
     return this._urlSearchParams;
   }
