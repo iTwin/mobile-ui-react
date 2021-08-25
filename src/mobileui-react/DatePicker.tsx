@@ -4,7 +4,9 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
-import { IconImage, Messenger, MobileUi } from ".";
+import { Messenger, MobileCore } from "@itwin/mobile-core";
+import { IconImage } from ".";
+
 import "./DatePicker.scss";
 
 import { Calendar as CalendarSvg } from "./images-tsx";
@@ -44,7 +46,7 @@ export function DatePicker(props: DatePickerProps) {
   }, [props.value]);
 
   let datePicker;
-  if (MobileUi.isIosPlatform || MobileUi.isAndroidPlatform) {
+  if (MobileCore.isIosPlatform || MobileCore.isAndroidPlatform) {
     datePicker = (
       <div className="mui-date-picker-input" onClick={async (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -79,7 +81,7 @@ export function DatePicker(props: DatePickerProps) {
           const utcOffset = localNowDate.getTimezoneOffset();
           // Date picker returns a UTC date; we need a local date.
           newValue.setMinutes(newValue.getMinutes() + utcOffset);
-          newValue = MobileUi.clampedDate(newValue, min, max);
+          newValue = MobileCore.clampedDate(newValue, min, max);
           setValue(newValue);
           onChange?.(newValue);
           // The (invisible) input has focus after any change, and subsequent taps on other elements cause the date

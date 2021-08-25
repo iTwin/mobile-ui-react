@@ -5,11 +5,10 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
 import { ModalDialogManager } from "@bentley/ui-framework";
+import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-core";
 import {
   CloseButton,
-  getCssVariableAsNumberOrDefault,
   MobileUi,
-  Optional,
 } from ".";
 
 import "./ModalEntryFormDialog.scss";
@@ -125,7 +124,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
         onChange={props.onChange}
         onKeyPress={handleKeyPress}
         onFocus={onFocus}
-        autoFocus={isFocused && !MobileUi.isIosPlatform}
+        autoFocus={isFocused && !MobileCore.isIosPlatform}
         autoComplete="off"
         autoCapitalize="off"
         autoCorrect="off"
@@ -191,7 +190,7 @@ export function ModalDialog(props: ModalDialogProps) {
                 handleCancel();
               }}
             >
-              {cancelTitle ?? MobileUi.translate("general.cancel")}
+              {cancelTitle ?? MobileCore.translate("general.cancel")}
             </div>}
             {okTitle !== "" && <div
               className="mui-modal-button mui-default"
@@ -200,7 +199,7 @@ export function ModalDialog(props: ModalDialogProps) {
                 await handleOK();
               }}
             >
-              {okTitle ?? MobileUi.translate("general.ok")}
+              {okTitle ?? MobileCore.translate("general.ok")}
             </div>}
           </div>
         </div>

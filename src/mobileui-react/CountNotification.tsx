@@ -4,7 +4,9 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
-import { ActionSheetAction, ActionSheetButton, IconImage, MobileUi } from ".";
+import { ActionSheetAction } from "@itwin/mobile-core";
+import { ActionSheetButton, IconImage, MobileUi } from ".";
+
 import "./CountNotification.scss";
 
 import {

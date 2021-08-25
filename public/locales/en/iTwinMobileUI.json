@@ -1,19 +1,9 @@
 {
-  "general": {
-    "cancel": "Cancel",
-    "ok": "OK"
-  },
   "count-notification": {
     "99+": "99+"
   },
   "modal-entry-form": {
     "required-field": "The required field \"{{field}}\" is blank.",
     "required-fields": "The following required fields are blank: {{fields}}."
-  },
-  "messenger": {
-    "query-response-error": "Error returned from {{name}} query."
-  },
-  "ui-error": {
-    "internet-unreachable": "Could not connect to the server. Please check your internet connection and try again."
   }
 }

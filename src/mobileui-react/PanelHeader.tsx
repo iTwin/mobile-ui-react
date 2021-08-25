@@ -4,7 +4,8 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
-import { DraggableComponent, DraggableComponentCallbackProps, withoutClassName } from ".";
+import { withoutClassName } from "@itwin/mobile-core";
+import { DraggableComponent, DraggableComponentCallbackProps } from ".";
 
 import "./PanelHeader.scss";
 

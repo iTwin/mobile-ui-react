@@ -1,6 +1,6 @@
 {
   "name": "@itwin/mobileui-react",
-  "version": "0.1.1-dev.2",
+  "version": "0.1.1-dev.3",
   "description": "Bentley iTwin Mobile UI module",
   "main": "lib/mobileui-react.js",
   "types": "lib/mobileui-react.d.ts",
@@ -49,6 +49,7 @@
     "@bentley/ui-framework": "^2.19.6",
     "@bentley/ui-ninezone": "^2.19.6",
     "@bentley/webgl-compatibility": "^2.19.6",
+    "@itwin/mobile-core": "file:../itwin-mobile-core",
     "@svgr/cli": "^5.5.0",
     "@swc/core": "^1.2.78",
     "@swc/wasm": "^1.2.78",

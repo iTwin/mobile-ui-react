@@ -4,10 +4,10 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
+import { Optional } from "@itwin/mobile-core";
 import {
   makeRefHandler,
   MutableHtmlDivRefOrFunction,
-  Optional,
   PanelHeader,
   PanelHeaderProps,
   ResizablePanel,

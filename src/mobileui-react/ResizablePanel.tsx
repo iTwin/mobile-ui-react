@@ -5,7 +5,8 @@ import * as React from "react";
 import classnames from "classnames";
 import { DragHandleProps } from "@bentley/ui-ninezone";
 import { CommonProps, getCssVariableAsNumber, Point, PointProps } from "@bentley/ui-core";
-import { ReactUseState, ReloadedEvent, useWindowEvent } from ".";
+import { ReloadedEvent } from "@itwin/mobile-core";
+import { ReactUseState, useWindowEvent } from ".";
 import "./ResizablePanel.scss";
 
 /** Properties for [[ResizablePanel]] component
