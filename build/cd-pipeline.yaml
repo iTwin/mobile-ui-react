@@ -25,5 +25,5 @@ stages:
   jobs:
     - template: templates/npmjs-publish-deployment.yaml@build-pipeline-scripts
       parameters:
-        path: itwin-mobileui-react-$(version).tgz
+        path: mobile-ui-react-$(version).tgz
         artifactName: tarball

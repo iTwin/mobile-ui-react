@@ -1,9 +1,9 @@
 {
-  "name": "@itwin/mobileui-react",
+  "name": "@itwin/mobile-ui-react",
   "version": "0.1.1-dev.3",
   "description": "Bentley iTwin Mobile UI module",
-  "main": "lib/mobileui-react.js",
-  "types": "lib/mobileui-react.d.ts",
+  "main": "lib/mobile-ui-react.js",
+  "types": "lib/mobile-ui-react.d.ts",
   "files": [
     "lib/**/*"
   ],
@@ -13,7 +13,7 @@
     "clean": "rimraf lib",
     "lint": "tslint --project . 1>&2",
     "build:debug": "npm run build && ./syncToTestApp.sh",
-    "images:gen": "rimraf src/mobileui-react/images-tsx && svgr --typescript src/mobileui-react/images --out-dir src/mobileui-react/images-tsx --no-svgo --no-prettier --memo --svg-props className=\"core-icons-svgSprite\"",
+    "images:gen": "rimraf src/mobile-ui-react/images-tsx && svgr --typescript src/mobile-ui-react/images --out-dir src/mobile-ui-react/images-tsx --no-svgo --no-prettier --memo --svg-props className=\"core-icons-svgSprite\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
@@ -23,7 +23,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/MobileUI-react"
+    "url": "https://github.com/iTwin/mobile-ui-react"
   },
   "dependencies": {
     "@babel/core": "^7.15.4",
@@ -49,7 +49,7 @@
     "@bentley/ui-framework": "^2.19.9",
     "@bentley/ui-ninezone": "^2.19.9",
     "@bentley/webgl-compatibility": "^2.19.9",
-    "@itwin/mobile-core": "file:../itwin-mobile-core",
+    "@itwin/mobile-core": "file:../mobile-core",
     "@svgr/cli": "^5.5.0",
     "@swc/core": "^1.2.84",
     "@swc/wasm": "^1.2.84",

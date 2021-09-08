@@ -5,7 +5,7 @@
     ],
     "linterOptions": {
       "exclude": [
-        "src/mobileui-react/images-tsx/*"
+        "src/mobile-ui-react/images-tsx/*"
       ]
     },
     "jsRules": {},
