@@ -9,7 +9,9 @@ import { NavigationButton } from ".";
 import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
 
 /** Properties for [[ActionSheeButton]]
- * @public
+ * Note: ActionSheet is going to change, and when that happens, a new prop will be added here for
+ * when an action is selected.
+ * @beta
  */
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   /** The icon to show on the [[ActionSheetButton]], default is three vertical dots. */
@@ -26,9 +28,11 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
 
 /**
  * Navigation button that shows an Action Sheet when pressed.
- * Note: The action sheet functionality can be used from a different React component by utilizing the public static
- * registerActions, unregisterActions, and nextSenderId functions.
- * @public
+ * Note: The action sheet functionality can be used from a different React component by utilizing [[ActionSheet]]
+ * in mobile-core.
+ * Note 2: ActionSheet is going to be refactored to directly return the user's selection from its show function.
+ * When that happens, a single callback will be added to this component's props.
+ * @beta
  */
 export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
   private _senderId: number;
