@@ -9,7 +9,7 @@ import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@bentley/ui-cor
 import { SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, UiFramework } from "@bentley/ui-framework";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@bentley/imodeljs-frontend";
 import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@bentley/bentleyjs-core";
-import { getAllViewports, getEmphasizeElements, MobileCore, UIError } from "@itwin/mobile-core";
+import { getAllViewports, getEmphasizeElements, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
 

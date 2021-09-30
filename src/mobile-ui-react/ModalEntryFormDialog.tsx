@@ -6,7 +6,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
 import { ModalDialogManager } from "@bentley/ui-framework";
-import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-core";
+import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-sdk-core";
 import {
   CloseButton,
   MobileUi,

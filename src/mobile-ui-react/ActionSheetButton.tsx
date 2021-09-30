@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
-import { ActionSheet, ActionSheetProps } from "@itwin/mobile-core";
+import { ActionSheet, ActionSheetProps } from "@itwin/mobile-sdk-core";
 import { NavigationButton } from ".";
 
 import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
@@ -30,7 +30,7 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
 /**
  * Navigation button that shows an Action Sheet when pressed.
  * Note: The action sheet functionality can be used from a different React component by utilizing [[ActionSheet]]
- * in mobile-core.
+ * in mobile-sdk-core.
  * Note 2: ActionSheet is going to be refactored to directly return the user's selection from its show function.
  * When that happens, a single callback will be added to this component's props.
  * @beta
