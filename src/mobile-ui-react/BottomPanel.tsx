@@ -117,7 +117,6 @@ export interface BottomPanelProps extends CommonProps {
 /** A React component representing a panel that slides up from the bottom.
  * @public
  */
-// tslint:disable-next-line: variable-name
 export const BottomPanel = React.forwardRef((props: BottomPanelProps, forwardedRef: MutableHtmlDivRefOrFunction) => {
   const { className, style, children, isOpen, onOpen, onClose, isSplitScreen, isStandAlone, opacity, blur, appData } = props;
   const ref = React.useRef<HTMLDivElement | null>(null);
@@ -170,6 +169,7 @@ export const BottomPanel = React.forwardRef((props: BottomPanelProps, forwardedR
       <div className="mui-bottom-panel-shadow" />
     </div >);
 });
+BottomPanel.displayName = "BottomPanel";
 
 /** Properties for the [[ResizableBottomPanel]] component.
  * @public

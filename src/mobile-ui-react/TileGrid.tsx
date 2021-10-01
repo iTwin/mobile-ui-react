@@ -108,7 +108,7 @@ export function TileGrid(props: TileGridProps) {
  */
 export function GridTile(props: GridTileProps & GridTileInjectedProps) {
   const { width, height } = props;
-  const aspect = (height! / width! * 100).toString() + "%";
+  const aspect = `${(height / width * 100).toString()  }%`;
   return (
     <div className="mui-grid-tile-container" style={{ paddingTop: aspect, ...props.style }}>
       <div

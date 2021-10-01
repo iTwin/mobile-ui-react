@@ -4,7 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import { Angle, AxisIndex, Geometry, Matrix3d, Vector3d } from "@bentley/geometry-core";
 import { IModelApp } from "@bentley/imodeljs-frontend";
-import { HitBoxX, HitBoxY, HitBoxZ, ViewportComponentEvents } from "@bentley/ui-components";
+import {
+  CubeNavigationHitBoxX,
+  CubeNavigationHitBoxY,
+  CubeNavigationHitBoxZ,
+  ViewportComponentEvents,
+} from "@bentley/ui-components";
 import { Face } from "@bentley/ui-core";
 
 // NOTE: most of the code in this file was adapted from the following file in the imodeljs repository:
@@ -18,12 +23,12 @@ interface CubeNavigationRotationMap {
 }
 
 const cubeNavigationFaceLocs: { [key: string]: Vector3d } = {
-  [Face.Left]: Vector3d.create(HitBoxX.Left, HitBoxY.None, HitBoxZ.None),
-  [Face.Right]: Vector3d.create(HitBoxX.Right, HitBoxY.None, HitBoxZ.None),
-  [Face.Back]: Vector3d.create(HitBoxX.None, HitBoxY.Back, HitBoxZ.None),
-  [Face.Front]: Vector3d.create(HitBoxX.None, HitBoxY.Front, HitBoxZ.None),
-  [Face.Bottom]: Vector3d.create(HitBoxX.None, HitBoxY.None, HitBoxZ.Bottom),
-  [Face.Top]: Vector3d.create(HitBoxX.None, HitBoxY.None, HitBoxZ.Top),
+  [Face.Left]: Vector3d.create(CubeNavigationHitBoxX.Left, CubeNavigationHitBoxY.None, CubeNavigationHitBoxZ.None),
+  [Face.Right]: Vector3d.create(CubeNavigationHitBoxX.Right, CubeNavigationHitBoxY.None, CubeNavigationHitBoxZ.None),
+  [Face.Back]: Vector3d.create(CubeNavigationHitBoxX.None, CubeNavigationHitBoxY.Back, CubeNavigationHitBoxZ.None),
+  [Face.Front]: Vector3d.create(CubeNavigationHitBoxX.None, CubeNavigationHitBoxY.Front, CubeNavigationHitBoxZ.None),
+  [Face.Bottom]: Vector3d.create(CubeNavigationHitBoxX.None, CubeNavigationHitBoxY.None, CubeNavigationHitBoxZ.Bottom),
+  [Face.Top]: Vector3d.create(CubeNavigationHitBoxX.None, CubeNavigationHitBoxY.None, CubeNavigationHitBoxZ.Top),
 };
 
 // data relating Up/Down/Left/Right directions relative to every surface

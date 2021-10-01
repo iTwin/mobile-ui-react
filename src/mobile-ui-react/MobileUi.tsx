@@ -13,6 +13,7 @@ import { getAllViewports, getEmphasizeElements, MobileCore, UIError } from "@itw
 
 import "./MobileUi.scss";
 
+/** Type used for MobileUi.onClose BeEvent. */
 export declare type CloseListener = () => void;
 
 /** Class for top-level MobileUi functionality. */
@@ -23,12 +24,12 @@ export class MobileUi {
   public static onClose: BeEvent<CloseListener> = new BeEvent<CloseListener>();
 
   /** Translate a string from the MobileUi i18n namespace.
-   * @param - The key for the string to translate. For example, "general.cancel".
-   * @param - Optional options to pass into the i18next system.key
+   * @param key - The key for the string to translate. For example, "general.cancel".
+   * @param options - Optional options to pass into the i18next system.key
    * @returns The translated string, or key if it is not found.
    */
   public static translate(key: string, options?: any) {
-    return this._i18n.translate("iTwinMobileUI:" + key, options);
+    return this._i18n.translate(`iTwinMobileUI:${key}`, options);
   }
 
   /** Initializes the MobileUi module.
@@ -54,7 +55,7 @@ export class MobileUi {
         uiError.WasCanceled = true;
       }
       return uiError;
-    }
+    };
   }
 
   /** Close down the MobileUi module. Call before closing down so that cleanup can be done. */
@@ -100,7 +101,7 @@ export function useCssVariableAsNumber(name: string, htmlElement?: HTMLElement) 
  * @returns The wrapped callback.
  */
 export function useNoDepsCallback<T extends (...args: any[]) => any>(callback: T): T {
-  return React.useCallback(callback, []);
+  return React.useCallback(callback, []); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 /** Custom React hook for calling a callback on the specified window event.
@@ -146,8 +147,8 @@ export const useMediaQuery = (query: string) => {
     const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
     // NOTE: addEventListener wasn't supported for MediaMatch until iOS 14. :-(
     // The fact that the tools consider it to be deprecated is a MASSIVE BUG in the tools.
-    mediaMatch.addListener(listener); // tslint:disable-line: deprecation
-    return () => mediaMatch.removeListener(listener); // tslint:disable-line: deprecation
+    mediaMatch.addListener(listener); // eslint-disable-line deprecation/deprecation
+    return () => mediaMatch.removeListener(listener); // eslint-disable-line deprecation/deprecation
   });
   return matches;
 };
@@ -526,7 +527,10 @@ export function makeRefHandler<T>(ref: MutableRefOrFunction<T>, mutableRef?: Rea
   };
 }
 
+/** Returns a function that when called forces an update of the calling functional React component.
+ * @returns - A function that when called forces an update of the calling functional React component.
+ */
 export function useForceUpdate() {
-  const [value, setValue] = React.useState(0); // integer state
-  return () => setValue(valueParam => valueParam + 1); // update the state to force render
+  const [_value, setValue] = React.useState(0); // integer state
+  return () => setValue((valueParam) => valueParam + 1); // update the state to force render
 }

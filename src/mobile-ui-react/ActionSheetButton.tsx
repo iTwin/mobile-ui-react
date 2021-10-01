@@ -48,7 +48,7 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
 
   public static onClick = async (senderId: number, props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
     return ActionSheet.show(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source, senderId);
-  }
+  };
 
   public override render() {
     const { iconSpec, size, width, height, iconSize } = this.props;

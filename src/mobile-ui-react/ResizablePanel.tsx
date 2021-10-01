@@ -78,7 +78,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
   const [maxHeight, setMaxHeight] = React.useState(props.maxHeight);
   const [initialMaxHeightSet, setInitialMaxHeightSet] = React.useState(false);
   const { children, className, header, style = {}, reloadedEvent, onResized } = props;
-  const { height: removedHeight, maxHeight: removedMaxHeight, ...otherStyles } = style;
+  const { height: _removedHeight, maxHeight: _removedMaxHeight, ...otherStyles } = style;
   const [lastDragInfo, setLastDragInfo] = React.useState({ dragged: 0, time: Date.now(), speed: 0 });
   const [flickingUp, setFlickingUp] = React.useState(false);
 
@@ -374,26 +374,26 @@ class TouchCaptor extends React.PureComponent<TouchCaptorProps> {
 
   private _handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     this.props.onTouchStart && this.props.onTouchStart(e.nativeEvent);
-  }
+  };
 
   private _handleDocumentTouchEnd = (e: TouchEvent) => {
     if (!this.props.isTouchStarted)
       return;
     this.props.onTouchEnd && this.props.onTouchEnd(e);
-  }
+  };
 
   private _handleDocumentTouchMove = (e: TouchEvent) => {
     if (!this.props.isTouchStarted)
       return;
     this.props.onTouchMove && this.props.onTouchMove(e);
-  }
+  };
 }
 
 interface TouchDragHandleState {
   isPointerDown: boolean;
 }
 
-interface TouchDragHandleProps extends Omit<DragHandleProps, "onClick"> { }
+type TouchDragHandleProps = Omit<DragHandleProps, "onClick">;
 
 // A copy of the DragHandle class that uses TouchCaptor instead of PointerCaptor and only allows single touches during drags.
 class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDragHandleState> {
@@ -433,7 +433,7 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
     const touch = e.touches[0];
 
     this._initial = new Point(touch.clientX, touch.clientY);
-  }
+  };
 
   private _handlePointerMove = (e: TouchEvent) => {
     if (e.touches.length !== 1)
@@ -450,7 +450,7 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
       // this._isDragged = true;
       this.props.onDragStart && this.props.onDragStart(this._initial);
     }
-  }
+  };
 
   private _handlePointerUp = () => {
     this.setState({ isPointerDown: false });
@@ -459,7 +459,7 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
       this.props.onDragEnd && this.props.onDragEnd();
       return;
     }
-  }
+  };
 
   // private _handleClick = () => {
   //   if (this._isDragged)

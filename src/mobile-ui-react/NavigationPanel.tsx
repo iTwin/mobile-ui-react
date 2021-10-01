@@ -11,10 +11,10 @@ import { IconImage, useSyncUiEvent } from ".";
 import "./NavigationPanel.scss";
 
 import {
-  Close as CloseSvg,
   CloseCircle as CloseCircleSvg,
-  Minimize as MinimizeSvg,
+  Close as CloseSvg,
   MinimizeCircle as MinimizeCircleSvg,
+  Minimize as MinimizeSvg,
 } from "./images-tsx";
 
 /** Properties for the [[NavigationPanel]] component.

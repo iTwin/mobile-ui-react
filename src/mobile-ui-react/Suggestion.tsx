@@ -23,6 +23,7 @@ export interface SuggestionProps {
   onOutsideClick?: () => void;
 }
 
+/** A React component for containing a [[Suggestion]]. */
 export function SuggestionContainer(props: React.HTMLAttributes<HTMLDivElement>) {
   const { className, ...others } = props;
   return <div className={classnames("mui-suggestion-container", className)} {...others} />;
@@ -39,7 +40,7 @@ export function Suggestion(props: SuggestionProps) {
   const margin = (pillHeight.current - iconSize) / 2;
 
   return <div ref={ref} onClick={props.onClick} className={classnames("mui-suggestion", !props.labelIsVisible && "closed")}>
-    <IconImage iconSpec="icon-help-hollow" size={iconSize + "px"} margin={margin + "px"} />
+    <IconImage iconSpec="icon-help-hollow" size={`${iconSize}px`} margin={`${margin}px`} />
     {props.labelIsVisible && <div className="mui-suggestion-label">{props.label}</div>}
   </div>;
 }

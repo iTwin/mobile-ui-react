@@ -93,7 +93,7 @@ export class PanTracker {
         let vpFound = false;
         if (IModelApp.viewManager.getFirstOpenView()) {
           // I don't think it's possible to get here, but just in case, do the right thing.
-          IModelApp.viewManager.forEachViewport((vp) => {
+          IModelApp.viewManager.forEachViewport((vp) => { // eslint-disable-line deprecation/deprecation
             if (vp.parentDiv?.id === this._vpParentDivId) {
               panViewportTo(vp, nextX, nextY);
               vpFound = true;
@@ -110,7 +110,7 @@ export class PanTracker {
         }
       }
     }
-  }
+  };
 
   private static getDivId(vpParentDiv?: HTMLDivElement) {
     return vpParentDiv ? vpParentDiv.id : "imodel-viewport";
@@ -141,15 +141,21 @@ export class PanTracker {
         panViewportTo(vp, this.nextX, this.nextY);
       }
     }
-  }
+  };
 
   private _onViewClose = (vp: ScreenViewport) => {
     if (vp.parentDiv?.id === this._vpParentDivId) {
       PanTracker.get(vp).detach();
     }
-  }
+  };
 }
 
+/** Pan the given viewport the given amount in X and Y.
+ * @param vp - The [[ScreenViewport]] to pan. If undefined, the pan request will be recorded for when it eventually becomes defined.
+ * @param newX - The new amount to pan in X.
+ * @param newY - The new amount to pan in Y.
+ * @param animationTime - The animation time in ms, default 500.
+ */
 export function panViewportTo(vp: ScreenViewport | undefined, newX: number, newY: number, animationTime: number = 500) {
   const panTracker = PanTracker.get(vp);
   if (!vp) {

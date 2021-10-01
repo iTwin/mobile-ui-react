@@ -28,7 +28,7 @@ export interface DatePickerProps extends CommonProps {
 
 function getDateString(value: Date | undefined) {
   if (!value) return undefined;
-  return value.getFullYear().toString() + "-" + (value.getMonth() + 1).toString().padStart(2, "0") + "-" + value.getDate().toString().padStart(2, "0");
+  return `${value.getFullYear().toString()}-${(value.getMonth() + 1).toString().padStart(2, "0")}-${value.getDate().toString().padStart(2, "0")}`;
 }
 
 /**
@@ -40,7 +40,7 @@ function getDateString(value: Date | undefined) {
 export function DatePicker(props: DatePickerProps) {
   const { className, style, onChange, min, max } = props;
   const [value, setValue] = React.useState(props.value);
-  const calendarKey = React.useMemo(() => "itm-date-picker-icon-" + (++DatePicker.calenderKey).toString(), []);
+  const calendarKey = React.useMemo(() => `itm-date-picker-icon-${(++DatePicker.calenderKey).toString()}`, []);
 
   React.useEffect(() => {
     setValue(props.value);

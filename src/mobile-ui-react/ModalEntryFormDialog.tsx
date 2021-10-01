@@ -125,7 +125,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
         onChange={props.onChange}
         onKeyPress={handleKeyPress}
         onFocus={onFocus}
-        autoFocus={isFocused && !MobileCore.isIosPlatform}
+        autoFocus={isFocused && !MobileCore.isIosPlatform} // eslint-disable-line jsx-a11y/no-autofocus
         autoComplete="off"
         autoCapitalize="off"
         autoCorrect="off"
@@ -140,7 +140,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
  * @internal
  */
 ModalEntryFormField.idForName = (name: string) => {
-  return "ModalEntryFormField-" + name;
+  return `ModalEntryFormField-${name}`;
 };
 
 /** A React component representing a modal dialog. This fills the screen with a darkening background and centers the dialog.
@@ -363,7 +363,7 @@ ModalDialog.run = async (props: ModalDialogRunProps) => {
     onCancel: () => { },
     ...props,
     onOK: async () => {
-      if (!!props.onOK && !props.onOK())
+      if (!!props.onOK && !await props.onOK())
         return false;
       okPressed = true;
       return true;
