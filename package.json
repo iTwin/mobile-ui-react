@@ -1,6 +1,6 @@
 {
   "name": "@itwin/mobile-ui-react",
-  "version": "0.1.1-dev.3",
+  "version": "0.9.0",
   "description": "Bentley iTwin Mobile UI module",
   "main": "lib/mobile-ui-react.js",
   "types": "lib/mobile-ui-react.d.ts",
