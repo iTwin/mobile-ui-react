@@ -47,6 +47,7 @@
     "@bentley/ui-framework": "2.19.13",
     "@bentley/ui-ninezone": "2.19.13",
     "@bentley/webgl-compatibility": "2.19.13",
+    "@itwin/mobile-sdk-core": "0.9.0",
     "@svgr/cli": "^5.5.0",
     "@swc/core": "^1.2.84",
     "@swc/wasm": "^1.2.84",
