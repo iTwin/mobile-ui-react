@@ -64,6 +64,15 @@ export function TabBar(props: TabBarProps) {
   // Note: the first and last child of contentRef are spacers, thus the child index equals selectedIndex + 1
   useHorizontalScrollChildVisibleOnResize(contentRef.current, selectedIndex !== undefined && selectedIndex >= 0 ? selectedIndex + 1 : undefined);
 
+  // Any time the TabBar is visible, --mui-current-tab-bar-height is set to --mui-tab-bar-height. At all other
+  // times, it is set to 0px.
+  React.useEffect(() => {
+    document.documentElement.style.setProperty("--mui-current-tab-bar-height", getCssVariable("--mui-tab-bar-height"));
+    return () => {
+      document.documentElement.style.setProperty("--mui-current-tab-bar-height", "0px");
+    };
+  }, []);
+
   return <>
     <HorizontalScrollableWithFades
       className="mui-tab-bar"

@@ -6,6 +6,8 @@
 
 :root {
   --mui-tab-bar-height: 42px;
+  // --mui-current-tab-bar-height is set to --mui-tab-bar-height when a TabBar is visible.
+  --mui-current-tab-bar-height: 0px;
 }
 
 .mui-tab-bar {
