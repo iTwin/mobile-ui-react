@@ -5,7 +5,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
-import { ActionSheetAction } from "@itwin/mobile-sdk-core";
+import { AlertAction } from "@itwin/mobile-sdk-core";
 import { ActionSheetButton, IconImage, MobileUi } from ".";
 
 import "./CountNotification.scss";
@@ -30,7 +30,7 @@ export interface CountNotificationMoreProps {
   /** The message for the action sheet shown by the more button */
   message?: string;
   /** The actions for the action sheet shown by the more button */
-  actions: ActionSheetAction[];
+  actions: AlertAction[];
 }
 
 /** Properties for [[CountNotification]] component
@@ -49,6 +49,11 @@ export interface CountNotificationProps extends CommonProps {
   iconSpec?: IconSpec;
   /** The icon size, if iconSpec is specified, default is "24px". */
   iconSize?: string;
+  /** The callback called when a user taps the vertical more button and then selects an action.
+   *
+   * It is your choice whether to use this or the onSelected field of each [[AlertAction]].
+   */
+  onSelected?: (action: string | undefined) => void;
 }
 
 /** Properties for [[CloseableCountNotification]] component
@@ -82,6 +87,7 @@ export function CountNotification(props: CountNotificationProps) {
           {...props.moreButtonProps}
           iconSpec={<MoreSvg />}
           iconSize="20px"
+          onSelected={props.onSelected}
         />
       }
       {props.iconSpec && !props.moreButtonProps &&

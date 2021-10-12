@@ -4,15 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
-import { ActionSheet, ActionSheetProps } from "@itwin/mobile-sdk-core";
+import { ActionSheetProps, presentActionSheet } from "@itwin/mobile-sdk-core";
 import { NavigationButton } from ".";
 
 import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
 
 /** Properties for [[ActionSheeButton]]
- * Note: ActionSheet is going to change, and when that happens, a new prop will be added here for
- * when an action is selected.
- * @beta
+ * @public
  */
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   /** The icon to show on the [[ActionSheetButton]], default is three vertical dots. */
@@ -25,35 +23,34 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   height?: string;
   /** The icon size of the [[ActionSheetButton]] icon, default is "24px". */
   iconSize?: string;
+  /** The callback called when a user taps the button and then selects an action.
+   *
+   * It is your choice whether to use this or the onSelected field of each [[AlertAction]].
+   */
+  onSelected?: (action: string | undefined) => void;
 }
 
 /**
  * Navigation button that shows an Action Sheet when pressed.
+ *
  * Note: The action sheet functionality can be used from a different React component by utilizing [[ActionSheet]]
  * in mobile-sdk-core.
- * Note 2: ActionSheet is going to be refactored to directly return the user's selection from its show function.
- * When that happens, a single callback will be added to this component's props.
- * @beta
+ * @public
  */
 export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
-  private _senderId: number;
   constructor(props: ActionSheetButtonProps) {
     super(props);
-    this._senderId = ActionSheet.nextSenderId;
   }
 
-  public override componentWillUnmount() {
-    ActionSheet.unregisterActions(this._senderId);
-  }
-
-  public static onClick = async (senderId: number, props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
-    return ActionSheet.show(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source, senderId);
+  public static onClick = async (props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
+    const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
+    props.onSelected?.(result);
   };
 
   public override render() {
     const { iconSpec, size, width, height, iconSize } = this.props;
-    const onClick = async (e: React.MouseEvent) => {
-      return ActionSheetButton.onClick(this._senderId, this.props, e);
+    const onClick = async (event: React.MouseEvent) => {
+      return ActionSheetButton.onClick(this.props, event);
     };
     return (
       <NavigationButton
