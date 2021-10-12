@@ -25,6 +25,5 @@ export * from "./mobile-ui-react/Suggestion";
 export * from "./mobile-ui-react/CountNotification";
 export * from "./mobile-ui-react/AcceptButton";
 export * from "./mobile-ui-react/HorizontalPicker";
-export * from "./mobile-ui-react/DatePicker";
 export * from "./mobile-ui-react/ModalEntryFormDialog";
 export * from "./mobile-ui-react/TabStrip";
