@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { HorizontalScrollableWithFades } from ".";
+import { HorizontalScrollableWithFades } from "./ScrollableWithFades";
 
 import "./TabStrip.scss";
 

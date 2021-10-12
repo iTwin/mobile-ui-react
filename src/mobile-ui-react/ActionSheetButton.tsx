@@ -5,7 +5,7 @@
 import * as React from "react";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
 import { ActionSheetProps, presentActionSheet } from "@itwin/mobile-sdk-core";
-import { NavigationButton } from ".";
+import { NavigationButton } from "./NavigationPanel";
 
 import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
 

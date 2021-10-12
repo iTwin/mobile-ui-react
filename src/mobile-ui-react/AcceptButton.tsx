@@ -4,10 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import {
-  CenterDiv,
-  IconImage,
-} from ".";
+import { CenterDiv } from "./CenterDiv";
+import { IconImage } from "./IconImage";
 
 import "./AcceptButton.scss";
 

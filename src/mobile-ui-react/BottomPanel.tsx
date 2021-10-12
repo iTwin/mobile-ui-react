@@ -6,16 +6,9 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
 import { Optional } from "@itwin/mobile-sdk-core";
-import {
-  makeRefHandler,
-  MutableHtmlDivRefOrFunction,
-  PanelHeader,
-  PanelHeaderProps,
-  ResizablePanel,
-  ResizablePanelProps,
-  useUiEvent,
-  useWindowEvent,
-} from ".";
+import { makeRefHandler, MutableHtmlDivRefOrFunction, useUiEvent, useWindowEvent } from "./MobileUi";
+import { PanelHeader, PanelHeaderProps } from "./PanelHeader";
+import { ResizablePanel, ResizablePanelProps } from "./ResizablePanel";
 import "./BottomPanel.scss";
 
 /** Type for arguments sent to [[BottomPanelEvents.onResize]].

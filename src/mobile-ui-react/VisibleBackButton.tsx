@@ -6,7 +6,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import classnames from "classnames";
 import { IconSpec } from "@bentley/ui-core";
-import { NavigationButton, NavigationButtonProps } from ".";
+import { NavigationButton, NavigationButtonProps } from "./NavigationPanel";
 import "./VisibleBackButton.scss";
 
 import { Back as BackSvg } from "./images-tsx";

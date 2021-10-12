@@ -6,7 +6,9 @@ import * as React from "react";
 import classnames from "classnames";
 import { getCssVariable, getCssVariableAsNumber } from "@bentley/ui-core";
 import { ColorDef } from "@bentley/imodeljs-common";
-import { BottomPanelProps, HorizontalScrollableWithFades, useHorizontalScrollChildVisibleOnResize } from ".";
+import { BottomPanelProps } from "./BottomPanel";
+import { HorizontalScrollableWithFades } from "./ScrollableWithFades";
+import { useHorizontalScrollChildVisibleOnResize } from "./MobileUi";
 
 import "./TabBar.scss";
 

@@ -7,7 +7,7 @@ import classnames from "classnames";
 import { DragHandleProps } from "@bentley/ui-ninezone";
 import { CommonProps, getCssVariableAsNumber, Point, PointProps } from "@bentley/ui-core";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
-import { ReactUseState, useWindowEvent } from ".";
+import { ReactUseState, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
 
 /** Properties for [[ResizablePanel]] component

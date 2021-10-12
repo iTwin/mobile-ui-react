@@ -5,7 +5,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { IconSpec } from "@bentley/ui-core";
-import { IconImage } from ".";
+import { IconImage } from "./IconImage";
 import "./CircularButton.scss";
 
 /** Properties for the [[CircularButton]] component.

@@ -5,7 +5,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { ClassNameProps } from "@bentley/ui-core";
-import { useScroll, useWindowEvent } from ".";
+import { useScroll, useWindowEvent } from "./MobileUi";
 
 import "./ScrollableWithFades.scss";
 import { ColorDef } from "@bentley/imodeljs-common";

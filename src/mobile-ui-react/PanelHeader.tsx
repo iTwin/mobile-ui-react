@@ -6,7 +6,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
 import { withoutClassName } from "@itwin/mobile-sdk-core";
-import { DraggableComponent, DraggableComponentCallbackProps } from ".";
+import { DraggableComponent, DraggableComponentCallbackProps } from "./ResizablePanel";
 
 import "./PanelHeader.scss";
 

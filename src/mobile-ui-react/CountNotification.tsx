@@ -6,7 +6,9 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps, IconSpec } from "@bentley/ui-core";
 import { AlertAction } from "@itwin/mobile-sdk-core";
-import { ActionSheetButton, IconImage, MobileUi } from ".";
+import { ActionSheetButton } from "./ActionSheetButton";
+import { IconImage } from "./IconImage";
+import { MobileUi } from "./MobileUi";
 
 import "./CountNotification.scss";
 

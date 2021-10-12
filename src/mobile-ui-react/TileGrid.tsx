@@ -5,7 +5,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@bentley/ui-core";
-import { useMediaQuery, useScrolling } from ".";
+import { useMediaQuery, useScrolling } from "./MobileUi";
 import "./TileGrid.scss";
 
 /** Specifies the size of a [[GridTile]]

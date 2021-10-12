@@ -7,7 +7,8 @@ import classnames from "classnames";
 import { ClassNameProps, CommonProps, IconSpec } from "@bentley/ui-core";
 import { ConditionalBooleanValue, ConditionalStringValue } from "@bentley/ui-abstract";
 import { SyncUiEventArgs } from "@bentley/ui-framework";
-import { IconImage, useSyncUiEvent } from ".";
+import { IconImage } from "./IconImage";
+import { useSyncUiEvent } from "./MobileUi";
 import "./NavigationPanel.scss";
 
 import {

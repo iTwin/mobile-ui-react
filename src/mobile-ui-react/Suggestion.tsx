@@ -6,7 +6,8 @@ import * as React from "react";
 import classnames from "classnames";
 import { getCssVariableAsNumber, UiEvent, useOnOutsideClick } from "@bentley/ui-core";
 import { ToolAssistanceInstructions } from "@bentley/imodeljs-frontend";
-import { IconImage, useUiEvent } from ".";
+import { IconImage } from "./IconImage";
+import { useUiEvent } from "./MobileUi";
 import "./Suggestion.scss";
 
 /** Properties for the [[Suggestion]] component.
