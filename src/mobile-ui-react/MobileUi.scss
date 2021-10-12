@@ -62,6 +62,8 @@
   --muic-foreground-count-notification-count: var(--muic-active-contrast);
   --muic-background-count-notification-count: var(--muic-active);
   --muic-foreground-count-notification-more: var(--muic-gray-8);
+  // Don't show tap highlights by default.
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mui-fill {
@@ -122,4 +124,9 @@
     opacity: .0384; // We don't want the opacity to be aplied to the border-top, so we put this in an ::after block.
     @include mui-fade-gradient(bottom, 0, 0, 0);
   }
+}
+
+// Disable selection in all elements except text input fields by default.
+*:not(input[type=text]) {
+  user-select: none;
 }
