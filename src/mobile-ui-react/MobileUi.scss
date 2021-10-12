@@ -2,6 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+// The default below should be 600px.
+// Using 769px will cause an ipad to be treated as a small-screen device.
+$max-small-screen-size: 600px;
+
 :root {
   --mui-keyboard-height: 0px;
   --mui-keyboard-effective-height: 0px;
@@ -129,4 +133,69 @@
 // Disable selection in all elements except text input fields by default.
 *:not(input[type=text]) {
   user-select: none;
+}
+
+// Adjust position of the imodeljs icon to be outside of any safe areas and above the active tab bar (if one exists). 
+// The TabBar component sets --mui-current-tab-bar-height to the proper value when it is visible.
+.imodeljs-icon {
+  bottom: calc(var(--mui-current-tab-bar-height) + var(--mui-safe-area-bottom) + 8px);
+  left: calc(var(--mui-safe-area-left) + 8px);
+}
+
+// Sometimes when entering a nested frontstage on a phone, the icon would be in the hover state. 
+// This resets the opacity to the default value (as defined in imodeljs).
+.imodeljs-icon:hover {
+  opacity: 0.4;
+}
+
+// Enable the opacity change on devices with hover support for its primary input.
+@media (hover: hover) {
+  .imodeljs-icon:hover {
+    opacity: 1.0;
+  }
+}
+
+.imodeljs-modal-overlay {
+  height: 100vh;
+}
+
+// The "about" dialog doesn't look good with very narrow widths and on phones (especially in landscape).
+// These adjustments ensure the dialog isn't too tall or too wide.
+.imodeljs-modal-overlay .imodeljs-modal {
+  width: unset !important; // resets the width hard-coded by iModelJs
+  // The dialog is centered on the screen so determine uniform left/right and top/bottom insets
+  --width-border: max(var(--mui-safe-area-left), var(--mui-safe-area-right), 16px);
+  --height-border: max(var(--mui-safe-area-top), var(--mui-safe-area-bottom), 16px);
+  // Don't go wider than 460px (the hard-coded width set by iModelJs code)
+  // The SCSS compiler has a bug that causes it to not allow min/max calls with differing units (pixels and percent,
+  // for example). By storing the min() call in a variable, it avoids that bug.
+  --calculated-max-width: min(100% - 2 * var(--width-border), 460px);
+  max-width: var(--calculated-max-width);
+  max-height: calc(100% - (2 * var(--height-border)));
+  overflow: auto; // make it vertically scrollable
+}
+
+// With narrow width, reduce the space around the logo icons
+@media (max-width: $max-small-screen-size) {
+  .logo-card-logo {
+    width: 90px;
+  }
+}
+
+// With short height (phone in landscape), make further adjustments.
+@media (max-height: $max-small-screen-size) {
+  .imodeljs-modal-overlay .imodeljs-modal {
+    // Make the dialog wider and unlike above, don't clamp the width to a fixed max.
+    max-width: calc(100% - (2 * var(--width-border)));
+
+    // Reduce the space between rows
+    .logo-card-message p {
+      margin-block-end: 1em;
+    }
+
+    // Ensure there's space after the last row
+    .logo-cards {
+      margin-bottom: 2em;
+    }
+  }
 }
