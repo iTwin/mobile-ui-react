@@ -26,7 +26,7 @@ function PanelHeaderDraggableDiv(props: PanelHeaderDraggableDivProps) {
       {children}
     </DraggableComponent>;
   }
-  return <div className={classnames("mui-panel-header-draggable", "non-dragable", className)}>
+  return <div className={classnames("mui-panel-header-draggable", "non-draggable", className)}>
     {children}
   </div>;
 }
