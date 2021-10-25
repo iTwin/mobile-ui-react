@@ -17,8 +17,8 @@
   position: relative;
   border-radius: 50%;
   border: none;
-  --circle-color: var(--muic-gray-9);
-  --selected-circle-color: white;
+  --circle-color: var(--muic-background-circle);
+  --selected-circle-color: var(--muic-background-selected-circle);
   background-color: var(--circle-color);
   flex-shrink: 0;
 
@@ -28,7 +28,7 @@
 }
 
 .mui-circular-button-label {
-  color: var(--muic-gray-2);
+  color: var(--muic-label-circle);
   font-size: 11px;
   padding-top: 5px;
   text-align: center;
@@ -40,12 +40,12 @@
   height: 60%;
   border-radius: 6px;
   opacity: 0.37;
-  background-color: white;
+  background-color: var(--muic-background-circle-default-chip);
 }
 
 .mui-circular-button-icon {
-  --icon-color: white;
-  --selected-icon-color: black;
+  --icon-color: var(--muic-icon-circle);
+  --selected-icon-color: var(--muic-icon-selected-circle);
   color: var(--icon-color);
   font-size: 20px;
   font-weight: bold;

@@ -17,9 +17,9 @@
 }
 
 .mui-fade {
-  --background-r: 255;
-  --background-g: 255;
-  --background-b: 255;
+  --background-r: var(--muic-background-r);
+  --background-g: var(--muic-background-g);
+  --background-b: var(--muic-background-b);
   height: var(--mui-tab-bar-height);
   bottom: var(--mui-safe-area-bottom);
   box-sizing: border-box;

@@ -6,7 +6,7 @@ import * as React from "react";
 import { I18N } from "@bentley/imodeljs-i18n";
 import { BackendError } from "@bentley/imodeljs-common";
 import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
-import { SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, UiFramework } from "@bentley/ui-framework";
+import { ColorTheme, SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@bentley/ui-framework";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@bentley/imodeljs-frontend";
 import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@bentley/bentleyjs-core";
 import { getAllViewports, getEmphasizeElements, MobileCore, UIError } from "@itwin/mobile-sdk-core";
@@ -16,12 +16,28 @@ import "./MobileUi.scss";
 /** Type used for MobileUi.onClose BeEvent. */
 export declare type CloseListener = () => void;
 
+/** Type used for MobileUi.onColorSchemeChanged BeEvent. */
+export declare type ColorSchemeChangedListener = (isDark: boolean) => void;
+
+/** The user's preferred color scheme.
+ *
+ * When set to Automatic, it uses the prefers-color-scheme media value from the web view.
+ */
+export enum PreferredColorScheme {
+  Automatic = 0,
+  Light = 1,
+  Dark = 2,
+}
+
 /** Class for top-level MobileUi functionality. */
 export class MobileUi {
   private static _i18n: I18N;
+  private static _preferredColorScheme: PreferredColorScheme = JSON.parse(localStorage.getItem("ITM_PreferredColorScheme") ?? "0") as PreferredColorScheme;
 
   /** BeEvent raised when [[MobileUi.close]] is called. */
   public static onClose: BeEvent<CloseListener> = new BeEvent<CloseListener>();
+  /** BeEvent raised when the web view's color scheme changes. */
+  public static onColorSchemeChanged: BeEvent<ColorSchemeChangedListener> = new BeEvent<ColorSchemeChangedListener>();
 
   /** Translate a string from the MobileUi i18n namespace.
    * @param key - The key for the string to translate. For example, "general.cancel".
@@ -32,7 +48,72 @@ export class MobileUi {
     return this._i18n.translate(`iTwinMobileUI:${key}`, options);
   }
 
+  public static set preferredColorScheme(value: PreferredColorScheme) {
+    MobileUi._preferredColorScheme = value;
+    localStorage.setItem("ITM_PreferredColorScheme", JSON.stringify(value));
+    MobileUi.colorSchemeChanged(MobileUi.activeColorSchemeIsDark);
+    MobileUi.updateUiFrameworkColorTheme();
+  }
+
+  /** The user's preferred color scheme.
+   *
+   * This should be set after UiFramework is initialized if the app uses UiFramework.
+   *
+   * __Note__: This setting is stored in localStorage, so it is remembered from one run to the next.
+   */
+  public static get preferredColorScheme() {
+    return MobileUi._preferredColorScheme;
+  }
+
+  /** Indicates if the active color scheme is dark.
+   * @returns Whether or not the active color scheme is dark.
+   */
+  public static get activeColorSchemeIsDark() {
+    if (MobileUi._preferredColorScheme === PreferredColorScheme.Automatic) {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } else {
+      return MobileUi._preferredColorScheme === PreferredColorScheme.Dark;
+    }
+  }
+
+  private static updateUiFrameworkColorTheme() {
+    const isDark = MobileUi.activeColorSchemeIsDark;
+    if (UiFramework.initialized) {
+      UiFramework.setColorTheme(isDark ? ColorTheme.Dark : ColorTheme.Light);
+      // The imodeljs UI framework relies on the "data-theme" attribute. Since the only two ColorTheme
+      // values are Light and Dark, the below handles those and Automatic.
+      let dataTheme: string;
+      switch (MobileUi._preferredColorScheme) {
+        case PreferredColorScheme.Automatic:
+          dataTheme = SYSTEM_PREFERRED_COLOR_THEME;
+          break;
+        case PreferredColorScheme.Dark:
+          dataTheme = ColorTheme.Dark;
+          break;
+        default:
+          dataTheme = ColorTheme.Light;
+          break;
+      }
+      document.documentElement.setAttribute("data-theme", dataTheme);
+    }
+  }
+
+  private static colorSchemeChanged(isDark: boolean) {
+    document.documentElement.setAttribute("preferred-color-scheme", isDark ? "dark" : "light");
+    MobileUi.onColorSchemeChanged.raiseEvent(isDark);
+    MobileUi.updateUiFrameworkColorTheme();
+  }
+
+  private static _colorSchemeListener = (ev: MediaQueryListEvent) => {
+    if (MobileUi._preferredColorScheme !== PreferredColorScheme.Automatic) return;
+    MobileUi.colorSchemeChanged(ev.matches);
+  };
+
   /** Initializes the MobileUi module.
+   *
+   * This should be done after UiFramework is initialized if the app uses UiFramework. Alternatively,
+   * set preferredColorScheme after UiFramework is initialized (even if setting to the default value
+   * of Automatic).
    * @param i18n - The [[I18N]] object (usually from iModelJs).
    */
   public static async initialize(i18n: I18N): Promise<void> {
@@ -40,6 +121,16 @@ export class MobileUi {
     this._i18n = i18n;
     i18n.registerNamespace("iTwinMobileUI");
     this.setupUIError();
+    try {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", MobileUi._colorSchemeListener);
+    } catch (e) {
+      // Safari didn't support the above BASIC functionality until version 14.
+      // eslint-disable-next-line deprecation/deprecation
+      window.matchMedia("(prefers-color-scheme: dark)").addListener(MobileUi._colorSchemeListener);
+    }
+    const isDark = MobileUi.activeColorSchemeIsDark;
+    document.documentElement.setAttribute("preferred-color-scheme", isDark ? "dark" : "light");
+    MobileUi.updateUiFrameworkColorTheme();
   }
 
   private static setupUIError() {
@@ -60,6 +151,13 @@ export class MobileUi {
 
   /** Close down the MobileUi module. Call before closing down so that cleanup can be done. */
   public static close() {
+    try {
+      window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", MobileUi._colorSchemeListener);
+    } catch (e) {
+      // Safari didn't support the above BASIC functionality until version 14.
+      // eslint-disable-next-line deprecation/deprecation
+      window.matchMedia("(prefers-color-scheme: dark)").removeListener(MobileUi._colorSchemeListener);
+    }
     this.onClose.raiseEvent();
   }
 }

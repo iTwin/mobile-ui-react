@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { ClassNameProps } from "@bentley/ui-core";
+import { ClassNameProps, getCssVariable } from "@bentley/ui-core";
 import { useScroll, useWindowEvent } from "./MobileUi";
 
 import "./ScrollableWithFades.scss";
@@ -37,7 +37,7 @@ export interface ScrollableWithFadesProps extends ClassNameProps {
  * @public
  */
 export function HorizontalScrollableWithFades(props: ScrollableWithFadesProps) {
-  const { backgroundColor = ColorDef.white, children, fadesClassName, scrollableClassName, className, fadeDisplayTrigger } = props;
+  const { backgroundColor = ColorDef.fromString(getCssVariable("--muic-background")), children, fadesClassName, scrollableClassName, className, fadeDisplayTrigger } = props;
   const [leftEnabled, setLeftEnabled] = React.useState(false);
   const [rightEnabled, setRightEnabled] = React.useState(false);
   const scrollableRef = React.useRef<HTMLDivElement | null>(null);

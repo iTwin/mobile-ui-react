@@ -51,7 +51,6 @@ $max-small-screen-size: 600px;
   --muic-foreground-inactive: var(--muic-gray-4);
   --muic-background-tab-bar-rgb: var(--muic-gray-b-rgb);
   --muic-background-tab-bar: rgb(var(--muic-background-tab-bar-rgb));
-  --muic-background-active-tab: white;
   --muic-foreground-navigation-button: white;
   --muic-foreground-tile: rgb(41,54,69);
   --muic-background-tile: white;
@@ -66,8 +65,70 @@ $max-small-screen-size: 600px;
   --muic-foreground-count-notification-count: var(--muic-active-contrast);
   --muic-background-count-notification-count: var(--muic-active);
   --muic-foreground-count-notification-more: var(--muic-gray-8);
+  --muic-drag-handle: rgba(0, 0, 0, 0.2);
+  --muic-shadow: rgba(0, 0, 0, 0.12);
+  --muic-background-rgb: 255,255,255;
+  --muic-background-r: 255;
+  --muic-background-g: 255;
+  --muic-background-b: 255;
+  --muic-background: rgb(var(--muic-background-rgb));
+  --muic-foreground: black;
+  --muic-foreground-2: var(--muic-gray-2);
+  --muic-foreground-close-x: var(--muic-gray-5);
+  --muic-light-border: var(--muic-gray-a);
+  --muic-light-text: var(--muic-gray-5);
+  --muic-background-accept: white;
+  --muic-foreground-accept: var(--muic-gray-2);
+  --muic-background-circle: var(--muic-gray-9);
+  --muic-background-selected-circle: white;
+  --muic-label-circle: var(--muic-gray-2);
+  --muic-background-circle-default-chip: white;
+  --muic-icon-circle: white;
+  --muic-icon-selected-circle: black;
   // Don't show tap highlights by default.
   -webkit-tap-highlight-color: transparent;
+}
+
+// preferred-color-scheme is set by the TypeScript code. By default it tracks
+// the prefers-color-scheme @media setting, but this can be overridden to force
+// the color scheme to be either light or dark, regardless of the system setting.
+[preferred-color-scheme = "dark"] {
+  --muic-active-contrast: var(--muic-gray-2);
+  --muic-foreground-inactive: var(--muic-gray-9);
+  --muic-background-tab-bar-rgb: var(--muic-gray-4-rgb);
+  --muic-foreground-tile: var(--muic-gray-b);
+  --muic-background-tile: var(--muic-gray-2);
+  --muic-border-tile: var(--muic-gray-4);
+  --muic-background-model: var(--muic-gray-2);
+  --muic-foreground-suggestion: black;
+  --muic-background-suggestion-rgb: var(--muic-gray-c-rgb);
+  --muic-foreground-count-notification: var(--muic-gray-b);
+  --muic-background-count-notification: black;
+  --muic-foreground-count-notification-more: var(--muic-gray-5);
+  --muic-drag-handle: rgba(255, 255, 255, 0.2);
+  --muic-shadow: rgba(255, 255, 255, 0.12);
+  --muic-background-r: 42;
+  --muic-background-g: 47;
+  --muic-background-b: 52;
+  --muic-background-rgb: var(--muic-gray-2-rgb);
+  --muic-foreground: white;
+  --muic-foreground-2: var(--muic-gray-b);
+  --muic-foreground-close-x: var(--muic-gray-8);
+  --muic-light-border: var(--muic-gray-4);
+  --muic-light-text: var(--muic-gray-8);
+  --muic-background-accept: black;
+  --muic-foreground-accept: var(--muic-gray-b);
+  --muic-background-circle: var(--muic-gray-4);
+  --muic-background-selected-circle: black;
+  --muic-label-circle: var(--muic-gray-b);
+  --muic-background-circle-default-chip: black;
+  --muic-icon-circle: black;
+  --muic-icon-selected-circle: white;
+}
+
+html {
+  background-color: var(--muic-background);
+  color: var(--muic-foreground);
 }
 
 .mui-fill {
