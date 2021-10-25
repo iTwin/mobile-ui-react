@@ -9,7 +9,7 @@ import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@bentley/ui-cor
 import { ColorTheme, SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@bentley/ui-framework";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@bentley/imodeljs-frontend";
 import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@bentley/bentleyjs-core";
-import { getAllViewports, getEmphasizeElements, MobileCore, UIError } from "@itwin/mobile-sdk-core";
+import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
 
@@ -52,7 +52,7 @@ export class MobileUi {
     MobileUi._preferredColorScheme = value;
     localStorage.setItem("ITM_PreferredColorScheme", JSON.stringify(value));
     MobileUi.colorSchemeChanged(MobileUi.activeColorSchemeIsDark);
-    MobileUi.updateUiFrameworkColorTheme();
+    MobileUi.reflectColorScheme();
   }
 
   /** The user's preferred color scheme.
@@ -76,7 +76,7 @@ export class MobileUi {
     }
   }
 
-  private static updateUiFrameworkColorTheme() {
+  private static reflectColorScheme() {
     const isDark = MobileUi.activeColorSchemeIsDark;
     if (UiFramework.initialized) {
       UiFramework.setColorTheme(isDark ? ColorTheme.Dark : ColorTheme.Light);
@@ -96,12 +96,13 @@ export class MobileUi {
       }
       document.documentElement.setAttribute("data-theme", dataTheme);
     }
+    Messenger.sendMessage("Bentley_ITM_updatePreferredColorScheme", { preferredColorScheme: MobileUi._preferredColorScheme });
   }
 
   private static colorSchemeChanged(isDark: boolean) {
     document.documentElement.setAttribute("preferred-color-scheme", isDark ? "dark" : "light");
     MobileUi.onColorSchemeChanged.raiseEvent(isDark);
-    MobileUi.updateUiFrameworkColorTheme();
+    MobileUi.reflectColorScheme();
   }
 
   private static _colorSchemeListener = (ev: MediaQueryListEvent) => {
@@ -130,7 +131,7 @@ export class MobileUi {
     }
     const isDark = MobileUi.activeColorSchemeIsDark;
     document.documentElement.setAttribute("preferred-color-scheme", isDark ? "dark" : "light");
-    MobileUi.updateUiFrameworkColorTheme();
+    MobileUi.reflectColorScheme();
   }
 
   private static setupUIError() {
