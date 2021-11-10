@@ -411,37 +411,39 @@ export function usePrevious<T>(value: T) {
   return ref.current;
 }
 
-/** A custom React hook function for handling first viewport changes.
- * @param handler - The callback function. When the current viewport closes, handler will be called with newVp set to
- * undefined, and oldVp set to the viewport that is closing. When a new viewport opens, handler will be called with
- * newVp set to the viewport that is opening, and oldVp set to undefined. During initialization, handler may be called
- * with both newVp and oldVp set to undefined (if there is no current viewport at that time).
+/** A custom React hook function for getting the first viewport that reacts to open view changes.
+ * @returns The first open viewport, or undefined when there is no viewport open.
  */
-export function useFirstViewport(handler: (newVp: ScreenViewport | undefined, oldVp: ScreenViewport | undefined) => void) {
+export function useFirstViewport(): ScreenViewport | undefined {
   const [firstOpenViewport, setFirstOpenViewport] = React.useState(IModelApp.viewManager.getFirstOpenView());
 
   React.useEffect(() => {
-    handler(firstOpenViewport, undefined);
     const onViewOpen = (vp: ScreenViewport) => {
       if (vp === IModelApp.viewManager.getFirstOpenView()) {
         setFirstOpenViewport(vp);
-        handler(vp, undefined);
       }
     };
+
+    IModelApp.viewManager.onViewOpen.addListener(onViewOpen);
+    return () => {
+      IModelApp.viewManager.onViewOpen.removeListener(onViewOpen);
+    };
+  }, []);
+
+  React.useEffect(() => {
     const onViewClose = (vp: ScreenViewport) => {
       if (vp === firstOpenViewport) {
-        handler(undefined, vp);
         setFirstOpenViewport(undefined);
       }
     };
-    IModelApp.viewManager.onViewOpen.addListener(onViewOpen);
+
     IModelApp.viewManager.onViewClose.addListener(onViewClose);
     return () => {
-      IModelApp.viewManager.onViewOpen.removeListener(onViewOpen);
       IModelApp.viewManager.onViewClose.removeListener(onViewClose);
     };
-    // DO NOT add firstOpenViewport to the list of dependencies.
-  }, [handler]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [firstOpenViewport]);
+
+  return firstOpenViewport;
 }
 
 /** A custom React hook function for tracking viewports.
@@ -470,62 +472,55 @@ export function useViewports(handler: (viewports: ScreenViewport[]) => void): Sc
  * @param handler - The callback function.
  */
 export function useFeatureOverrides(handler: (alwaysDrawn: Id64Set | undefined) => void) {
-  const [vp, setVp] = React.useState<ScreenViewport>();
+  const vp = useFirstViewport();
 
   const featureOverridesListener = React.useCallback((listenerVp: Viewport) => {
     handler(listenerVp.alwaysDrawn);
   }, [handler]);
-
-  useFirstViewport((newVp: ScreenViewport | undefined, oldVp: ScreenViewport | undefined) => {
-    oldVp?.onFeatureOverridesChanged.removeListener(featureOverridesListener);
-    setVp(newVp);
-  });
 
   React.useEffect(() => {
     vp?.onFeatureOverridesChanged.addListener(featureOverridesListener);
     return () => {
       vp?.onFeatureOverridesChanged.removeListener(featureOverridesListener);
     };
-  }, [handler, vp, featureOverridesListener]);
+  }, [vp, featureOverridesListener]);
 }
 
-function handleEmphasisCount(handler: (count: number) => void, getElements: (vp: ScreenViewport, ee: EmphasizeElements) => Id64Set | undefined) {
+function getEmphasisCount(getElements: (vp: ScreenViewport, ee: EmphasizeElements) => Id64Set | undefined): number {
   const [vp, ee] = getEmphasizeElements();
-  if (!vp || !ee) return;
-  handler(getElements(vp, ee)?.size ?? 0);
+  if (!vp || !ee) return 0;
+  return getElements(vp, ee)?.size ?? 0;
 }
 
-/** A custom React hook function for tracking the emphasized elements count.
- * @param handler - The callback function.
- */
-export function useEmphasizedCount(handler: (count: number) => void) {
-  useFeatureOverrides(() => {
-    handleEmphasisCount(handler, (vp: ScreenViewport, ee: EmphasizeElements) => {
-      return ee.getEmphasizedElements(vp);
-    });
-  });
+function useEmphasisCount(getElements: (vp: ScreenViewport, ee: EmphasizeElements) => Id64Set | undefined): number {
+  const [emphasisCount, setEmphasisCount] = React.useState(getEmphasisCount(getElements));
+
+  useFeatureOverrides(React.useCallback(() => {
+    setEmphasisCount(getEmphasisCount(getElements));
+  }, [getElements]));
+
+  return emphasisCount;
 }
 
-/** A custom React hook function for tracking the hidden elements count.
- * @param handler - The callback function.
- */
-export function useHiddenCount(handler: (count: number) => void) {
-  useFeatureOverrides(() => {
-    handleEmphasisCount(handler, (vp: ScreenViewport, ee: EmphasizeElements) => {
-      return ee.getHiddenElements(vp);
-    });
-  });
+/** A custom React hook function for tracking the emphasized elements count. */
+export function useEmphasizedCount(): number {
+  return useEmphasisCount(React.useCallback((vp: ScreenViewport, ee: EmphasizeElements) => {
+    return ee.getEmphasizedElements(vp);
+  }, []));
 }
 
-/** A custom React hook function for tracking the isolated elements count.
- * @param handler - The callback function.
- */
-export function useIsolatedCount(handler: (count: number) => void) {
-  useFeatureOverrides(() => {
-    handleEmphasisCount(handler, (vp: ScreenViewport, ee: EmphasizeElements) => {
-      return ee.getIsolatedElements(vp);
-    });
-  });
+/** A custom React hook function for tracking the hidden elements count. */
+export function useHiddenCount(): number {
+  return useEmphasisCount(React.useCallback((vp: ScreenViewport, ee: EmphasizeElements) => {
+    return ee.getHiddenElements(vp);
+  }, []));
+}
+
+/** A custom React hook function for tracking the isolated elements count. */
+export function useIsolatedCount(): number {
+  return useEmphasisCount(React.useCallback((vp: ScreenViewport, ee: EmphasizeElements) => {
+    return ee.getIsolatedElements(vp);
+  }, []));
 }
 
 /** A custom React hook function for tracking the UiFramework's current iModel.
