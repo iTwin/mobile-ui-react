@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { ClassNameProps, CommonProps, IconSpec } from "@bentley/ui-core";
+import { ClassNameProps, CommonProps, getCssVariable, IconSpec } from "@bentley/ui-core";
 import { ConditionalBooleanValue, ConditionalStringValue } from "@bentley/ui-abstract";
 import { SyncUiEventArgs } from "@bentley/ui-framework";
 import { IconImage } from "./IconImage";
-import { useSyncUiEvent } from "./MobileUi";
+import { MobileUi, useBeEvent, useSyncUiEvent } from "./MobileUi";
 import "./NavigationPanel.scss";
 
 import {
@@ -59,6 +59,8 @@ export interface NavigationButtonProps extends CommonProps {
   color?: string;
   /** The icon stroke width, default is 2px.  */
   strokeWidth?: string;
+  /** If set to true, disables the shadow, default is false. */
+  noShadow?: boolean;
   /** The click handler. */
   onClick?: (e: React.MouseEvent) => void;
   // onTouchStart?: (e: React.TouchEvent) => void;
@@ -68,9 +70,9 @@ export interface NavigationButtonProps extends CommonProps {
  * @public
  */
 export function NavigationButton(props: NavigationButtonProps) {
-  const { className, color, strokeWidth, style, enabled = true, size, width, height } = props;
+  const { className, color, strokeWidth, noShadow = false, style, enabled = true, size, width, height } = props;
   return <div
-    className={classnames("mui-navigation-button", !enabled && "disabled", className)}
+    className={classnames("mui-navigation-button", !enabled && "disabled", noShadow && "no-shadow", className)}
     style={{ width: width ?? size ?? "42px", height: height ?? size ?? "42px", color, strokeWidth, ...style }}
     // Note: The below commented out onTouchStart will be needed if we add :active tracking. For some
     // unknown reason, it fixes an iOS Safari glitch when tracking the :active state of a DOM element.
@@ -117,6 +119,19 @@ export function CircularMinimizeButton(props: Omit<NavigationButtonProps, "iconS
 export function CircularCloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "2px", ...otherProps } = props;
   return <NavigationButton strokeWidth={strokeWidth} iconSpec={<CloseCircleSvg />} {...otherProps} />;
+}
+
+/**
+ * A [[NavigationButton]] that has no shadow and has a foreground color that is black in light mode and white in dark mode.
+ * @public
+ */
+export function ToolButton(props: Omit<NavigationButtonProps, "color" | "noShadow">) {
+  const [color, setColor] = React.useState<string>(getCssVariable("--muic-foreground"));
+  // Update the color when the color scheme changes.
+  useBeEvent(() => {
+    setColor(getCssVariable("--muic-foreground"));
+  }, MobileUi.onColorSchemeChanged);
+  return <NavigationButton {...props} color={color} noShadow />;
 }
 
 /** Properties for the [[ConditionalNavigationButton]] component.

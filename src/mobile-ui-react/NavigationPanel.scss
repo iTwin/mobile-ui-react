@@ -18,6 +18,10 @@
   filter:drop-shadow(0px 0px 1px rgba(0, 0, 0, .7));
 }
 
+.mui-navigation-button.no-shadow {
+  filter:none;
+}
+
 .mui-navigation-button.disabled {
   opacity: 0.5;
 }
