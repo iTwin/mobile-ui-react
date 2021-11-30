@@ -5,7 +5,8 @@
   "main": "lib/mobile-ui-react.js",
   "types": "lib/mobile-ui-react.d.ts",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "!lib/**/*.map"
   ],
   "scripts": {
     "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
