@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { ClassNameProps, CommonProps, getCssVariable, IconSpec } from "@bentley/ui-core";
+import { ClassNameProps, CommonProps, IconSpec } from "@bentley/ui-core";
 import { ConditionalBooleanValue, ConditionalStringValue } from "@bentley/ui-abstract";
 import { SyncUiEventArgs } from "@bentley/ui-framework";
 import { IconImage } from "./IconImage";
-import { MobileUi, useBeEvent, useSyncUiEvent } from "./MobileUi";
+import { useSyncUiEvent } from "./MobileUi";
 import "./NavigationPanel.scss";
 
 import {
@@ -126,12 +126,7 @@ export function CircularCloseButton(props: Omit<NavigationButtonProps, "iconSpec
  * @public
  */
 export function ToolButton(props: Omit<NavigationButtonProps, "color" | "noShadow">) {
-  const [color, setColor] = React.useState<string>(getCssVariable("--muic-foreground"));
-  // Update the color when the color scheme changes.
-  useBeEvent(() => {
-    setColor(getCssVariable("--muic-foreground"));
-  }, MobileUi.onColorSchemeChanged);
-  return <NavigationButton {...props} color={color} noShadow />;
+  return <NavigationButton {...props} color="var(--muic-foreground)" noShadow />;
 }
 
 /** Properties for the [[ConditionalNavigationButton]] component.
