@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps, IconSpec } from "@bentley/ui-core";
+import { CommonProps, IconSpec } from "@itwin/core-react";
 import { AlertAction } from "@itwin/mobile-sdk-core";
 import { ActionSheetButton } from "./ActionSheetButton";
 import { IconImage } from "./IconImage";

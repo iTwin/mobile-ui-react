@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { getCssVariableAsNumber, UiEvent, useOnOutsideClick } from "@bentley/ui-core";
-import { ToolAssistanceInstructions } from "@bentley/imodeljs-frontend";
+import { getCssVariableAsNumber, UiEvent, useOnOutsideClick } from "@itwin/core-react";
+import { ToolAssistanceInstructions } from "@itwin/core-frontend";
 import { IconImage } from "./IconImage";
 import { useUiEvent } from "./MobileUi";
 import "./Suggestion.scss";

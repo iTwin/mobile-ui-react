@@ -2,6 +2,15 @@
   "name": "@itwin/mobile-ui-react",
   "version": "0.9.8",
   "description": "Bentley iTwin Mobile UI module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iTwin/mobile-ui-react"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Bentley Systems, Inc.",
+    "url": "http://www.bentley.com"
+  },
   "main": "lib/mobile-ui-react.js",
   "types": "lib/mobile-ui-react.d.ts",
   "files": [
@@ -9,70 +18,13 @@
     "!lib/**/*.map"
   ],
   "scripts": {
-    "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "build": "npm run images:gen && npm run copy:assets && tsc 1>&2",
-    "clean": "rimraf lib",
-    "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "build:debug": "npm run build && ./syncToTestApp.sh",
+    "clean": "rimraf lib",
+    "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "images:gen": "rimraf src/mobile-ui-react/images-tsx && svgr --typescript src/mobile-ui-react/images --out-dir src/mobile-ui-react/images-tsx --no-svgo --no-prettier --memo --svg-props className=\"core-icons-svgSprite\"",
+    "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": {
-    "name": "Bentley Systems, Inc.",
-    "url": "http://www.bentley.com"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iTwin/mobile-ui-react"
-  },
-  "dependencies": {
-    "@bentley/bentleyjs-core": "2.19.25",
-    "@bentley/frontend-authorization-client": "2.19.25",
-    "@bentley/geometry-core": "2.19.25",
-    "@bentley/imodelhub-client": "2.19.25",
-    "@bentley/imodeljs-common": "2.19.25",
-    "@bentley/imodeljs-frontend": "2.19.25",
-    "@bentley/imodeljs-i18n": "2.19.25",
-    "@bentley/imodeljs-markup": "2.19.25",
-    "@bentley/imodeljs-quantity": "2.19.25",
-    "@bentley/orbitgt-core": "2.19.25",
-    "@bentley/presentation-common": "2.19.25",
-    "@bentley/presentation-frontend": "2.19.25",
-    "@bentley/product-settings-client": "2.19.25",
-    "@bentley/rbac-client": "2.19.25",
-    "@bentley/telemetry-client": "2.19.25",
-    "@bentley/ui-abstract": "2.19.25",
-    "@bentley/ui-components": "2.19.25",
-    "@bentley/ui-core": "2.19.25",
-    "@bentley/ui-framework": "2.19.25",
-    "@bentley/ui-ninezone": "2.19.25",
-    "@bentley/webgl-compatibility": "2.19.25",
-    "@itwin/mobile-sdk-core": "0.9.8",
-    "classnames": "^2.2.6",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-redux": "^7.2.4",
-    "redux": "^4.1.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@bentley/eslint-plugin": "2.19.25",
-    "@svgr/cli": "^5.5.0",
-    "@types/node": "10.14.1",
-    "@types/react": "^16.14.17",
-    "@types/react-dom": "16.8.4",
-    "@types/react-redux": "^7.1.19",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "cpx": "^1.5.0",
-    "eslint": "^7.31.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "node-sass": "^6.0.1",
-    "sass": "^1.39.0",
-    "ts-node": "^10.3.0",
-    "typedoc": "^0.21.9",
-    "typescript": "~4.3.5"
   },
   "eslintConfig": {
     "plugins": [
@@ -90,5 +42,50 @@
   },
   "eslintIgnore": [
     "src/mobile-ui-react/images-tsx"
-  ]
+  ],
+  "dependencies": {
+    "@bentley/itwin-client": "3.0.0-dev.141",
+    "@itwin/appui-abstract": "3.0.0-dev.141",
+    "@itwin/appui-layout-react": "3.0.0-dev.141",
+    "@itwin/appui-react": "3.0.0-dev.141",
+    "@itwin/browser-authorization": "0.3.2",
+    "@itwin/components-react": "3.0.0-dev.141",
+    "@itwin/core-bentley": "3.0.0-dev.141",
+    "@itwin/core-common": "3.0.0-dev.141",
+    "@itwin/core-frontend": "3.0.0-dev.141",
+    "@itwin/core-geometry": "3.0.0-dev.141",
+    "@itwin/core-i18n": "3.0.0-dev.141",
+    "@itwin/core-markup": "3.0.0-dev.141",
+    "@itwin/core-orbitgt": "3.0.0-dev.141",
+    "@itwin/core-quantity": "3.0.0-dev.141",
+    "@itwin/core-react": "3.0.0-dev.141",
+    "@itwin/imodel-components-react": "3.0.0-dev.141",
+    "@itwin/presentation-common": "3.0.0-dev.141",
+    "@itwin/presentation-frontend": "3.0.0-dev.141",
+    "@itwin/webgl-compatibility": "3.0.0-dev.141",
+    "classnames": "^2.2.6",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@itwin/eslint-plugin": "3.0.0-dev.141",
+    "@svgr/cli": "^5.5.0",
+    "@types/node": "10.14.1",
+    "@types/react": "^16.14.17",
+    "@types/react-dom": "16.8.4",
+    "@types/react-redux": "^7.1.19",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "cpx": "^1.5.0",
+    "eslint": "^7.31.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "node-sass": "^6.0.1",
+    "sass": "^1.39.0",
+    "ts-node": "^10.3.0",
+    "typedoc": "^0.21.9",
+    "typescript": "~4.3.5"
+  }
 }

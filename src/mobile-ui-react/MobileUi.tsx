@@ -3,12 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { I18N } from "@bentley/imodeljs-i18n";
-import { BackendError } from "@bentley/imodeljs-common";
-import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
-import { ColorTheme, SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@bentley/ui-framework";
-import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@bentley/imodeljs-frontend";
-import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@bentley/bentleyjs-core";
+import { BackendError, Localization } from "@itwin/core-common";
+import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@itwin/core-react";
+import { ColorTheme, SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
+import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
+import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
@@ -31,7 +30,7 @@ export enum PreferredColorScheme {
 
 /** Class for top-level MobileUi functionality. */
 export class MobileUi {
-  private static _i18n: I18N;
+  private static _localization: Localization;
   private static _preferredColorScheme: PreferredColorScheme = JSON.parse(localStorage.getItem("ITM_PreferredColorScheme") ?? "0") as PreferredColorScheme;
 
   /** BeEvent raised when [[MobileUi.close]] is called. */
@@ -45,7 +44,7 @@ export class MobileUi {
    * @returns The translated string, or key if it is not found.
    */
   public static translate(key: string, options?: any) {
-    return this._i18n.translate(`iTwinMobileUI:${key}`, options);
+    return this._localization.getLocalizedStringWithNamespace("iTwinMobileUI", key, options);
   }
 
   public static set preferredColorScheme(value: PreferredColorScheme) {
@@ -115,12 +114,12 @@ export class MobileUi {
    * This should be done after UiFramework is initialized if the app uses UiFramework. Alternatively,
    * set preferredColorScheme after UiFramework is initialized (even if setting to the default value
    * of Automatic).
-   * @param i18n - The [[I18N]] object (usually from iModelJs).
+   * @param localization - The [[Localization]] object (from iModelJs).
    */
-  public static async initialize(i18n: I18N): Promise<void> {
-    await MobileCore.initialize(i18n);
-    this._i18n = i18n;
-    i18n.registerNamespace("iTwinMobileUI");
+  public static async initialize(localization: Localization): Promise<void> {
+    await MobileCore.initialize(localization);
+    this._localization = localization;
+    localization.registerNamespace("iTwinMobileUI");
     this.setupUIError();
     try {
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", MobileUi._colorSchemeListener);

@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { IconSpec } from "@bentley/ui-core";
+import { IconSpec } from "@itwin/core-react";
 import { IconImage } from "./IconImage";
 import "./CircularButton.scss";
 

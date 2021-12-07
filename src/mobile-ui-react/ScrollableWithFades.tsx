@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { ClassNameProps, getCssVariable } from "@bentley/ui-core";
+import { ColorDef } from "@itwin/core-common";
+import { ClassNameProps, getCssVariable } from "@itwin/core-react";
 import { useScroll, useWindowEvent } from "./MobileUi";
 
 import "./ScrollableWithFades.scss";
-import { ColorDef } from "@bentley/imodeljs-common";
 
 // Note: a VerticalScrollableWithFades may be added in the future, and it would have the same props.
 

@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
+import { CommonProps, getCssVariableAsNumber, UiEvent } from "@itwin/core-react";
 import { Optional } from "@itwin/mobile-sdk-core";
 import { makeRefHandler, MutableHtmlDivRefOrFunction, useUiEvent, useWindowEvent } from "./MobileUi";
 import { PanelHeader, PanelHeaderProps } from "./PanelHeader";

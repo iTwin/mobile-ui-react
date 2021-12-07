@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@bentley/ui-core";
-import { ModalDialogManager } from "@bentley/ui-framework";
+import { CommonProps } from "@itwin/core-react";
+import { ModalDialogManager } from "@itwin/appui-react";
 import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-sdk-core";
 import { CloseButton } from "./NavigationPanel";
 import { MobileUi } from "./MobileUi";
@@ -361,7 +361,7 @@ ModalDialog.run = async (props: ModalDialogRunProps) => {
     onCancel: () => { },
     ...props,
     onOK: async () => {
-      if (!!props.onOK && !await props.onOK())
+      if (!!props.onOK && !(await props.onOK()))
         return false;
       okPressed = true;
       return true;
