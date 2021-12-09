@@ -5,7 +5,8 @@
 import * as React from "react";
 import classnames from "classnames";
 import { DragHandleProps } from "@itwin/appui-layout-react";
-import { CommonProps, getCssVariableAsNumber, Point, PointProps } from "@itwin/core-react";
+import { PointProps } from "@itwin/appui-abstract";
+import { CommonProps, getCssVariableAsNumber, Point } from "@itwin/core-react";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
 import { ReactUseState, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";

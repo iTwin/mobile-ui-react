@@ -119,7 +119,7 @@ export class MobileUi {
   public static async initialize(localization: Localization): Promise<void> {
     await MobileCore.initialize(localization);
     this._localization = localization;
-    localization.registerNamespace("iTwinMobileUI");
+    await localization.registerNamespace("iTwinMobileUI");
     this.setupUIError();
     try {
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", MobileUi._colorSchemeListener);

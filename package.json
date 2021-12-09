@@ -28,14 +28,14 @@
   },
   "eslintConfig": {
     "plugins": [
-      "@bentley"
+      "@itwin"
     ],
     "extends": [
-      "plugin:@bentley/ui",
-      "plugin:@bentley/jsdoc"
+      "plugin:@itwin/ui",
+      "plugin:@itwin/jsdoc"
     ],
     "rules": {
-      "@bentley/no-internal-barrel-imports": "off",
+      "@itwin/no-internal-barrel-imports": "off",
       "jsx-a11y/click-events-have-key-events": "off",
       "jsx-a11y/no-static-element-interactions": "off"
     }
