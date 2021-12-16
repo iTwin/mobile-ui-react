@@ -627,3 +627,16 @@ export function useForceUpdate() {
   const [_value, setValue] = React.useState(0); // integer state
   return () => setValue((valueParam) => valueParam + 1); // update the state to force render
 }
+
+/**
+ * React hook indicating if the active color scheme is dark.
+ * @returns true if the active color scheme is dark, fals otherwise.
+ */
+export function useActiveColorSchemeIsDark() {
+  const [isDark, setIsDark] = React.useState(MobileUi.activeColorSchemeIsDark);
+
+  useBeEvent((newIsDark) => {
+    setIsDark(newIsDark);
+  }, MobileUi.onColorSchemeChanged);
+  return isDark;
+}
