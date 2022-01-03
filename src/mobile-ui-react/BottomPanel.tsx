@@ -52,13 +52,13 @@ export interface BottomPanelOpenCloseArgs {
  */
 export class BottomPanelEvents {
   /** Event that is emitted after a bottom panel has resized */
-  public static readonly onResize = new UiEvent<BottomPanelResizeArgs>();
+  public static readonly onResize = new UiEvent<BottomPanelResizeArgs>(); // eslint-disable-line deprecation/deprecation
   /** Event that is emitted while a bottom panel is resizing */
-  public static readonly onResizing = new UiEvent<BottomPanelResizingArgs>();
+  public static readonly onResizing = new UiEvent<BottomPanelResizingArgs>(); // eslint-disable-line deprecation/deprecation
   /** Event that is emitted when a bottom panel is opened */
-  public static readonly onOpen = new UiEvent<BottomPanelOpenCloseArgs>();
+  public static readonly onOpen = new UiEvent<BottomPanelOpenCloseArgs>(); // eslint-disable-line deprecation/deprecation
   /** Event that is emitted when a bottom panel is closed */
-  public static readonly onClose = new UiEvent<BottomPanelOpenCloseArgs>();
+  public static readonly onClose = new UiEvent<BottomPanelOpenCloseArgs>(); // eslint-disable-line deprecation/deprecation
 }
 
 /** A custom hook function that returns the top of the currently open panel. See [[BottomPanelEvents]] */

@@ -70,6 +70,7 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
+  // eslint-disable-next-line deprecation/deprecation
   private _onSyncUi = (args: SyncUiEventArgs) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);

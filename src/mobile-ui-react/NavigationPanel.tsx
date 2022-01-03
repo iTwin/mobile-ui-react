@@ -159,6 +159,7 @@ export function ConditionalNavigationButton(props: ConditionalNavigationButtonPr
     }
   }, [isVisible, iconSpec]);
 
+  // eslint-disable-next-line deprecation/deprecation
   useSyncUiEvent((args: SyncUiEventArgs) => {
     if (isVisible instanceof ConditionalBooleanValue && ConditionalBooleanValue.refreshValue(isVisible, args.eventIds)) {
       setDisplayed(isVisible.value);

@@ -330,8 +330,10 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
  * @param handler - The callback function.
  * @param eventIds - The optional event ids to handle.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function useSyncUiEvent(handler: (args: SyncUiEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const handleSyncUiEvent = (args: SyncUiEventArgs) => {
       if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
         handler(args);
@@ -361,6 +363,7 @@ export function useBeEvent<T extends Listener>(handler: T, event: BeEvent<T>) {
  * @param handler - The callback function.
  * @param event - The UiEvent to handle.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
   useBeEvent(handler, event);
 }

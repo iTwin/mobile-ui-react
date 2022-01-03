@@ -51,7 +51,7 @@ export function Suggestion(props: SuggestionProps) {
  */
 export interface ToolAssistanceSuggestionProps {
   /** The event that is emitted when the tool assistance instructions are set. */
-  onSetToolAssistance: UiEvent<ToolAssistanceInstructions | undefined>;
+  onSetToolAssistance: UiEvent<ToolAssistanceInstructions | undefined>; // eslint-disable-line deprecation/deprecation
 }
 
 /** A React component that displays the main tool assistance instruction.
