@@ -4,10 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { BackendError, Localization } from "@itwin/core-common";
-import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@itwin/core-react";
-import { ColorTheme, SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
+import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
+import { UiEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
+import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
-import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
+import { AuthStatus, BeEvent, BentleyError, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
@@ -170,7 +171,7 @@ export class MobileUi {
  */
 export function useCssVariable(name: string, htmlElement?: HTMLElement) {
   const [value, setValue] = React.useState(getCssVariable(name, htmlElement));
-  useUiEvent((args) => {
+  useBeUiEvent((args) => {
     if (args.names.has(name) && args.htmlElement === htmlElement) {
       setValue(getCssVariable(name, htmlElement));
     }
@@ -186,7 +187,7 @@ export function useCssVariable(name: string, htmlElement?: HTMLElement) {
  */
 export function useCssVariableAsNumber(name: string, htmlElement?: HTMLElement) {
   const [value, setValue] = React.useState(getCssVariableAsNumber(name, htmlElement));
-  useUiEvent((args) => {
+  useBeUiEvent((args) => {
     if (args.names.has(name) && args.htmlElement === htmlElement) {
       setValue(getCssVariableAsNumber(name, htmlElement));
     }
@@ -243,10 +244,14 @@ export const useMediaQuery = (query: string) => {
 
   React.useEffect(() => {
     const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
-    // NOTE: addEventListener wasn't supported for MediaMatch until iOS 14. :-(
-    // The fact that the tools consider it to be deprecated is a MASSIVE BUG in the tools.
-    mediaMatch.addListener(listener); // eslint-disable-line deprecation/deprecation
-    return () => mediaMatch.removeListener(listener); // eslint-disable-line deprecation/deprecation
+    try {
+      mediaMatch.addEventListener("change", listener);
+      return () => mediaMatch.removeEventListener("change", listener);
+    } catch (e) {
+      // Safari didn't support the above BASIC functionality until version 14.
+      mediaMatch.addListener(listener); // eslint-disable-line deprecation/deprecation
+      return () => mediaMatch.removeListener(listener); // eslint-disable-line deprecation/deprecation
+    }
   });
   return matches;
 };
@@ -326,15 +331,13 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
   return false;
 }
 
-/** A custom React hook function for SyncUiEvents.
+/** A custom React hook function for UiSyncEvents.
  * @param handler - The callback function.
  * @param eventIds - The optional event ids to handle.
  */
-// eslint-disable-next-line deprecation/deprecation
-export function useSyncUiEvent(handler: (args: SyncUiEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
+export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs) => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
         handler(args);
       }
@@ -359,13 +362,21 @@ export function useBeEvent<T extends Listener>(handler: T, event: BeEvent<T>) {
   }, [event, handler]);
 }
 
-/** A custom React hook function for UiEvents.
+/** A custom React hook function for BeUiEvents.
  * @param handler - The callback function.
- * @param event - The UiEvent to handle.
+ * @param event - The BeUiEvent to handle.
  */
-// eslint-disable-next-line deprecation/deprecation
-export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
+export function useBeUiEvent<T>(handler: (args: T) => void, event: BeUiEvent<T>) {
   useBeEvent(handler, event);
+}
+
+/** A custom React hook function for UiEvents.
+ * Note: UiEvent should generally be avoided, since it adds nothing to BeUiEvent.
+ * @param handler - The callback function.
+ * @param event - The BeUiEvent to handle.
+ */
+export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
+  useBeUiEvent(handler, event);
 }
 
 /** A custom React hook function for using the active tool id.

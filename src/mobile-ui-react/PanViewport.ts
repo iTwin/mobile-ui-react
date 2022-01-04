@@ -4,7 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import { Point3d, SmoothTransformBetweenFrusta, Transform } from "@itwin/core-geometry";
 import { Easing, Frustum, Tweens } from "@itwin/core-common";
-import { SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
+import { UiSyncEventArgs } from "@itwin/appui-abstract";
+import { SessionStateActionId, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
 import { Animator, IModelApp, ScreenViewport, ViewAnimationOptions } from "@itwin/core-frontend";
 
 /**
@@ -70,8 +71,7 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
-  private _onSyncUi = (args: SyncUiEventArgs) => {
+  private _onSyncUi = (args: UiSyncEventArgs) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;
