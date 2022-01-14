@@ -4,9 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { ClassNameProps, CommonProps, IconSpec } from "@bentley/ui-core";
-import { ConditionalBooleanValue, ConditionalStringValue } from "@bentley/ui-abstract";
-import { SyncUiEventArgs } from "@bentley/ui-framework";
+import { ClassNameProps, CommonProps, IconSpec } from "@itwin/core-react";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconImage } from "./IconImage";
 import { useSyncUiEvent } from "./MobileUi";
 import "./NavigationPanel.scss";
@@ -159,7 +158,7 @@ export function ConditionalNavigationButton(props: ConditionalNavigationButtonPr
     }
   }, [isVisible, iconSpec]);
 
-  useSyncUiEvent((args: SyncUiEventArgs) => {
+  useSyncUiEvent((args) => {
     if (isVisible instanceof ConditionalBooleanValue && ConditionalBooleanValue.refreshValue(isVisible, args.eventIds)) {
       setDisplayed(isVisible.value);
     }

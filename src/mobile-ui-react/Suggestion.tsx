@@ -4,10 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { getCssVariableAsNumber, UiEvent, useOnOutsideClick } from "@bentley/ui-core";
-import { ToolAssistanceInstructions } from "@bentley/imodeljs-frontend";
+import { BeUiEvent } from "@itwin/core-bentley";
+import { getCssVariableAsNumber, useOnOutsideClick } from "@itwin/core-react";
+import { ToolAssistanceInstructions } from "@itwin/core-frontend";
 import { IconImage } from "./IconImage";
-import { useUiEvent } from "./MobileUi";
+import { useBeUiEvent } from "./MobileUi";
 import "./Suggestion.scss";
 
 /** Properties for the [[Suggestion]] component.
@@ -51,7 +52,7 @@ export function Suggestion(props: SuggestionProps) {
  */
 export interface ToolAssistanceSuggestionProps {
   /** The event that is emitted when the tool assistance instructions are set. */
-  onSetToolAssistance: UiEvent<ToolAssistanceInstructions | undefined>;
+  onSetToolAssistance: BeUiEvent<ToolAssistanceInstructions | undefined>;
 }
 
 /** A React component that displays the main tool assistance instruction.
@@ -61,7 +62,7 @@ export function ToolAssistanceSuggestion(props: ToolAssistanceSuggestionProps) {
   const [mainInstruction, setMainInstruction] = React.useState("");
   const [labelVisible, setLabelVisible] = React.useState(true);
 
-  useUiEvent((instr: ToolAssistanceInstructions | undefined) => {
+  useBeUiEvent((instr: ToolAssistanceInstructions | undefined) => {
     if (instr) {
       if (mainInstruction !== instr.mainInstruction.text) {
         setMainInstruction(instr.mainInstruction.text);

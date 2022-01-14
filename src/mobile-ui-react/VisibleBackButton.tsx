@@ -5,7 +5,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import classnames from "classnames";
-import { IconSpec } from "@bentley/ui-core";
+import { IconSpec } from "@itwin/core-react";
 import { NavigationButton, NavigationButtonProps } from "./NavigationPanel";
 import "./VisibleBackButton.scss";
 

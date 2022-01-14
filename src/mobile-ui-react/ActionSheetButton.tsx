@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { CommonProps, IconSpec } from "@bentley/ui-core";
+import { CommonProps, IconSpec } from "@itwin/core-react";
 import { ActionSheetProps, presentActionSheet } from "@itwin/mobile-sdk-core";
 import { NavigationButton } from "./NavigationPanel";
 

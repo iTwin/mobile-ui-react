@@ -2,23 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import {
-  Point3d,
-  SmoothTransformBetweenFrusta,
-  Transform,
-} from "@bentley/geometry-core";
-import {
-  Easing,
-  Frustum,
-  Tweens,
-} from "@bentley/imodeljs-common";
-import { SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, UiFramework } from "@bentley/ui-framework";
-import {
-  Animator,
-  IModelApp,
-  ScreenViewport,
-  ViewAnimationOptions,
-} from "@bentley/imodeljs-frontend";
+import { Point3d, SmoothTransformBetweenFrusta, Transform } from "@itwin/core-geometry";
+import { Easing, Frustum, Tweens } from "@itwin/core-common";
+import { UiSyncEventArgs } from "@itwin/appui-abstract";
+import { SessionStateActionId, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
+import { Animator, IModelApp, ScreenViewport, ViewAnimationOptions } from "@itwin/core-frontend";
 
 /**
  * Custom animator to animate the 8 corners of a view frustum change.
@@ -83,7 +71,7 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
-  private _onSyncUi = (args: SyncUiEventArgs) => {
+  private _onSyncUi = (args: UiSyncEventArgs) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;
@@ -93,12 +81,12 @@ export class PanTracker {
         let vpFound = false;
         if (IModelApp.viewManager.getFirstOpenView()) {
           // I don't think it's possible to get here, but just in case, do the right thing.
-          IModelApp.viewManager.forEachViewport((vp) => { // eslint-disable-line deprecation/deprecation
+          for (const vp of IModelApp.viewManager) {
             if (vp.parentDiv?.id === this._vpParentDivId) {
               panViewportTo(vp, nextX, nextY);
               vpFound = true;
             }
-          });
+          }
         }
         if (!vpFound) {
           // It's expected that when an iModel is opened, there isn't yet a viewport for it to display into. So store

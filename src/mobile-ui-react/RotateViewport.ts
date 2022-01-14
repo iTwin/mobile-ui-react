@@ -2,15 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { Angle, AxisIndex, Geometry, Matrix3d, Vector3d } from "@bentley/geometry-core";
-import { IModelApp } from "@bentley/imodeljs-frontend";
-import {
-  CubeNavigationHitBoxX,
-  CubeNavigationHitBoxY,
-  CubeNavigationHitBoxZ,
-  ViewportComponentEvents,
-} from "@bentley/ui-components";
-import { Face } from "@bentley/ui-core";
+import { Angle, AxisIndex, Geometry, Matrix3d, Vector3d } from "@itwin/core-geometry";
+import { IModelApp } from "@itwin/core-frontend";
+import { CubeNavigationHitBoxX, CubeNavigationHitBoxY, CubeNavigationHitBoxZ, Face, ViewportComponentEvents } from "@itwin/imodel-components-react";
 
 // NOTE: most of the code in this file was adapted from the following file in the imodeljs repository:
 // ui/components/src/ui-components/navigationaids/CubeNavigationAid.tsx

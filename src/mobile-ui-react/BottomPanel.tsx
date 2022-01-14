@@ -4,9 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
+import { BeUiEvent } from "@itwin/core-bentley";
+import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
 import { Optional } from "@itwin/mobile-sdk-core";
-import { makeRefHandler, MutableHtmlDivRefOrFunction, useUiEvent, useWindowEvent } from "./MobileUi";
+import { makeRefHandler, MutableHtmlDivRefOrFunction, useBeUiEvent, useWindowEvent } from "./MobileUi";
 import { PanelHeader, PanelHeaderProps } from "./PanelHeader";
 import { ResizablePanel, ResizablePanelProps } from "./ResizablePanel";
 import "./BottomPanel.scss";
@@ -52,28 +53,28 @@ export interface BottomPanelOpenCloseArgs {
  */
 export class BottomPanelEvents {
   /** Event that is emitted after a bottom panel has resized */
-  public static readonly onResize = new UiEvent<BottomPanelResizeArgs>();
+  public static readonly onResize = new BeUiEvent<BottomPanelResizeArgs>();
   /** Event that is emitted while a bottom panel is resizing */
-  public static readonly onResizing = new UiEvent<BottomPanelResizingArgs>();
+  public static readonly onResizing = new BeUiEvent<BottomPanelResizingArgs>();
   /** Event that is emitted when a bottom panel is opened */
-  public static readonly onOpen = new UiEvent<BottomPanelOpenCloseArgs>();
+  public static readonly onOpen = new BeUiEvent<BottomPanelOpenCloseArgs>();
   /** Event that is emitted when a bottom panel is closed */
-  public static readonly onClose = new UiEvent<BottomPanelOpenCloseArgs>();
+  public static readonly onClose = new BeUiEvent<BottomPanelOpenCloseArgs>();
 }
 
 /** A custom hook function that returns the top of the currently open panel. See [[BottomPanelEvents]] */
 export function useBottomPanelTop() {
   const [top, setTop] = React.useState<number>();
 
-  useUiEvent((args: BottomPanelResizeArgs) => {
+  useBeUiEvent((args: BottomPanelResizeArgs) => {
     setTop(args.top);
   }, BottomPanelEvents.onResize);
 
-  useUiEvent((args: BottomPanelOpenCloseArgs) => {
+  useBeUiEvent((args: BottomPanelOpenCloseArgs) => {
     setTop(args.top);
   }, BottomPanelEvents.onOpen);
 
-  useUiEvent((_args: BottomPanelOpenCloseArgs) => {
+  useBeUiEvent((_args: BottomPanelOpenCloseArgs) => {
     setTop(undefined);
   }, BottomPanelEvents.onClose);
 

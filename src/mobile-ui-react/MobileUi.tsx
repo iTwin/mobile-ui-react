@@ -3,12 +3,12 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { I18N } from "@bentley/imodeljs-i18n";
-import { BackendError } from "@bentley/imodeljs-common";
-import { getCssVariable, getCssVariableAsNumber, UiEvent } from "@bentley/ui-core";
-import { ColorTheme, SessionStateActionId, SyncUiEventArgs, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@bentley/ui-framework";
-import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@bentley/imodeljs-frontend";
-import { AuthStatus, BeEvent, BentleyError, BriefcaseStatus, Id64Set, Listener } from "@bentley/bentleyjs-core";
+import { BackendError, Localization } from "@itwin/core-common";
+import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
+import { UiEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
+import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
+import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
+import { AuthStatus, BeEvent, BentleyError, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
@@ -31,7 +31,7 @@ export enum PreferredColorScheme {
 
 /** Class for top-level MobileUi functionality. */
 export class MobileUi {
-  private static _i18n: I18N;
+  private static _localization: Localization;
   private static _preferredColorScheme: PreferredColorScheme = JSON.parse(localStorage.getItem("ITM_PreferredColorScheme") ?? "0") as PreferredColorScheme;
 
   /** BeEvent raised when [[MobileUi.close]] is called. */
@@ -45,7 +45,7 @@ export class MobileUi {
    * @returns The translated string, or key if it is not found.
    */
   public static translate(key: string, options?: any) {
-    return this._i18n.translate(`iTwinMobileUI:${key}`, options);
+    return this._localization.getLocalizedStringWithNamespace("iTwinMobileUI", key, options);
   }
 
   public static set preferredColorScheme(value: PreferredColorScheme) {
@@ -115,12 +115,12 @@ export class MobileUi {
    * This should be done after UiFramework is initialized if the app uses UiFramework. Alternatively,
    * set preferredColorScheme after UiFramework is initialized (even if setting to the default value
    * of Automatic).
-   * @param i18n - The [[I18N]] object (usually from iModelJs).
+   * @param localization - The [[Localization]] object (from iModelJs).
    */
-  public static async initialize(i18n: I18N): Promise<void> {
-    await MobileCore.initialize(i18n);
-    this._i18n = i18n;
-    i18n.registerNamespace("iTwinMobileUI");
+  public static async initialize(localization: Localization): Promise<void> {
+    await MobileCore.initialize(localization);
+    this._localization = localization;
+    await localization.registerNamespace("iTwinMobileUI");
     this.setupUIError();
     try {
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", MobileUi._colorSchemeListener);
@@ -171,7 +171,7 @@ export class MobileUi {
  */
 export function useCssVariable(name: string, htmlElement?: HTMLElement) {
   const [value, setValue] = React.useState(getCssVariable(name, htmlElement));
-  useUiEvent((args) => {
+  useBeUiEvent((args) => {
     if (args.names.has(name) && args.htmlElement === htmlElement) {
       setValue(getCssVariable(name, htmlElement));
     }
@@ -187,7 +187,7 @@ export function useCssVariable(name: string, htmlElement?: HTMLElement) {
  */
 export function useCssVariableAsNumber(name: string, htmlElement?: HTMLElement) {
   const [value, setValue] = React.useState(getCssVariableAsNumber(name, htmlElement));
-  useUiEvent((args) => {
+  useBeUiEvent((args) => {
     if (args.names.has(name) && args.htmlElement === htmlElement) {
       setValue(getCssVariableAsNumber(name, htmlElement));
     }
@@ -244,10 +244,14 @@ export const useMediaQuery = (query: string) => {
 
   React.useEffect(() => {
     const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
-    // NOTE: addEventListener wasn't supported for MediaMatch until iOS 14. :-(
-    // The fact that the tools consider it to be deprecated is a MASSIVE BUG in the tools.
-    mediaMatch.addListener(listener); // eslint-disable-line deprecation/deprecation
-    return () => mediaMatch.removeListener(listener); // eslint-disable-line deprecation/deprecation
+    try {
+      mediaMatch.addEventListener("change", listener);
+      return () => mediaMatch.removeEventListener("change", listener);
+    } catch (e) {
+      // Safari didn't support the above BASIC functionality until version 14.
+      mediaMatch.addListener(listener); // eslint-disable-line deprecation/deprecation
+      return () => mediaMatch.removeListener(listener); // eslint-disable-line deprecation/deprecation
+    }
   });
   return matches;
 };
@@ -327,13 +331,13 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
   return false;
 }
 
-/** A custom React hook function for SyncUiEvents.
+/** A custom React hook function for UiSyncEvents.
  * @param handler - The callback function.
  * @param eventIds - The optional event ids to handle.
  */
-export function useSyncUiEvent(handler: (args: SyncUiEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
+export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
   React.useEffect(() => {
-    const handleSyncUiEvent = (args: SyncUiEventArgs) => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
         handler(args);
       }
@@ -358,12 +362,21 @@ export function useBeEvent<T extends Listener>(handler: T, event: BeEvent<T>) {
   }, [event, handler]);
 }
 
-/** A custom React hook function for UiEvents.
+/** A custom React hook function for BeUiEvents.
  * @param handler - The callback function.
- * @param event - The UiEvent to handle.
+ * @param event - The BeUiEvent to handle.
+ */
+export function useBeUiEvent<T>(handler: (args: T) => void, event: BeUiEvent<T>) {
+  useBeEvent(handler, event);
+}
+
+/** A custom React hook function for UiEvents.
+ * Note: UiEvent should generally be avoided, since it adds nothing to BeUiEvent.
+ * @param handler - The callback function.
+ * @param event - The BeUiEvent to handle.
  */
 export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
-  useBeEvent(handler, event);
+  useBeUiEvent(handler, event);
 }
 
 /** A custom React hook function for using the active tool id.
@@ -627,4 +640,17 @@ export function makeRefHandler<T>(ref: MutableRefOrFunction<T>, mutableRef?: Rea
 export function useForceUpdate() {
   const [_value, setValue] = React.useState(0); // integer state
   return () => setValue((valueParam) => valueParam + 1); // update the state to force render
+}
+
+/**
+ * React hook indicating if the active color scheme is dark.
+ * @returns true if the active color scheme is dark, fals otherwise.
+ */
+export function useActiveColorSchemeIsDark() {
+  const [isDark, setIsDark] = React.useState(MobileUi.activeColorSchemeIsDark);
+
+  useBeEvent((newIsDark) => {
+    setIsDark(newIsDark);
+  }, MobileUi.onColorSchemeChanged);
+  return isDark;
 }

@@ -260,3 +260,16 @@ html {
     }
   }
 }
+
+// The iui-body class gets assigned to the body element, and sets line-height to 22px.
+// This prevents correct layout of ALL text that isn't the default font size. The below
+// settings provide a better result. They are based on the discussion in the following
+// web page:
+// https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/
+.iui-body {
+  line-height: calc(6px + 1em);
+}
+
+.iui-body * {
+  line-height: calc(6px + 1em);
+}
