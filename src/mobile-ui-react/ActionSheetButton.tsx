@@ -7,8 +7,6 @@ import { CommonProps, IconSpec } from "@itwin/core-react";
 import { ActionSheetProps, presentActionSheet } from "@itwin/mobile-sdk-core";
 import { NavigationButton } from "./NavigationPanel";
 
-import { MeatballVerticalFill as MoreSvg } from "./images-tsx";
-
 /** Properties for [[ActionSheeButton]]
  * @public
  */
@@ -52,6 +50,10 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
     const onClick = async (event: React.MouseEvent) => {
       return ActionSheetButton.onClick(this.props, event);
     };
+    let actualIconSize = iconSize;
+    if (this.props.iconSize === undefined && this.props.iconSpec === undefined) {
+      actualIconSize = "16px";
+    }
     return (
       <NavigationButton
         className={this.props.className}
@@ -61,8 +63,8 @@ export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
         size={size}
         width={width}
         height={height}
-        iconSpec={iconSpec || <MoreSvg />}
-        iconSize={iconSize}
+        iconSpec={iconSpec || "icon-more-vertical-2"}
+        iconSize={actualIconSize}
       />
     );
   }
