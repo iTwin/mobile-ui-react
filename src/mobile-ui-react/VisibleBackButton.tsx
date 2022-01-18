@@ -59,5 +59,5 @@ export function VisibleBackButton(props: VisibleBackButtonProps) {
  */
 export function BackButton(props: Omit<NavigationButtonProps, "iconSpec">) {
   const { strokeWidth = "3px", ...otherProps } = props;
-  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<BackSvg />} {...otherProps} />;
+  return <NavigationButton strokeWidth={strokeWidth} iconSpec={<BackSvg width="24px" height="24px"/>} {...otherProps} />;
 }
