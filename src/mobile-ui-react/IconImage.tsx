@@ -44,10 +44,9 @@ export function IconImage(props: IconImageProps) {
   if (props.margin !== undefined) {
     divStyle.margin = props.margin!;
   }
-  const icon = React.isValidElement(props.iconSpec) ? props.iconSpec : <Icon iconSpec={props.iconSpec} />;
   return (
     <div id={props.id} className="mui-icon-image" style={divStyle}>
-      {icon}
+      <Icon iconSpec={props.iconSpec} />
     </div>
   );
 }

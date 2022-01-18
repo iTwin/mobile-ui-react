@@ -14,5 +14,10 @@
     // need to set height and width to 100% so the icon can get larger than the size set by ui-core
     width: 100%;
     height: 100%;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
