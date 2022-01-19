@@ -15,8 +15,8 @@
   -webkit-backdrop-filter: blur(var(--bottom-panel-blur));
   backdrop-filter: blur(var(--bottom-panel-blur));
   box-sizing: border-box;
-  padding-right: var(--mui-safe-area-right);
-  padding-left: var(--mui-safe-area-left);
+  padding-right: var(--itm-safe-area-right);
+  padding-left: var(--itm-safe-area-left);
 }
 
 .mui-bottom-panel-shadow {
@@ -36,10 +36,10 @@
 .mui-bottom-panel {
   pointer-events: auto;
   min-height: 40px;
-  max-height: calc(100vh - var(--mui-safe-area-top) - var(--mui-safe-area-bottom) - 100px);
+  max-height: calc(100vh - var(--itm-safe-area-top) - var(--itm-safe-area-bottom) - 100px);
   width: 100%;
   left: 0px;
-  bottom: calc(var(--mui-tab-bar-height) + var(--mui-safe-area-bottom));
+  bottom: calc(var(--mui-tab-bar-height) + var(--itm-safe-area-bottom));
   position: absolute;
   background-color: transparent;
 
@@ -61,7 +61,7 @@
 }
 
 .mui-bottom-panel-overlay {
-  max-height: calc(100vh - var(--mui-safe-area-top) - var(--mui-safe-area-bottom) - 60px);
+  max-height: calc(100vh - var(--itm-safe-area-top) - var(--itm-safe-area-bottom) - 60px);
   z-index: 120;
   bottom: 0;
   
@@ -71,7 +71,7 @@
       content: "";
       display: block;
       width: 100%;
-      height: var(--mui-safe-area-bottom);
+      height: var(--itm-safe-area-bottom);
       background-color: transparent;
     }
   }

@@ -27,14 +27,14 @@
   // know why this is the case.
   display: flex;
   box-sizing: border-box;
-  padding-top: calc(10px + var(--mui-safe-area-top));
-  padding-right: calc(10px + var(--mui-safe-area-right));
-  padding-bottom: calc(10px + var(--mui-safe-area-bottom));
-  padding-left: calc(10px + var(--mui-safe-area-left));
+  padding-top: calc(10px + var(--itm-safe-area-top));
+  padding-right: calc(10px + var(--itm-safe-area-right));
+  padding-bottom: calc(10px + var(--itm-safe-area-bottom));
+  padding-left: calc(10px + var(--itm-safe-area-left));
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   transition-property: height;
-  transition-duration: var(--mui-keyboard-animation-duration);
+  transition-duration: var(--itm-keyboard-animation-duration);
   transition-timing-function: ease-out;
 }
 

@@ -90,7 +90,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
    * - window.outerHeight - 100 (100 less than the overall window height)
    */
   const updateMaxHeight = React.useCallback((newMaxHeight: number) => {
-    const safeAreaOffsets = getCssVariableAsNumber("--mui-safe-area-top") + getCssVariableAsNumber("--mui-safe-area-bottom");
+    const safeAreaOffsets = getCssVariableAsNumber("--itm-safe-area-top") + getCssVariableAsNumber("--itm-safe-area-bottom");
     let newVal = window.outerHeight - 100 - safeAreaOffsets;
     if (!props.heightCanExceedContents)
       newVal = Math.min(newMaxHeight, newVal);
@@ -127,7 +127,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
   }, [divRef, minInitialHeight, maxInitialHeight, initialMaxHeightSet, updateMaxHeight, props.heightCanExceedContents, setHeightAndCallOnResized]);
 
   const onWindowResize = React.useCallback(() => {
-    const safeAreaOffsets = getCssVariableAsNumber("--mui-safe-area-top") + getCssVariableAsNumber("--mui-safe-area-bottom");
+    const safeAreaOffsets = getCssVariableAsNumber("--itm-safe-area-top") + getCssVariableAsNumber("--itm-safe-area-bottom");
     const newMaxHeight = window.outerHeight - 100 - safeAreaOffsets;
     if (maxHeight !== undefined && maxHeight > newMaxHeight)
       setMaxHeight(newMaxHeight);

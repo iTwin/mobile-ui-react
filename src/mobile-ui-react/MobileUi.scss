@@ -7,20 +7,7 @@
 $max-small-screen-size: 600px;
 
 :root {
-  --mui-keyboard-height: 0px;
-  --mui-keyboard-effective-height: 0px;
-  --mui-keyboard-animation-duration: .25s;
   --mui-fade-duration: .5s;
-  /* Safe Area */
-  --mui-safe-area-top: constant(safe-area-inset-top);
-  --mui-safe-area-top: env(safe-area-inset-top);
-  --mui-safe-area-left: constant(safe-area-inset-left);
-  --mui-safe-area-left: env(safe-area-inset-left);
-  --mui-safe-area-bottom: constant(safe-area-inset-bottom);
-  --mui-safe-area-bottom: env(safe-area-inset-bottom);
-  --mui-safe-area-right: constant(safe-area-inset-right);
-  --mui-safe-area-right: env(safe-area-inset-right);
-  --mui-safe-area-bottom-over-keyboard: var(--mui-safe-area-bottom);
   /* Named colors */
   --muic-gray-1-rgb: 7,8,9;
   --muic-gray-2-rgb: 42,47,52;
@@ -178,7 +165,7 @@ html {
   z-index: 1;
   left: 0px;
   // we need the gradient to extend into the left/right safe areas
-  margin-left: calc(0px - var(--mui-safe-area-left));
+  margin-left: calc(0px - var(--itm-safe-area-left));
   width: 100vw;
   height: 20px;
   &::after {
@@ -199,8 +186,8 @@ html {
 // Adjust position of the imodeljs icon to be outside of any safe areas and above the active tab bar (if one exists). 
 // The TabBar component sets --mui-current-tab-bar-height to the proper value when it is visible.
 .imodeljs-icon {
-  bottom: calc(var(--mui-current-tab-bar-height) + var(--mui-safe-area-bottom) + 8px);
-  left: calc(var(--mui-safe-area-left) + 8px);
+  bottom: calc(var(--mui-current-tab-bar-height) + var(--itm-safe-area-bottom) + 8px);
+  left: calc(var(--itm-safe-area-left) + 8px);
 }
 
 // Sometimes when entering a nested frontstage on a phone, the icon would be in the hover state. 
@@ -225,8 +212,8 @@ html {
 .imodeljs-modal-overlay .imodeljs-modal {
   width: unset !important; // resets the width hard-coded by iModelJs
   // The dialog is centered on the screen so determine uniform left/right and top/bottom insets
-  --width-border: max(var(--mui-safe-area-left), var(--mui-safe-area-right), 16px);
-  --height-border: max(var(--mui-safe-area-top), var(--mui-safe-area-bottom), 16px);
+  --width-border: max(var(--itm-safe-area-left), var(--itm-safe-area-right), 16px);
+  --height-border: max(var(--itm-safe-area-top), var(--itm-safe-area-bottom), 16px);
   // Don't go wider than 460px (the hard-coded width set by iModelJs code)
   // The SCSS compiler has a bug that causes it to not allow min/max calls with differing units (pixels and percent,
   // for example). By storing the min() call in a variable, it avoids that bug.

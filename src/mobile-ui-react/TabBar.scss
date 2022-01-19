@@ -10,7 +10,7 @@
 
 .mui-tab-bar {
   background: var(--muic-background-tab-bar);
-  height: calc(var(--mui-tab-bar-height) + var(--mui-safe-area-bottom));
+  height: calc(var(--mui-tab-bar-height) + var(--itm-safe-area-bottom));
   width: 100%;
   box-sizing: border-box;
   position: absolute;
@@ -23,9 +23,9 @@
   display: flex;
   pointer-events: auto;
   overflow-y: hidden;
-  padding-right: var(--mui-safe-area-bottom);
-  padding-right: var(--mui-safe-area-right);
-  padding-left: var(--mui-safe-area-left);
+  padding-right: var(--itm-safe-area-bottom);
+  padding-right: var(--itm-safe-area-right);
+  padding-left: var(--itm-safe-area-left);
 }
 
 .mui-tab-spacer {
