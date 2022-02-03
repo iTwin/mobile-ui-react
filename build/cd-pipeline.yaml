@@ -33,4 +33,4 @@ stages:
       parameters:
         path: itwin-mobile-ui-react-$(version).tgz
         artifactName: tarball
-        releaseTag: next
+        releaseTag: latest
