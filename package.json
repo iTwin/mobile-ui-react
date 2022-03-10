@@ -48,7 +48,7 @@
     "@bentley/ui-framework": "2.19.33",
     "@bentley/ui-ninezone": "2.19.33",
     "@bentley/webgl-compatibility": "2.19.33",
-    "@itwin/mobile-sdk-core": "0.9.11",
+    "@itwin/mobile-sdk-core": "0.9.12",
     "classnames": "^2.2.6",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
