@@ -110,19 +110,24 @@ export function ResizablePanel(props: ResizablePanelProps) {
 
   /** Sets the maxHeight when initially loaded based on minInitialHeight and maxInitialHeight. */
   React.useEffect(() => {
-    if (divRef.current && !initialMaxHeightSet) {
-      setInitialMaxHeightSet(true);
-      let currHeight = divRef.current.clientHeight;
-      if (maxInitialHeight && currHeight > maxInitialHeight) {
-        currHeight = maxInitialHeight;
-      } else if (minInitialHeight && currHeight < minInitialHeight) {
-        currHeight = minInitialHeight;
-        if (props.heightCanExceedContents) {
-          setHeightAndCallOnResized(currHeight);
+    // This setTimeout wrapper was requested by Synchro Field as on Android sometimes this effect was triggered too soon resulting in their Properties
+    // panel not being resizable. Delaying the code slightly seems to fix it. Normally we'd need to ensure the component is still mounted when the
+    // timeout code runs, but this is already guarded against by ensuring divRef.current is truthy.
+    setTimeout(() => {
+      if (divRef.current && !initialMaxHeightSet) {
+        setInitialMaxHeightSet(true);
+        let currHeight = divRef.current.clientHeight;
+        if (maxInitialHeight && currHeight > maxInitialHeight) {
+          currHeight = maxInitialHeight;
+        } else if (minInitialHeight && currHeight < minInitialHeight) {
+          currHeight = minInitialHeight;
+          if (props.heightCanExceedContents) {
+            setHeightAndCallOnResized(currHeight);
+          }
         }
+        updateMaxHeight(currHeight);
       }
-      updateMaxHeight(currHeight);
-    }
+    }, 0);
   }, [divRef, minInitialHeight, maxInitialHeight, initialMaxHeightSet, updateMaxHeight, props.heightCanExceedContents, setHeightAndCallOnResized]);
 
   const onWindowResize = React.useCallback(() => {
