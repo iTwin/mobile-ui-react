@@ -6,9 +6,9 @@ stages:
 
 - stage: PublishUiReactNpmjs
   displayName: Publish mobile-ui-react to Npmjs
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.Build.outputs['Build.checkPublish.canPublish'], 'true'), eq(variables['shouldPublish'], 'true'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(dependencies.BuildUiReact.outputs['Build.checkPublish.shouldPublish'], 'true'), eq(variables['performingRelease'], 'true'))
   variables:
-    version: $[ stageDependencies.Build.Build.outputs['checkPublish.version'] ]
+    version: $[ stageDependencies.BuildUiReact.Build.outputs['checkPublish.version'] ]
 
   jobs:
     - template: templates/npmjs-publish-deployment.yaml@build-pipeline-scripts
