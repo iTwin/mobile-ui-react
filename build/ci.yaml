@@ -62,8 +62,7 @@ jobs:
       condition: and(succeeded(), eq(variables['checkPublish.shouldPublish'], 'true'))
       displayName: npm pack
       workingDirectory: $(Build.SourcesDirectory)/mobile-ui-react
-    - publish: itwin-mobile-ui-react-$(checkPublish.version).tgz
+    - publish: $(Build.SourcesDirectory)/mobile-ui-react/itwin-mobile-ui-react-$(checkPublish.version).tgz
       artifact: tarball
       displayName: Publish packed file
-      workingDirectory: $(Build.SourcesDirectory)/mobile-ui-react
       condition: and(succeeded(), eq(variables['checkPublish.shouldPublish'], 'true'))
