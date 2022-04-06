@@ -13,6 +13,6 @@ stages:
   jobs:
     - template: templates/npmjs-publish-deployment.yaml@build-pipeline-scripts
       parameters:
-        path: mobile-ui-react/itwin-mobile-ui-react-$(version).tgz
+        path: itwin-mobile-ui-react-$(version).tgz
         artifactName: tarball
         releaseTag: latest
