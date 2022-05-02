@@ -5,8 +5,8 @@
 import * as React from "react";
 import classnames from "classnames";
 import { DragHandleProps } from "@itwin/appui-layout-react";
-import { PointProps } from "@itwin/appui-abstract";
-import { CommonProps, getCssVariableAsNumber, Point } from "@itwin/core-react";
+import { Point2d, XAndY } from "@itwin/core-geometry";
+import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
 import { ReactUseState, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
@@ -261,7 +261,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
     <>
       <div className={classnames("mui-resizable-panel", className, flickingUp && "mui-panel-animate-height")} ref={divRef} style={{ ...otherStyles, height, minHeight, maxHeight }}>
         <VerticalDragHandle onDragStart={onDragStart} onDrag={onDrag} onDragEnd={onDragEnd} />
-        {header && React.cloneElement(header, { onDragStart, onDrag: (dragged: PointProps) => onDrag(dragged.y), onDragEnd })}
+        {header && React.cloneElement(header, { onDragStart, onDrag: (dragged: XAndY) => onDrag(dragged.y), onDragEnd })}
         {children}
       </div>
       {/* with a short distance flick up on the Views panel a click would sometimes occur, this div will receive the click and do nothing */}
@@ -277,10 +277,10 @@ interface VerticalDragHandleProps {
 }
 
 function VerticalDragHandle(props: VerticalDragHandleProps) {
-  const onDragStart = (initialPosition: PointProps) => {
+  const onDragStart = (initialPosition: XAndY) => {
     props.onDragStart?.(initialPosition.y);
   };
-  const onDrag = (dragged: PointProps) => {
+  const onDrag = (dragged: XAndY) => {
     props.onDrag?.(dragged.y);
   };
   return <DraggableComponent className="mui-drag-container" onDragStart={onDragStart} onDrag={onDrag} onDragEnd={props.onDragEnd}>
@@ -295,11 +295,11 @@ export interface DraggableComponentCallbackProps {
   /** Called when dragging starts.
    * @param initialPosition - The x,y of the drag point.
    */
-  onDragStart?: (initialPosition: PointProps) => void;
+  onDragStart?: (initialPosition: XAndY) => void;
   /** Called while dragging.
    * @param dragged - The x,y of the current drag point.
    */
-  onDrag?: (dragged: PointProps) => void;
+  onDrag?: (dragged: XAndY) => void;
   /** Called when dragging ends. */
   onDragEnd?: () => void;
 }
@@ -314,12 +314,12 @@ export interface DraggableComponentProps extends DraggableComponentCallbackProps
 
 /** A React component that is draggable. */
 export function DraggableComponent(props: DraggableComponentProps) {
-  const [lastPosition, setLastPosition] = React.useState<PointProps | undefined>(undefined);
-  const onDragStart = (initialPosition: PointProps) => {
+  const [lastPosition, setLastPosition] = React.useState<XAndY | undefined>(undefined);
+  const onDragStart = (initialPosition: XAndY) => {
     setLastPosition(initialPosition);
     props.onDragStart?.(initialPosition);
   };
-  const onDrag = (dragged: PointProps) => {
+  const onDrag = (dragged: XAndY) => {
     props.onDrag?.(dragged);
   };
   const onDragEnd = () => {
@@ -403,7 +403,7 @@ type TouchDragHandleProps = Omit<DragHandleProps, "onClick">;
 
 // A copy of the DragHandle class that uses TouchCaptor instead of PointerCaptor and only allows single touches during drags.
 class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDragHandleState> {
-  private _initial: Point | undefined = undefined;
+  private _initial: XAndY | undefined = undefined;
   // private _isDragged = false;
 
   public override readonly state: TouchDragHandleState = {
@@ -438,23 +438,23 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
     // this._isDragged = false;
     const touch = e.touches[0];
 
-    this._initial = new Point(touch.clientX, touch.clientY);
+    this._initial = {x: touch.clientX, y: touch.clientY};
   };
 
   private _handlePointerMove = (e: TouchEvent) => {
     if (e.touches.length !== 1)
       return;
     const touch = e.touches[0];
-    const current = new Point(touch.clientX, touch.clientY);
+    const current = new Point2d(touch.clientX, touch.clientY);
     if (this.props.lastPosition) {
-      const dragged = Point.create(this.props.lastPosition).getOffsetTo(current);
-      this.props.onDrag && this.props.onDrag(dragged);
+      const dragged = current.minus(this.props.lastPosition);
+      this.props.onDrag?.(dragged);
       return;
     }
 
-    if (this._initial && current.getDistanceTo(this._initial) >= 6) {
+    if (this._initial && current.distance(this._initial) >= 6) {
       // this._isDragged = true;
-      this.props.onDragStart && this.props.onDragStart(this._initial);
+      this.props.onDragStart?.(this._initial);
     }
   };
 
@@ -462,7 +462,7 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
     this.setState({ isPointerDown: false });
     this._initial = undefined;
     if (this.props.lastPosition) {
-      this.props.onDragEnd && this.props.onDragEnd();
+      this.props.onDragEnd?.();
       return;
     }
   };
@@ -470,6 +470,6 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
   // private _handleClick = () => {
   //   if (this._isDragged)
   //     return;
-  //   this.props.onClick && this.props.onClick();
+  //   this.props.onClick?.();
   // }
 }
