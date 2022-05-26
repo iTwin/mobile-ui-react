@@ -1,6 +1,6 @@
 {
   "name": "@itwin/mobile-ui-react",
-  "version": "0.10.24",
+  "version": "0.10.25",
   "description": "Bentley iTwin Mobile UI module",
   "repository": {
     "type": "git",
@@ -58,7 +58,7 @@
     "@itwin/core-quantity": "3.2.0",
     "@itwin/core-react": "3.2.0",
     "@itwin/imodel-components-react": "3.2.0",
-    "@itwin/mobile-sdk-core": "0.10.23",
+    "@itwin/mobile-sdk-core": "0.10.25",
     "@itwin/presentation-common": "3.2.0",
     "@itwin/presentation-frontend": "3.2.0",
     "@itwin/webgl-compatibility": "3.2.0",
