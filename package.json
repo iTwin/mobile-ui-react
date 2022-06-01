@@ -20,8 +20,8 @@
   "scripts": {
     "build": "npm run images:gen && npm run copy:assets && tsc 1>&2",
     "build:debug": "npm run build && run-script-os",
-	"build:debug:nix": "./syncToTestApp.sh",
-	"build:debug:windows": "powershell ./syncToTestApp.ps1",
+    "build:debug:nix": "./syncToTestApp.sh",
+    "build:debug:windows": "powershell ./syncToTestApp.ps1",
     "clean": "rimraf lib",
     "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "images:gen": "rimraf src/mobile-ui-react/images-tsx && svgr --typescript src/mobile-ui-react/images --out-dir src/mobile-ui-react/images-tsx --no-svgo --no-prettier --memo --svg-props className=\"core-icons-svgSprite\"",
