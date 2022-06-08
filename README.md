@@ -8,4 +8,4 @@ This is pre-release software and provided as-is.
 
 ## About this Repository
 
-This repository contains React components that can be used in [iTwin.js](http://www.itwinjs.org) applications on mobile devices.
+This repository contains React components that can be used in [iTwin.js](http://www.itwinjs.org) applications on mobile devices via [iTwin/mobile-sdk-core](https://github.com/iTwin/mobile-sdk-core).
