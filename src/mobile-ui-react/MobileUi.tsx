@@ -2,14 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import * as React from "react";
-import { BackendError, Localization } from "@itwin/core-common";
-import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
 import { UiEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
 import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
-import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { AuthStatus, BeEvent, BentleyError, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
+import { BackendError, Localization } from "@itwin/core-common";
+import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
+import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
+import * as React from "react";
 
 import "./MobileUi.scss";
 
@@ -648,9 +648,13 @@ export function useForceUpdate() {
  */
 export function useActiveColorSchemeIsDark() {
   const [isDark, setIsDark] = React.useState(MobileUi.activeColorSchemeIsDark);
-
+  const isMountedRef = useIsMountedRef();
   useBeEvent((newIsDark) => {
-    setIsDark(newIsDark);
+    // Changing the state while processing the event can change the list of event listeners for the event which doesn't work
+    setTimeout(() => {
+      if (!isMountedRef.current) return;
+      setIsDark(newIsDark);
+    }, 0);
   }, MobileUi.onColorSchemeChanged);
   return isDark;
 }
