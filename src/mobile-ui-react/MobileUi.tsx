@@ -648,9 +648,13 @@ export function useForceUpdate() {
  */
 export function useActiveColorSchemeIsDark() {
   const [isDark, setIsDark] = React.useState(MobileUi.activeColorSchemeIsDark);
-
+  const isMountedRef = useIsMountedRef();
   useBeEvent((newIsDark) => {
-    setIsDark(newIsDark);
+    // Changing the state while processing the event can change the list of event listeners for the event which doesn't work
+    setTimeout(() => {
+      if (!isMountedRef.current) return;
+      setIsDark(newIsDark);
+    }, 0);
   }, MobileUi.onColorSchemeChanged);
   return isDark;
 }
