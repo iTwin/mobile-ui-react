@@ -2,14 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
+import { BackendError, Localization } from "@itwin/core-common";
+import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
 import { UiEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
 import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
-import { AuthStatus, BeEvent, BentleyError, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
-import { BackendError, Localization } from "@itwin/core-common";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
-import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
+import { AuthStatus, BeEvent, BentleyError, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
-import * as React from "react";
 
 import "./MobileUi.scss";
 
