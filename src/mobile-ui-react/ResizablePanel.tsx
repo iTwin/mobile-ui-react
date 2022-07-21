@@ -7,7 +7,7 @@ import classnames from "classnames";
 import { DragHandleProps } from "@bentley/ui-ninezone";
 import { CommonProps, getCssVariableAsNumber, Point, PointProps } from "@bentley/ui-core";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
-import { ReactUseState, useWindowEvent } from "./MobileUi";
+import { ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
 
 /** Properties for [[ResizablePanel]] component
@@ -81,6 +81,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
   const { height: _removedHeight, maxHeight: _removedMaxHeight, ...otherStyles } = style;
   const [lastDragInfo, setLastDragInfo] = React.useState({ dragged: 0, time: Date.now(), speed: 0 });
   const [flickingUp, setFlickingUp] = React.useState(false);
+  const isMountedRef = useIsMountedRef();
 
   /**
    * Sets maxHeight, ensuring it is never larger than any of these 3 values:
@@ -114,6 +115,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
     // panel not being resizable. Delaying the code slightly seems to fix it. Normally we'd need to ensure the component is still mounted when the
     // timeout code runs, but this is already guarded against by ensuring divRef.current is truthy.
     setTimeout(() => {
+      if (!isMountedRef.current) return;
       if (divRef.current && !initialMaxHeightSet) {
         setInitialMaxHeightSet(true);
         let currHeight = divRef.current.clientHeight;
@@ -128,14 +130,17 @@ export function ResizablePanel(props: ResizablePanelProps) {
         updateMaxHeight(currHeight);
       }
     }, 0);
-  }, [divRef, minInitialHeight, maxInitialHeight, initialMaxHeightSet, updateMaxHeight, props.heightCanExceedContents, setHeightAndCallOnResized]);
+  }, [divRef, minInitialHeight, maxInitialHeight, initialMaxHeightSet, updateMaxHeight, props.heightCanExceedContents, setHeightAndCallOnResized, isMountedRef]);
 
   const onWindowResize = React.useCallback(() => {
-    const safeAreaOffsets = getCssVariableAsNumber("--mui-safe-area-top") + getCssVariableAsNumber("--mui-safe-area-bottom");
-    const newMaxHeight = window.outerHeight - 100 - safeAreaOffsets;
-    if (maxHeight !== undefined && maxHeight > newMaxHeight)
-      setMaxHeight(newMaxHeight);
-  }, [maxHeight]);
+    setTimeout(() => {
+      if (!isMountedRef.current) return;
+      const safeAreaOffsets = getCssVariableAsNumber("--mui-safe-area-top") + getCssVariableAsNumber("--mui-safe-area-bottom");
+      const newMaxHeight = window.outerHeight - 100 - safeAreaOffsets;
+      if (maxHeight !== undefined && maxHeight > newMaxHeight)
+        setMaxHeight(newMaxHeight);
+    }, 0);
+  }, [maxHeight, isMountedRef]);
 
   useWindowEvent("resize", onWindowResize);
 
@@ -217,6 +222,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
           setFlickingUp(true);
           setHeight(props.flickUpHeight ?? "100vh"); // using 100vh so it will be constrained by its maxHeight
           setTimeout(() => {
+            if (!isMountedRef.current) return;
             setFlickingUp(false);
             if (divRef.current && onResized)
               onResized(divRef.current.clientHeight, divRef.current.getBoundingClientRect().top);
@@ -226,7 +232,10 @@ export function ResizablePanel(props: ResizablePanelProps) {
             onResized(startHeight, startTop);
           if (props.onFlickDown()) {
             // restore the height when the dragging started after panel is closed.
-            setTimeout(() => { setHeight(startHeight); }, delayTime);
+            setTimeout(() => {
+              if (!isMountedRef.current) return;
+              setHeight(startHeight);
+            }, delayTime);
           }
         }
         return;
@@ -245,7 +254,10 @@ export function ResizablePanel(props: ResizablePanelProps) {
           const delay = typeof (result) === "number" ? result : 0;
           if (delay) {
             // reset the panel's size after a delay (to allow any closing animations to be done).
-            setTimeout(() => setHeight(startHeight), delay);
+            setTimeout(() => {
+              if (!isMountedRef.current) return;
+              setHeight(startHeight);
+            }, delay);
           } else {
             setHeight(startHeight);
           }
