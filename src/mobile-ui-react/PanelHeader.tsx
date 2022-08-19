@@ -41,6 +41,11 @@ export interface PanelHeaderButtonProps extends CommonProps {
   onClick: (e: React.MouseEvent) => void;
 }
 
+function IsPanelHeaderButtonProps(obj?: any): obj is PanelHeaderButtonProps {
+  if (obj === undefined || obj === null) return false;
+  return "label" in obj && "onClick" in obj;
+}
+
 /** A React component representing a text button in the [[PanelHeader]]
  * @public
  */
@@ -62,9 +67,9 @@ export interface PanelHeaderProps extends DraggableComponentCallbackProps {
   /** Optional title text. */
   title?: string;
   /** Optional left button. */
-  leftButton?: PanelHeaderButtonProps;
+  leftButton?: PanelHeaderButtonProps | React.ReactNode;
   /** Optional right button. */
-  rightButton?: PanelHeaderButtonProps;
+  rightButton?: PanelHeaderButtonProps | React.ReactNode;
   /** Draggable when true, defaults to false. */
   draggable?: boolean;
 }
@@ -79,7 +84,9 @@ export function PanelHeader(props: PanelHeaderProps) {
   return (
     <div className="mui-panel-header-title-container">
       <div className="mui-panel-header-button-container">
-        {leftButton && <PanelHeaderButton className={classnames("mui-panel-header-button-left", leftButton.className)} {...withoutClassName(leftButton)} />}
+        {IsPanelHeaderButtonProps(leftButton) ?
+          <PanelHeaderButton className={classnames("mui-panel-header-button-left", leftButton.className)} {...withoutClassName(leftButton)} /> :
+          leftButton}
         <PanelHeaderDraggableDiv {...draggableProps} />
       </div>
       <PanelHeaderDraggableDiv className="mui-panel-header-title" {...draggableProps}>
@@ -87,7 +94,9 @@ export function PanelHeader(props: PanelHeaderProps) {
       </PanelHeaderDraggableDiv>
       <div className="mui-panel-header-button-container">
         <PanelHeaderDraggableDiv {...draggableProps} />
-        {rightButton && <PanelHeaderButton className={classnames("mui-panel-header-button-right", rightButton.className)} {...withoutClassName(rightButton)} />}
+        {IsPanelHeaderButtonProps(rightButton) ?
+          <PanelHeaderButton className={classnames("mui-panel-header-button-right", rightButton.className)} {...withoutClassName(rightButton)} /> :
+          rightButton}
       </div>
     </div>
   );
