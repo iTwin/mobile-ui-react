@@ -43,7 +43,7 @@ export interface PanelHeaderButtonProps extends CommonProps {
 
 function IsPanelHeaderButtonProps(obj?: any): obj is PanelHeaderButtonProps {
   if (obj === undefined || obj === null) return false;
-  return "label" in obj && "onClick" in obj;
+  return typeof obj === "object" && "label" in obj && "onClick" in obj;
 }
 
 /** A React component representing a text button in the [[PanelHeader]]
