@@ -41,7 +41,7 @@ export interface PanelHeaderButtonProps extends CommonProps {
   onClick: (e: React.MouseEvent) => void;
 }
 
-function IsPanelHeaderButtonProps(obj?: any): obj is PanelHeaderButtonProps {
+function isPanelHeaderButtonProps(obj?: any): obj is PanelHeaderButtonProps {
   if (obj === undefined || obj === null) return false;
   return typeof obj === "object" && "label" in obj && "onClick" in obj;
 }
@@ -84,7 +84,7 @@ export function PanelHeader(props: PanelHeaderProps) {
   return (
     <div className="mui-panel-header-title-container">
       <div className="mui-panel-header-button-container">
-        {IsPanelHeaderButtonProps(leftButton) ?
+        {isPanelHeaderButtonProps(leftButton) ?
           <PanelHeaderButton className={classnames("mui-panel-header-button-left", leftButton.className)} {...withoutClassName(leftButton)} /> :
           leftButton}
         <PanelHeaderDraggableDiv {...draggableProps} />
@@ -94,7 +94,7 @@ export function PanelHeader(props: PanelHeaderProps) {
       </PanelHeaderDraggableDiv>
       <div className="mui-panel-header-button-container">
         <PanelHeaderDraggableDiv {...draggableProps} />
-        {IsPanelHeaderButtonProps(rightButton) ?
+        {isPanelHeaderButtonProps(rightButton) ?
           <PanelHeaderButton className={classnames("mui-panel-header-button-right", rightButton.className)} {...withoutClassName(rightButton)} /> :
           rightButton}
       </div>
