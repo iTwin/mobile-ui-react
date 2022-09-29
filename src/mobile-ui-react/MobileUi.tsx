@@ -8,7 +8,7 @@ import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
 import { UiEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
 import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
-import { AuthStatus, BeEvent, BentleyError, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
+import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
@@ -136,13 +136,7 @@ export class MobileUi {
 
   private static setupUIError() {
     UIError.create = (error) => {
-      let uiError = UIError.defaultCreate(error);
-      if (!MobileCore.isInternetReachable) {
-        if (error instanceof BentleyError && error.errorNumber === AuthStatus.Error) {
-          uiError = new UIError();
-          uiError.Message = UIError.i18n("internet-unreachable");
-        }
-      }
+      const uiError = UIError.defaultCreate(error);
       if (error instanceof BackendError && error.errorNumber === BriefcaseStatus.DownloadCancelled) {
         uiError.WasCanceled = true;
       }
