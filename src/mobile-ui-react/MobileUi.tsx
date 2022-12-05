@@ -45,7 +45,7 @@ export class MobileUi {
    * @returns The translated string, or key if it is not found.
    */
   public static translate(key: string, options?: any) {
-    return this._localization.getLocalizedStringWithNamespace("iTwinMobileUI", key, options);
+    return this._localization.getLocalizedString(`iTwinMobileUI:${key}`, options);
   }
 
   public static set preferredColorScheme(value: PreferredColorScheme) {
