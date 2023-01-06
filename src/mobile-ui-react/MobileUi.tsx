@@ -52,7 +52,6 @@ export class MobileUi {
     MobileUi._preferredColorScheme = value;
     localStorage.setItem("ITM_PreferredColorScheme", JSON.stringify(value));
     MobileUi.colorSchemeChanged(MobileUi.activeColorSchemeIsDark);
-    MobileUi.reflectColorScheme();
   }
 
   /** The user's preferred color scheme.
