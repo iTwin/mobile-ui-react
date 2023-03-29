@@ -411,10 +411,7 @@ interface TouchDragHandleState {
   isPointerDown: boolean;
 }
 
-/**
- * @internal
- */
-export interface TouchDragHandleProps extends CommonProps {
+interface TouchDragHandleProps extends CommonProps {
   /** Last pointer position of draggable tab. */
   lastPosition?: PointProps;
   /** Function called when component is dragged. */
