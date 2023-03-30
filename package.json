@@ -88,6 +88,6 @@
     "typescript": "~4.3.5"
   },
   "relativeDependencies": {
-    "@itwin/mobile-sdk-core": "0.10.37/mobile-sdk-core"
+    "@itwin/mobile-sdk-core": "../mobile-sdk-core"
   }
 }
