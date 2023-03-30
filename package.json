@@ -54,6 +54,7 @@
     "@itwin/core-i18n": "4.0.0-dev.61",
     "@itwin/core-markup": "4.0.0-dev.61",
     "@itwin/core-orbitgt": "4.0.0-dev.61",
+    "@itwin/core-react": "4.0.0-dev.13",
     "@itwin/core-quantity": "4.0.0-dev.61",
     "@itwin/imodel-components-react": "4.0.0-dev.13",
     "@itwin/mobile-sdk-core": "0.20.0-dev.1",
