@@ -19,7 +19,7 @@ jobs:
       displayName: Switch back to itwin-4 branch
       workingDirectory: $(Build.SourcesDirectory)/mobile-ui-react
       name: checkoutITwin4
-    - script: npm ci
+    - script: npm ci --legacy-peer-deps
       displayName: npm install
       workingDirectory: $(Build.SourcesDirectory)/mobile-ui-react
     - script: npm run lint
