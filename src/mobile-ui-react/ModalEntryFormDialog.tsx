@@ -5,7 +5,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@itwin/core-react";
-import { ModalDialogManager } from "@itwin/appui-react";
+import { UiFramework } from "@itwin/appui-react";
 import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-sdk-core";
 import { CloseButton } from "./NavigationPanel";
 import { MobileUi } from "./MobileUi";
@@ -301,7 +301,7 @@ async function showModalDialog<T, P extends OKCancelHandlers<T>>(props: P, rende
       }
       // Wait for half second while the dialog fades out before removing it.
       setTimeout(() => {
-        ModalDialogManager.closeDialog();
+        UiFramework.dialogs.modal.close();
       }, fadeDuration);
       resolveAndCleanup(value);
       return true;
@@ -311,7 +311,7 @@ async function showModalDialog<T, P extends OKCancelHandlers<T>>(props: P, rende
       props.onCancel();
       // Wait for half second while the dialog fades out before removing it.
       setTimeout(() => {
-        ModalDialogManager.closeDialog();
+        UiFramework.dialogs.modal.close();
       }, fadeDuration);
       resolveAndCleanup(undefined);
     };
@@ -323,12 +323,12 @@ async function showModalDialog<T, P extends OKCancelHandlers<T>>(props: P, rende
 
     const onClose = () => {
       // Mobile UI is closing, so close the dialog immediately.
-      ModalDialogManager.closeDialog();
+      UiFramework.dialogs.modal.close();
       resolveAndCleanup(undefined);
     };
 
     MobileUi.onClose.addListener(onClose);
-    ModalDialogManager.openDialog(render({
+    UiFramework.dialogs.modal.open(render({
       ...props,
       onOK: handleOK,
       onCancel: handleCancel,
