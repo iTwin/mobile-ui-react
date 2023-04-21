@@ -8,7 +8,8 @@ import { CommonProps } from "@itwin/core-react";
 
 import "./HorizontalPicker.scss";
 
-/** Properties for [[HorizontalPicker]] component
+/**
+ * Properties for {@link HorizontalPicker} component
  * @public
  */
 export interface HorizontalPickerProps extends CommonProps {

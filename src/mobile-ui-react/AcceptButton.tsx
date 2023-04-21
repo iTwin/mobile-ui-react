@@ -14,7 +14,8 @@ import {
   Confirmation as ConfirmationSvg,
 } from "./images-tsx";
 
-/** Properties for the [[AcceptButton]] component.
+/**
+ * Properties for the {@link AcceptButton} component.
  * @public
  */
 export interface AcceptButtonProps {
@@ -24,7 +25,8 @@ export interface AcceptButtonProps {
   useCheckIcon?: boolean;
 }
 
-/** A React component representing a button with a label and a circular icon to its right.
+/**
+ * A React component representing a button with a label and a circular icon to its right.
  * @public
  */
 export function AcceptButton(props: AcceptButtonProps) {

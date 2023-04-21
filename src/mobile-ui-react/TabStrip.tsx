@@ -8,7 +8,8 @@ import { HorizontalScrollableWithFades } from "./ScrollableWithFades";
 
 import "./TabStrip.scss";
 
-/** Properties for the [[TabStrip]] component.
+/**
+ * Properties for the {@link TabStrip} component.
  * @public
  */
 export interface TabStripProps {
@@ -24,7 +25,8 @@ export interface TabStripProps {
   fadeDisplayTrigger?: any;
 }
 
-/** A React component that is a list of clickable tabs.
+/**
+ * A React component that is a list of clickable tabs.
  * @public
  */
 export function TabStrip(props: TabStripProps) {
@@ -47,7 +49,8 @@ export function TabStrip(props: TabStripProps) {
   </>;
 }
 
-/** Properties for a single tab in the [[TabSheet]] component.
+/**
+ * Properties for a single tab in the {@link TabSheet} component.
  * @public
  */
 export interface TabSheetTab {
@@ -57,7 +60,8 @@ export interface TabSheetTab {
   contents?: React.ReactNode;
 }
 
-/** Properties for  the [[TabSheet]] component.
+/**
+ * Properties for  the {@link TabSheet} component.
  * @public
  */
 export interface TabSheetProps {
@@ -80,7 +84,8 @@ export interface TabSheetProps {
   };
 }
 
-/** A React component with a [[TabStrip]] and contents below it.
+/**
+ * A React component with a {@link TabStrip} and contents below it.
  * @public
  */
 export function TabSheet(props: TabSheetProps) {

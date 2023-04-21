@@ -6,7 +6,8 @@ import * as React from "react";
 import "./IconImage.scss";
 import { Icon, IconSpec } from "@itwin/core-react";
 
-/** Properties for [[IconImage]] component
+/**
+ * Properties for {@link IconImage} component
  * @public
  */
 export interface IconImageProps {
@@ -29,7 +30,7 @@ export interface IconImageProps {
 }
 
 /**
- * A React component that wraps an [[Icon]] component from @itwin/core-react to make it easier to use.
+ * A React component that wraps an {@link Icon} component from @itwin/core-react to make it easier to use.
  *
  * @public
  */

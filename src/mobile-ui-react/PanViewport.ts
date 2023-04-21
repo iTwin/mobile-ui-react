@@ -138,8 +138,9 @@ export class PanTracker {
   };
 }
 
-/** Pan the given viewport the given amount in X and Y.
- * @param vp - The [[ScreenViewport]] to pan. If undefined, the pan request will be recorded for when it eventually becomes defined.
+/**
+ * Pan the given viewport the given amount in X and Y.
+ * @param vp - The {@link ScreenViewport} to pan. If undefined, the pan request will be recorded for when it eventually becomes defined.
  * @param newX - The new amount to pan in X.
  * @param newY - The new amount to pan in Y.
  * @param animationTime - The animation time in ms, default 500.

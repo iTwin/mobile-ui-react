@@ -11,7 +11,8 @@ import { IconImage } from "./IconImage";
 import { useBeUiEvent } from "./MobileUi";
 import "./Suggestion.scss";
 
-/** Properties for the [[Suggestion]] component.
+/**
+ * Properties for the {@link Suggestion} component.
  * @public
  */
 export interface SuggestionProps {
@@ -31,7 +32,8 @@ export function SuggestionContainer(props: React.HTMLAttributes<HTMLDivElement>)
   return <div className={classnames("mui-suggestion-container", className)} {...others} />;
 }
 
-/** A React component representing an icon and a collapsible text label.
+/**
+ * A React component representing an icon and a collapsible text label.
  * @public
  */
 export function Suggestion(props: SuggestionProps) {
@@ -47,7 +49,8 @@ export function Suggestion(props: SuggestionProps) {
   </div>;
 }
 
-/** Properties for the [[ToolAssistanceSuggestion]] component.
+/**
+ * Properties for the {@link ToolAssistanceSuggestion} component.
  * @public
  */
 export interface ToolAssistanceSuggestionProps {
@@ -55,7 +58,8 @@ export interface ToolAssistanceSuggestionProps {
   onSetToolAssistance: BeUiEvent<ToolAssistanceInstructions | undefined>;
 }
 
-/** A React component that displays the main tool assistance instruction.
+/**
+ * A React component that displays the main tool assistance instruction.
  * @public
  */
 export function ToolAssistanceSuggestion(props: ToolAssistanceSuggestionProps) {

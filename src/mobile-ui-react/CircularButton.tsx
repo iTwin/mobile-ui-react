@@ -8,7 +8,8 @@ import { IconSpec } from "@itwin/core-react";
 import { IconImage } from "./IconImage";
 import "./CircularButton.scss";
 
-/** Properties for the [[CircularButton]] component.
+/**
+ * Properties for the {@link CircularButton} component.
  * @public
  */
 export interface CircularButtonProps {
@@ -40,7 +41,8 @@ export interface CircularButtonProps {
   badge?: React.ReactNode;
 }
 
-/** A clickable button with a circle and an optional label.
+/**
+ * A clickable button with a circle and an optional label.
  * @public
  */
 export function CircularButton(props: CircularButtonProps) {

@@ -19,7 +19,7 @@ export interface VisibleBackButtonProps extends Omit<NavigationButtonProps, "ico
 }
 
 /**
- * An empty [[NavigationButton]] intended to reserve space for a [[VisibleBackButton]].
+ * An empty {@link NavigationButton} intended to reserve space for a {@link VisibleBackButton}.
  * @internal
  */
 function VisibleBackButtonSpacer(_props: {}) {
@@ -27,7 +27,7 @@ function VisibleBackButtonSpacer(_props: {}) {
 }
 
 /**
- * Looks and acts like a [[NavigationButton]], but forced into the upper left of the screen, and with a
+ * Looks and acts like a {@link NavigationButton}, but forced into the upper left of the screen, and with a
  * z-index of 8000 so that it will be above elements that are designed to cover the NavigationPanel. It
  * also has a default value for iconSpec, as well as a default stroke-width to match.
  * NOTE: This must be the first element in the left controls of a NavigationPanel in order to work right.
@@ -54,7 +54,7 @@ export function VisibleBackButton(props: VisibleBackButtonProps) {
 }
 
 /**
- * A [[NavigationButton]] that uses the "V" (down-chevron) icon.
+ * A {@link NavigationButton} that uses the "V" (down-chevron) icon.
  * @public
  */
 export function BackButton(props: Omit<NavigationButtonProps, "iconSpec">) {
