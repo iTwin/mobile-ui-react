@@ -19,7 +19,8 @@ export declare type CloseListener = () => void;
 /** Type used for MobileUi.onColorSchemeChanged BeEvent. */
 export declare type ColorSchemeChangedListener = (isDark: boolean) => void;
 
-/** The user's preferred color scheme.
+/**
+ * The user's preferred color scheme.
  *
  * When set to Automatic, it uses the prefers-color-scheme media value from the web view.
  */
@@ -39,7 +40,8 @@ export class MobileUi {
   /** BeEvent raised when the web view's color scheme changes. */
   public static onColorSchemeChanged: BeEvent<ColorSchemeChangedListener> = new BeEvent<ColorSchemeChangedListener>();
 
-  /** Translate a string from the MobileUi i18n namespace.
+  /**
+   * Translate a string from the MobileUi i18n namespace.
    * @param key - The key for the string to translate. For example, "general.cancel".
    * @param options - Optional options to pass into the i18next system.key
    * @returns The translated string, or key if it is not found.
@@ -54,7 +56,8 @@ export class MobileUi {
     MobileUi.colorSchemeChanged(MobileUi.activeColorSchemeIsDark);
   }
 
-  /** The user's preferred color scheme.
+  /**
+   * The user's preferred color scheme.
    *
    * This should be set after UiFramework is initialized if the app uses UiFramework.
    *
@@ -64,7 +67,8 @@ export class MobileUi {
     return MobileUi._preferredColorScheme;
   }
 
-  /** Indicates if the active color scheme is dark.
+  /**
+   * Indicates if the active color scheme is dark.
    * @returns Whether or not the active color scheme is dark.
    */
   public static get activeColorSchemeIsDark() {
@@ -109,12 +113,13 @@ export class MobileUi {
     MobileUi.colorSchemeChanged(ev.matches);
   };
 
-  /** Initializes the MobileUi module.
+  /**
+   * Initializes the MobileUi module.
    *
    * This should be done after UiFramework is initialized if the app uses UiFramework. Alternatively,
    * set preferredColorScheme after UiFramework is initialized (even if setting to the default value
    * of Automatic).
-   * @param localization - The [[Localization]] object (from iModelJs).
+   * @param localization - The {@link Localization} object (from iModelJs).
    */
   public static async initialize(localization: Localization): Promise<void> {
     await MobileCore.initialize(localization);
@@ -156,8 +161,9 @@ export class MobileUi {
   }
 }
 
-/** Custom react hook that returns the value of the specified CSS variable, and updates when the value is changed
- * using [[MobileCore.setCssVariable]] or [[MobileCore.setCssVariables]].
+/**
+ * Custom react hook that returns the value of the specified CSS variable, and updates when the value is changed
+ * using {@link MobileCore.setCssVariable} or {@link MobileCore.setCssVariables}.
  * @param name - The name of the CSS variable to read.
  * @param htmlElement - The optional HTMLElement that contains the variable, defaults to document.documentElement.
  * @returns The current value of the specified variable.
@@ -172,8 +178,9 @@ export function useCssVariable(name: string, htmlElement?: HTMLElement) {
   return value;
 }
 
-/** Custom react hook that returns the value of the specified CSS variable as a number, and updates when the value is
- * changed using [[MobileCore.setCssVariable]] or [[MobileCore.setCssVariables]].
+/**
+ * Custom react hook that returns the value of the specified CSS variable as a number, and updates when the value is
+ * changed using {@link MobileCore.setCssVariable} or {@link MobileCore.setCssVariables}.
  * @param name - The name of the CSS variable to read.
  * @param htmlElement - The optional HTMLElement that contains the variable, defaults to document.documentElement.
  * @returns The current value of the specified variable as a number.
@@ -188,7 +195,8 @@ export function useCssVariableAsNumber(name: string, htmlElement?: HTMLElement) 
   return value;
 }
 
-/** Custom React hook that wraps React.useCallback with an empty dependencies list.
+/**
+ * Custom React hook that wraps React.useCallback with an empty dependencies list.
  * @param callback - The callback to pass into React.useCallback.
  * @returns The wrapped callback.
  */
@@ -196,7 +204,8 @@ export function useNoDepsCallback<T extends (...args: any[]) => any>(callback: T
   return React.useCallback(callback, []); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
-/** Custom React hook for calling a callback on the specified window event.
+/**
+ * Custom React hook for calling a callback on the specified window event.
  * @param event - The event name.
  * @param callback - The function to call when the event occurs.
  */
@@ -207,7 +216,8 @@ export const useWindowEvent = (event: string, callback: EventListenerOrEventList
   }, [event, callback]);
 };
 
-/** Custom react hook that returns a ref that indicates if the React function component is still mounted.
+/**
+ * Custom react hook that returns a ref that indicates if the React function component is still mounted.
  * Use when a function component uses a promise or a delayed callback to verify that the component is still
  * mounted before continuing processing.
  * @returns A boolean React ref object whose current value indicates whether or not the component is still mounted.
@@ -324,7 +334,8 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
   return false;
 }
 
-/** A custom React hook function for UiSyncEvents.
+/**
+ * A custom React hook function for UiSyncEvents.
  * @param handler - The callback function.
  * @param eventIds - The optional event ids to handle.
  */
@@ -342,7 +353,8 @@ export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...even
   }, [eventIds, handler]);
 }
 
-/** A custom React hook function for BeEvents.
+/**
+ * A custom React hook function for BeEvents.
  * @param handler - The callback function.
  * @param event - The BeEvent to handle.
  */
@@ -355,7 +367,8 @@ export function useBeEvent<T extends Listener>(handler: T, event: BeEvent<T>) {
   }, [event, handler]);
 }
 
-/** A custom React hook function for BeUiEvents.
+/**
+ * A custom React hook function for BeUiEvents.
  * @param handler - The callback function.
  * @param event - The BeUiEvent to handle.
  */
@@ -363,7 +376,8 @@ export function useBeUiEvent<T>(handler: (args: T) => void, event: BeUiEvent<T>)
   useBeEvent(handler, event);
 }
 
-/** A custom React hook function for UiEvents.
+/**
+ * A custom React hook function for UiEvents.
  * Note: UiEvent should generally be avoided, since it adds nothing to BeUiEvent.
  * @param handler - The callback function.
  * @param event - The BeUiEvent to handle.
@@ -372,7 +386,8 @@ export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
   useBeUiEvent(handler, event);
 }
 
-/** A custom React hook function for using the active tool id.
+/**
+ * A custom React hook function for using the active tool id.
  * @param ignoreEmptyToolIds - When true, ignore tools that have an empty tool id (i.e. the idle tool). Default: true.
  */
 export function useActiveToolId(ignoreEmptyToolIds: boolean = true) {
@@ -384,7 +399,8 @@ export function useActiveToolId(ignoreEmptyToolIds: boolean = true) {
   return activeToolId;
 }
 
-/** A custom React hook function for handling selection set changes.
+/**
+ * A custom React hook function for handling selection set changes.
  * @param handler - The callback function.
  */
 export function useSelectionSetChanged(handler: (selectionSet?: SelectionSet) => void) {
@@ -397,7 +413,8 @@ export function useSelectionSetChanged(handler: (selectionSet?: SelectionSet) =>
   }, SyncUiEventId.SelectionSetChanged);
 }
 
-/** A custom React hook function for handling selection set count changes.
+/**
+ * A custom React hook function for handling selection set count changes.
  * @param handler - The callback function.
  */
 export function useSelectionSetCount(handler: (count: number) => void) {
@@ -406,7 +423,8 @@ export function useSelectionSetCount(handler: (count: number) => void) {
   });
 }
 
-/** A React hook function for getting the previous value of a state or prop.
+/**
+ * A React hook function for getting the previous value of a state or prop.
  * @param value - the current state value.
  */
 export function usePrevious<T>(value: T) {
@@ -417,7 +435,8 @@ export function usePrevious<T>(value: T) {
   return ref.current;
 }
 
-/** A custom React hook function for getting the first viewport that reacts to open view changes.
+/**
+ * A custom React hook function for getting the first viewport that reacts to open view changes.
  * @returns The first open viewport, or undefined when there is no viewport open.
  */
 export function useFirstViewport(): ScreenViewport | undefined {
@@ -452,7 +471,8 @@ export function useFirstViewport(): ScreenViewport | undefined {
   return firstOpenViewport;
 }
 
-/** A custom React hook function for tracking viewports.
+/**
+ * A custom React hook function for tracking viewports.
  * @param handler - The callback function. Any time a viewport opens or closes, this is called with the new list of all
  * open viewports.
  */
@@ -474,7 +494,8 @@ export function useViewports(handler: (viewports: ScreenViewport[]) => void): Sc
   return getAllViewports();
 }
 
-/** A custom React hook function for handling viewport "feature overrides" changes.
+/**
+ * A custom React hook function for handling viewport "feature overrides" changes.
  * @param handler - The callback function.
  */
 export function useFeatureOverrides(handler: (alwaysDrawn: Id64Set | undefined) => void) {
@@ -529,7 +550,8 @@ export function useIsolatedCount(): number {
   }, []));
 }
 
-/** A custom React hook function for tracking the UiFramework's current iModel.
+/**
+ * A custom React hook function for tracking the UiFramework's current iModel.
  * @param handler - The callback function.
  */
 export function useIModel(handler: (iModel: IModelConnection | undefined) => void) {
@@ -538,7 +560,8 @@ export function useIModel(handler: (iModel: IModelConnection | undefined) => voi
   }, SessionStateActionId.SetIModelConnection);
 }
 
-/** A custom React hook function for using an interval timer.
+/**
+ * A custom React hook function for using an interval timer.
  * @param callback - The callback function.
  * @param delay - How often (in msec) to call the callback function, or null to stop calling it.
  */
@@ -563,7 +586,8 @@ export function useInterval(callback: () => void, delay: number | null) {
   }, [delay]);
 }
 
-/** Scrolls the input div horizontally to ensure the input child is visible.
+/**
+ * Scrolls the input div horizontally to ensure the input child is visible.
  * @param scrollableDiv - div to scroll horizontally.
  * @param childIndex - Index of child to make visible.
  */
@@ -580,7 +604,8 @@ export function horizontallyScrollChildVisible(scrollableDiv: HTMLDivElement, ch
   }
 }
 
-/** A custom React hook that ensures the child in the horizontally scrollable div is visible after window resize events.
+/**
+ * A custom React hook that ensures the child in the horizontally scrollable div is visible after window resize events.
  * @param scrollableDiv - div to scroll horizontally.
  * @param childIndex - Index of child to keep visible.
  */
@@ -601,7 +626,8 @@ export type MutableHtmlDivRefOrFunction = MutableRefOrFunction<HTMLDivElement>;
 /** A convenience type for the array returned from React.useState. */
 export type ReactUseState<S> = [S, React.Dispatch<React.SetStateAction<S>>];
 
-/** Sets the ref to the input instance based on whether the ref is a function or a mutable reference.
+/**
+ * Sets the ref to the input instance based on whether the ref is a function or a mutable reference.
  * @param ref - The ref to set.
  * @param instance - The input instance.
  */
@@ -614,7 +640,8 @@ export function assignRef<T>(ref: MutableRefOrFunction<T>, instance: T | null) {
   }
 }
 
-/** Returns a function that can be used as a ref property of a React component. This is particularly useful when you need
+/**
+ * Returns a function that can be used as a ref property of a React component. This is particularly useful when you need
  * to forward a ref as well as have one locally.
  * @param ref - The ref to set.
  * @param mutableRef - Optional mutable ref that is also set if provided.
@@ -627,7 +654,8 @@ export function makeRefHandler<T>(ref: MutableRefOrFunction<T>, mutableRef?: Rea
   };
 }
 
-/** Returns a function that when called forces an update of the calling functional React component.
+/**
+ * Returns a function that when called forces an update of the calling functional React component.
  * @returns - A function that when called forces an update of the calling functional React component.
  */
 export function useForceUpdate() {

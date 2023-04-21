@@ -23,7 +23,8 @@ export function Pill(props: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={classnames("mui-pill", className)} {...others} />;
 }
 
-/** Properties for the more button of the [[CountNotification]] component
+/**
+ * Properties for the more button of the {@link CountNotification} component
  * @public
  */
 export interface CountNotificationMoreProps {
@@ -35,7 +36,8 @@ export interface CountNotificationMoreProps {
   actions: AlertAction[];
 }
 
-/** Properties for [[CountNotification]] component
+/**
+ * Properties for {@link CountNotification} component
  * @public
  */
 export interface CountNotificationProps extends CommonProps {
@@ -51,14 +53,16 @@ export interface CountNotificationProps extends CommonProps {
   iconSpec?: IconSpec;
   /** The icon size, if iconSpec is specified, default is "24px". */
   iconSize?: string;
-  /** The callback called when a user taps the vertical more button and then selects an action.
+  /**
+   * The callback called when a user taps the vertical more button and then selects an action.
    *
-   * It is your choice whether to use this or the onSelected field of each [[AlertAction]].
+   * It is your choice whether to use this or the onSelected field of each {@link AlertAction}.
    */
   onSelected?: (action: string | undefined) => void;
 }
 
-/** Properties for [[CloseableCountNotification]] component
+/**
+ * Properties for {@link CloseableCountNotification} component
  * @public
  */
 export interface CloseableCountNotificationProps extends CommonProps {

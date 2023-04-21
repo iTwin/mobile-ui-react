@@ -17,7 +17,8 @@ import {
   Minimize as MinimizeSvg,
 } from "./images-tsx";
 
-/** Properties for the [[NavigationPanel]] component.
+/**
+ * Properties for the {@link NavigationPanel} component.
  * @public
  */
 export interface NavigationPanelProps extends ClassNameProps {
@@ -27,7 +28,8 @@ export interface NavigationPanelProps extends ClassNameProps {
   right?: React.ReactNode;
 }
 
-/** A React component representing a horizontal container of [[NavigationButton]] components.
+/**
+ * A React component representing a horizontal container of {@link NavigationButton} components.
  * @public
  */
 export function NavigationPanel(props: NavigationPanelProps) {
@@ -38,7 +40,8 @@ export function NavigationPanel(props: NavigationPanelProps) {
   </div>;
 }
 
-/** Properties for the [[NavigationButton]] component.
+/**
+ * Properties for the {@link NavigationButton} component.
  * @public
  */
 export interface NavigationButtonProps extends CommonProps {
@@ -65,7 +68,8 @@ export interface NavigationButtonProps extends CommonProps {
   // onTouchStart?: (e: React.TouchEvent) => void;
 }
 
-/** A React component representing a clickable button, usually placed in the [[NavigationPanel]]
+/**
+ * A React component representing a clickable button, usually placed in the {@link NavigationPanel}.
  * @public
  */
 export function NavigationButton(props: NavigationButtonProps) {
@@ -85,7 +89,7 @@ export function NavigationButton(props: NavigationButtonProps) {
 }
 
 /**
- * A [[NavigationButton]] that uses the "X" (close) icon, intended for use with nested frontstages.
+ * A {@link NavigationButton} that uses the "X" (close) icon, intended for use with nested frontstages.
  * @public
  */
 export function CloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
@@ -94,7 +98,7 @@ export function CloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
 }
 
 /**
- * A [[NavigationButton]] that uses the "v" (down chevron) icon.
+ * A {@link NavigationButton} that uses the "v" (down chevron) icon.
  * @public
  */
 export function MinimizeButton(props: Omit<NavigationButtonProps, "iconSpec">) {
@@ -103,7 +107,7 @@ export function MinimizeButton(props: Omit<NavigationButtonProps, "iconSpec">) {
 }
 
 /**
- * A [[NavigationButton]] that uses the "v" (down chevron) inside a filled circle icon.
+ * A {@link NavigationButton} that uses the "v" (down chevron) inside a filled circle icon.
  * @public
  */
 export function CircularMinimizeButton(props: Omit<NavigationButtonProps, "iconSpec">) {
@@ -112,7 +116,7 @@ export function CircularMinimizeButton(props: Omit<NavigationButtonProps, "iconS
 }
 
 /**
- * A [[NavigationButton]] that uses the "X" (diagonal cross) inside a filled circle icon.
+ * A {@link NavigationButton} that uses the "X" (diagonal cross) inside a filled circle icon.
  * @public
  */
 export function CircularCloseButton(props: Omit<NavigationButtonProps, "iconSpec">) {
@@ -121,14 +125,15 @@ export function CircularCloseButton(props: Omit<NavigationButtonProps, "iconSpec
 }
 
 /**
- * A [[NavigationButton]] that has no shadow and has a foreground color that is black in light mode and white in dark mode.
+ * A {@link NavigationButton} that has no shadow and has a foreground color that is black in light mode and white in dark mode.
  * @public
  */
 export function ToolButton(props: Omit<NavigationButtonProps, "color" | "noShadow">) {
   return <NavigationButton {...props} color="var(--muic-foreground)" noShadow />;
 }
 
-/** Properties for the [[ConditionalNavigationButton]] component.
+/**
+ * Properties for the {@link ConditionalNavigationButton} component.
  * @public
  */
 export interface ConditionalNavigationButtonProps extends NavigationButtonProps {
@@ -136,7 +141,8 @@ export interface ConditionalNavigationButtonProps extends NavigationButtonProps 
   isVisible?: ConditionalBooleanValue | boolean;
 }
 
-/** A React component composing a [[NavigationButton]] with conditional visibility and icon specification.
+/**
+ * A React component composing a {@link NavigationButton} with conditional visibility and icon specification.
  * @public
  */
 export function ConditionalNavigationButton(props: ConditionalNavigationButtonProps) {

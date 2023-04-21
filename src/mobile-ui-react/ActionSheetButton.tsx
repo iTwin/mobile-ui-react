@@ -7,23 +7,25 @@ import { CommonProps, IconSpec } from "@itwin/core-react";
 import { ActionSheetProps, presentActionSheet } from "@itwin/mobile-sdk-core";
 import { NavigationButton } from "./NavigationPanel";
 
-/** Properties for [[ActionSheeButton]]
+/**
+ * Properties for {@link ActionSheetButton}
  * @public
  */
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
-  /** The icon to show on the [[ActionSheetButton]], default is three vertical dots. */
+  /** The icon to show on the {@link ActionSheetButton}, default is three vertical dots. */
   iconSpec?: IconSpec;
-  /** The size of the [[ActionSheetButton]], default is "42px". */
+  /** The size of the {@link ActionSheetButton}, default is "42px". */
   size?: string;
-  /** The width of the [[ActionSheetButton]], default is size if specified, "42px" otherwise. */
+  /** The width of the {@link ActionSheetButton}, default is size if specified, "42px" otherwise. */
   width?: string;
-  /** The height of the [[ActionSheetButton]], default is size if specified, "42px" otherwise. */
+  /** The height of the {@link ActionSheetButton}, default is size if specified, "42px" otherwise. */
   height?: string;
-  /** The icon size of the [[ActionSheetButton]] icon, default is "24px". */
+  /** The icon size of the {@link ActionSheetButton} icon, default is "24px". */
   iconSize?: string;
-  /** The callback called when a user taps the button and then selects an action.
+  /**
+   * The callback called when a user taps the button and then selects an action.
    *
-   * It is your choice whether to use this or the onSelected field of each [[AlertAction]].
+   * It is your choice whether to use this or the onSelected field of each `AlertAction`.
    */
   onSelected?: (action: string | undefined) => void;
 }
@@ -31,7 +33,7 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
 /**
  * Navigation button that shows an Action Sheet when pressed.
  *
- * Note: The action sheet functionality can be used from a different React component by utilizing [[ActionSheet]]
+ * Note: The action sheet functionality can be used from a different React component by utilizing {@link presentActionSheet}
  * in mobile-sdk-core.
  * @public
  */

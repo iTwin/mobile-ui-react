@@ -12,7 +12,8 @@ import { useHorizontalScrollChildVisibleOnResize } from "./MobileUi";
 
 import "./TabBar.scss";
 
-/** Properties for the [[Tab]] component.
+/**
+ * Properties for the {@link Tab} component.
  * @public
  */
 export interface TabProps {
@@ -30,7 +31,8 @@ export interface TabProps {
   badge?: React.ReactNode;
 }
 
-/** Properties for the [[TabBar]] component.
+/**
+ * Properties for the {@link TabBar} component.
  * @public
  */
 export interface TabBarProps {
@@ -40,7 +42,8 @@ export interface TabBarProps {
   children?: Array<React.ReactElement<TabProps>>;
 }
 
-/** A React component used as a Tab in the [[TabBar]].
+/**
+ * A React component used as a Tab in the {@link TabBar}.
  * @public
  */
 export function Tab(props: TabProps) {
@@ -52,7 +55,8 @@ export function Tab(props: TabProps) {
   </div>;
 }
 
-/** A React component displaying a horizontal, scrollable list of Tabs.
+/**
+ * A React component displaying a horizontal, scrollable list of Tabs.
  * @public
  */
 export function TabBar(props: TabBarProps) {
@@ -99,7 +103,8 @@ export function TabBar(props: TabBarProps) {
   </>;
 }
 
-/** Interface used by [[useTabsAndStandAlonePanels]]
+/**
+ * Interface used by {@link useTabsAndStandAlonePanels}.
  * @public
  */
 export interface TabOrPanelDef extends Pick<TabProps, "label" | "popup" | "badge"> {
@@ -107,7 +112,8 @@ export interface TabOrPanelDef extends Pick<TabProps, "label" | "popup" | "badge
   isTab: boolean;
 }
 
-/** The object returned by [[useTabsAndStandAlonePanels]]
+/**
+ * The object returned by {@link useTabsAndStandAlonePanels}.
  * @public
  */
 export interface TabsAndStandAlonePanelsAPI {
@@ -117,15 +123,18 @@ export interface TabsAndStandAlonePanelsAPI {
   selectedPanel: number | undefined;
   /** Sets the selected panel index. */
   setSelectedPanel: (panel: number | undefined) => void;
-  /** Closes the selected panel.
+  /**
+   * Closes the selected panel.
    * @param openLastSelected - when true, the previous selected tab is opened, default false.
    */
   closeSelectedPanel: (openLastSelected?: boolean) => void;
-  /** Opens the specified panel
+  /**
+   * Opens the specified panel
    * @param labelOrIndex - the label or index of the tab/panel in the array.
    */
   openPanel: (labelOrIndex: string | number) => void;
-  /** Renders the TabBar and stand-alone panels, this should be called in the parent's rendering section of code.
+  /**
+   * Renders the TabBar and stand-alone panels, this should be called in the parent's rendering section of code.
    * @returns A React fragment with the TabBar and the stand-alone panels.
    */
   renderTabBarAndPanels: () => JSX.Element;
@@ -135,7 +144,8 @@ export interface TabsAndStandAlonePanelsAPI {
   autoCloseHandler: () => number;
 }
 
-/** A custom hook that manages the interaction between tabs and stand-alone panels.
+/**
+ * A custom hook that manages the interaction between tabs and stand-alone panels.
  * @public
  */
 export function useTabsAndStandAlonePanels(initialSelectedPanel?: number): TabsAndStandAlonePanelsAPI {

@@ -31,7 +31,8 @@ function PanelHeaderDraggableDiv(props: PanelHeaderDraggableDivProps) {
   </div>;
 }
 
-/** Properties for the [[PanelHeaderButton]] component.
+/**
+ * Properties for the {@link PanelHeaderButton} component.
  * @public
  */
 export interface PanelHeaderButtonProps extends CommonProps {
@@ -46,7 +47,8 @@ function isPanelHeaderButtonProps(obj?: any): obj is PanelHeaderButtonProps {
   return typeof obj === "object" && "label" in obj && "onClick" in obj;
 }
 
-/** A React component representing a text button in the [[PanelHeader]]
+/**
+ * A React component representing a text button in the {@link PanelHeader}.
  * @public
  */
 export function PanelHeaderButton(props: PanelHeaderButtonProps) {
@@ -60,7 +62,8 @@ export function PanelHeaderButton(props: PanelHeaderButtonProps) {
   </div>;
 }
 
-/** Properties for the [[PanelHeader]] component.
+/**
+ * Properties for the {@link PanelHeader} component.
  * @public
  */
 export interface PanelHeaderProps extends DraggableComponentCallbackProps {
@@ -74,7 +77,8 @@ export interface PanelHeaderProps extends DraggableComponentCallbackProps {
   draggable?: boolean;
 }
 
-/** A React component used as a header in a panel.
+/**
+ * A React component used as a header in a panel.
  * @public
  */
 export function PanelHeader(props: PanelHeaderProps) {

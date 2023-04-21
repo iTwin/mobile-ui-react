@@ -11,13 +11,15 @@ import { ReloadedEvent } from "@itwin/mobile-sdk-core";
 import { ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
 
-/** Properties for [[ResizablePanel]] component
+/**
+ * Properties for {@link ResizablePanel} component
  * @public
  */
 export interface ResizablePanelProps extends CommonProps {
   /** The children */
   children?: React.ReactNode;
-  /** Called when the panel is resized.
+  /**
+   * Called when the panel is resized.
    * @param currentHeight - The current height of the component.
    * @param top - The current top of the client bounding rect of the component.
    * @returns true or a non-zero number to cancel the resize.
@@ -25,11 +27,13 @@ export interface ResizablePanelProps extends CommonProps {
    * is restored to the original size, which can be useful to allow animations to settle.
    */
   onResized?: (currentHeight: number, top: number) => boolean | number;
-  /** Called when the panel is resizing.
+  /**
+   * Called when the panel is resizing.
    * @param top - The current top of the client bounding rect of the component.
    */
   onResizing?: (top: number) => void;
-  /** Called when the panel is flicked down. If not supplied, flick up/down gestures are not active.
+  /**
+   * Called when the panel is flicked down. If not supplied, flick up/down gestures are not active.
    * @returns true if flick down closes panel, false otherwise.
    */
   onFlickDown?: () => boolean;
@@ -67,7 +71,8 @@ function getChildExtraScrollableHeight(el: HTMLElement) {
   return 0;
 }
 
-/** A React component that supports vertical resizing via a drag handle
+/**
+ * A React component that supports vertical resizing via a drag handle.
  * @public
  */
 export function ResizablePanel(props: ResizablePanelProps) {
@@ -300,15 +305,18 @@ function VerticalDragHandle(props: VerticalDragHandleProps) {
   </DraggableComponent>;
 }
 
-/** Callback functions for any draggable component. See [[DraggableComponentProps]]
+/**
+ * Callback functions for any draggable component. See {@link DraggableComponentProps}.
  * @public
  */
 export interface DraggableComponentCallbackProps {
-  /** Called when dragging starts.
+  /**
+   * Called when dragging starts.
    * @param initialPosition - The x,y of the drag point.
    */
   onDragStart?: (initialPosition: XAndY) => void;
-  /** Called while dragging.
+  /**
+   * Called while dragging.
    * @param dragged - The x,y of the current drag point.
    */
   onDrag?: (dragged: XAndY) => void;
@@ -316,7 +324,8 @@ export interface DraggableComponentCallbackProps {
   onDragEnd?: () => void;
 }
 
-/** Properties for [[DraggableComponent]] component
+/**
+ * Properties for {@link DraggableComponent} component.
  * @public
  */
 export interface DraggableComponentProps extends DraggableComponentCallbackProps {
