@@ -170,11 +170,11 @@ export class MobileUi {
  */
 export function useCssVariable(name: string, htmlElement?: HTMLElement) {
   const [value, setValue] = React.useState(getCssVariable(name, htmlElement));
-  useBeUiEvent((args) => {
+  useBeUiEvent(React.useCallback((args) => {
     if (args.names.has(name) && args.htmlElement === htmlElement) {
       setValue(getCssVariable(name, htmlElement));
     }
-  }, MobileCore.onCssVariableDidChange);
+  }, [name, htmlElement]), MobileCore.onCssVariableDidChange);
   return value;
 }
 
@@ -187,11 +187,11 @@ export function useCssVariable(name: string, htmlElement?: HTMLElement) {
  */
 export function useCssVariableAsNumber(name: string, htmlElement?: HTMLElement) {
   const [value, setValue] = React.useState(getCssVariableAsNumber(name, htmlElement));
-  useBeUiEvent((args) => {
+  useBeUiEvent(React.useCallback((args) => {
     if (args.names.has(name) && args.htmlElement === htmlElement) {
       setValue(getCssVariableAsNumber(name, htmlElement));
     }
-  }, MobileCore.onCssVariableDidChange);
+  }, [name, htmlElement]), MobileCore.onCssVariableDidChange);
   return value;
 }
 
@@ -392,10 +392,10 @@ export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
  */
 export function useActiveToolId(ignoreEmptyToolIds: boolean = true) {
   const [activeToolId, setActiveTool] = React.useState(IModelApp.toolAdmin.activeTool?.toolId);
-  useBeEvent((tool: Tool) => {
+  useBeEvent(React.useCallback((tool: Tool) => {
     if (!ignoreEmptyToolIds || tool.toolId)
       setActiveTool(tool.toolId);
-  }, IModelApp.toolAdmin.activeToolChanged);
+  }, [ignoreEmptyToolIds]), IModelApp.toolAdmin.activeToolChanged);
   return activeToolId;
 }
 
@@ -404,13 +404,13 @@ export function useActiveToolId(ignoreEmptyToolIds: boolean = true) {
  * @param handler - The callback function.
  */
 export function useSelectionSetChanged(handler: (selectionSet?: SelectionSet) => void) {
-  useSyncUiEvent(() => {
+  useSyncUiEvent(React.useCallback(() => {
     const view = IModelApp.viewManager.getFirstOpenView();
     if (view)
       handler(view.iModel.selectionSet);
     else
       handler(undefined);
-  }, SyncUiEventId.SelectionSetChanged);
+  }, [handler]), SyncUiEventId.SelectionSetChanged);
 }
 
 /**
@@ -418,9 +418,9 @@ export function useSelectionSetChanged(handler: (selectionSet?: SelectionSet) =>
  * @param handler - The callback function.
  */
 export function useSelectionSetCount(handler: (count: number) => void) {
-  useSelectionSetChanged((selSet?: SelectionSet) => {
+  useSelectionSetChanged(React.useCallback((selSet?: SelectionSet) => {
     handler(selSet?.size ?? 0);
-  });
+  }, [handler]));
 }
 
 /**
@@ -555,9 +555,9 @@ export function useIsolatedCount(): number {
  * @param handler - The callback function.
  */
 export function useIModel(handler: (iModel: IModelConnection | undefined) => void) {
-  useSyncUiEvent(() => {
+  useSyncUiEvent(React.useCallback(() => {
     handler(UiFramework.getIModelConnection());
-  }, SessionStateActionId.SetIModelConnection);
+  }, [handler]), SessionStateActionId.SetIModelConnection);
 }
 
 /**
@@ -670,12 +670,12 @@ export function useForceUpdate() {
 export function useActiveColorSchemeIsDark() {
   const [isDark, setIsDark] = React.useState(MobileUi.activeColorSchemeIsDark);
   const isMountedRef = useIsMountedRef();
-  useBeEvent((newIsDark) => {
+  useBeEvent(React.useCallback((newIsDark) => {
     // Changing the state while processing the event can change the list of event listeners for the event which doesn't work
     setTimeout(() => {
       if (!isMountedRef.current) return;
       setIsDark(newIsDark);
     }, 0);
-  }, MobileUi.onColorSchemeChanged);
+  }, [isMountedRef]), MobileUi.onColorSchemeChanged);
   return isDark;
 }
