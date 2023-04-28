@@ -70,9 +70,9 @@ export function ToolAssistanceSuggestion() {
   const [labelVisible, setLabelVisible] = React.useState(true);
 
   useBeUiEvent((args: OnSetToolAssistanceArgs) => {
-    if (args) {
-      if (mainInstruction !== args.instructions?.mainInstruction.text) {
-        setMainInstruction(args.instructions?.mainInstruction.text);
+    if (args.instructions) {
+      if (mainInstruction !== args.instructions.mainInstruction.text) {
+        setMainInstruction(args.instructions.mainInstruction.text);
         setLabelVisible(true);
       }
     } else {
