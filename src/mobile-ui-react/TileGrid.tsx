@@ -8,7 +8,8 @@ import { CommonProps } from "@itwin/core-react";
 import { useMediaQuery, useScrolling } from "./MobileUi";
 import "./TileGrid.scss";
 
-/** Specifies the size of a [[GridTile]]
+/**
+ * Specifies the size of a {@link GridTile}.
  * @public
  */
 export interface GridTileSize {
@@ -20,7 +21,8 @@ export interface GridTileSize {
   height?: number;
 }
 
-/** Properties for [[TileGrid]] component
+/**
+ * Properties for {@link TileGrid} component.
  * @public
  */
 export interface TileGridProps extends CommonProps {
@@ -34,9 +36,10 @@ export interface TileGridProps extends CommonProps {
   smallTileSize?: GridTileSize;
 }
 
-/** Properties injected into a [[GridTile]] component by its parent [[TileGrid]] component.
+/**
+ * Properties injected into a {@link GridTile} component by its parent {@link TileGrid} component.
  * Do not directly use this interface. Note: all of these properties have to be optional in order for things to work
- * right. [[TileGrid]] will always set these properties, and [[GridTile]] expects them to be set.
+ * right. {@link TileGrid} will always set these properties, and {@link GridTile} expects them to be set.
  * @internal
  */
 export interface GridTileInjectedProps {
@@ -46,7 +49,8 @@ export interface GridTileInjectedProps {
   height?: number;
 }
 
-/** Properties for [[GridTile]] component
+/**
+ * Properties for {@link GridTile} component.
  * @public
  */
 export interface GridTileProps extends CommonProps {
@@ -57,10 +61,10 @@ export interface GridTileProps extends CommonProps {
 }
 
 /**
- * Takes a [[GridTileSize]] with optional values and returns a new one with all values populated.
- * @param tileSize Input [[GridTileSize]] with optional values.
+ * Takes a {@link GridTileSize} with optional values and returns a new one with all values populated.
+ * @param tileSize Input {@link GridTileSize} with optional values.
  * @param defaultSize Default value to use for all undefined properties.
- * @returns A [[GridTileSize]] object with all values set based on the input and defaultSize.
+ * @returns A {@link GridTileSize} object with all values set based on the input and defaultSize.
  * @internal
  */
 function fillTileSize(tileSize: GridTileSize | undefined, defaultSize: number) {
@@ -69,7 +73,8 @@ function fillTileSize(tileSize: GridTileSize | undefined, defaultSize: number) {
   return { size, width, height };
 }
 
-/** A React component that displays a grid of tiles, where all tiles are the same size, and have a fixed aspect ratio.
+/**
+ * A React component that displays a grid of tiles, where all tiles are the same size, and have a fixed aspect ratio.
  * @public
  */
 export function TileGrid(props: TileGridProps) {
@@ -103,7 +108,8 @@ export function TileGrid(props: TileGridProps) {
   );
 }
 
-/** A React component that is an individual tile in a [[TileGrid]].
+/**
+ * A React component that is an individual tile in a {@link TileGrid}.
  * @public
  */
 export function GridTile(props: GridTileProps & GridTileInjectedProps) {

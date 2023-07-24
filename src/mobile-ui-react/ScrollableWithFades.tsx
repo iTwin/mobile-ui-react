@@ -12,7 +12,8 @@ import "./ScrollableWithFades.scss";
 
 // Note: a VerticalScrollableWithFades may be added in the future, and it would have the same props.
 
-/** Properties for the [[HorizontalScrollableWithFades]] component.
+/**
+ * Properties for the {@link HorizontalScrollableWithFades} component.
  * @public
  */
 export interface ScrollableWithFadesProps extends ClassNameProps {
@@ -29,7 +30,8 @@ export interface ScrollableWithFadesProps extends ClassNameProps {
   fadeDisplayTrigger?: any;
 }
 
-/** A React component that fades out the left and right regions of a scrollable if there is more content in that
+/**
+ * A React component that fades out the left and right regions of a scrollable if there is more content in that
  * direction.
  * In other words, if the element is scrolled all the way to the right, then there will be no fade applied to the left
  * side. If the element is scrolled all the way to the left, there will be no fade applied to the right side.

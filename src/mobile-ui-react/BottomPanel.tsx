@@ -12,7 +12,8 @@ import { PanelHeader, PanelHeaderProps } from "./PanelHeader";
 import { ResizablePanel, ResizablePanelProps } from "./ResizablePanel";
 import "./BottomPanel.scss";
 
-/** Type for arguments sent to [[BottomPanelEvents.onResize]].
+/**
+ * Type for arguments sent to {@link BottomPanelEvents.onResize}.
  * @public
  */
 export interface BottomPanelResizeArgs {
@@ -24,7 +25,8 @@ export interface BottomPanelResizeArgs {
   appData: any | undefined;
 }
 
-/** Type for arguments sent to [[BottomPanelEvents.onResizing]].
+/**
+ * Type for arguments sent to {@link BottomPanelEvents.onResizing}.
  * @public
  */
 export interface BottomPanelResizingArgs {
@@ -34,7 +36,8 @@ export interface BottomPanelResizingArgs {
   appData: any | undefined;
 }
 
-/** Type for arguments sent to [[BottomPanelEvents.onOpen]] and [[BottomPanelEvents.onClose]].
+/**
+ * Type for arguments sent to {@link BottomPanelEvents.onOpen} and {@link BottomPanelEvents.onClose}.
  * @public
  */
 export interface BottomPanelOpenCloseArgs {
@@ -48,7 +51,8 @@ export interface BottomPanelOpenCloseArgs {
   appData: any | undefined;
 }
 
-/** Class that holds events sent by bottom panels.
+/**
+ * Class that holds events sent by bottom panels.
  * @public
  */
 export class BottomPanelEvents {
@@ -62,7 +66,7 @@ export class BottomPanelEvents {
   public static readonly onClose = new BeUiEvent<BottomPanelOpenCloseArgs>();
 }
 
-/** A custom hook function that returns the top of the currently open panel. See [[BottomPanelEvents]] */
+/** A custom hook function that returns the top of the currently open panel. See {@link BottomPanelEvents}. */
 export function useBottomPanelTop() {
   const [top, setTop] = React.useState<number>();
 
@@ -81,22 +85,25 @@ export function useBottomPanelTop() {
   return top;
 }
 
-/** Properties for the [[BottomPanel]] component.
+/**
+ * Properties for the {@link BottomPanel} component.
  * @public
  */
 export interface BottomPanelProps extends CommonProps {
   children?: React.ReactNode;
   /** Displayed when true. */
   isOpen?: boolean;
-  /** Called when isOpen becomes true.
+  /**
+   * Called when isOpen becomes true.
    * @param height - The height of the panel.
    */
   onOpen?: (height: number) => void;
-  /** Called when isOpen becomes false.
+  /**
+   * Called when isOpen becomes false.
    * @param height - The height of the panel.
    */
   onClose?: (height: number) => void;
-  /** Set to true when the component is not part of a [[TabBar]]. Default false. */
+  /** Set to true when the component is not part of a `TabBar`. Default false. */
   isStandAlone?: boolean;
   /** Set to true to remove curved borders, transparency and blur. Default false. */
   isSplitScreen?: boolean;
@@ -108,7 +115,8 @@ export interface BottomPanelProps extends CommonProps {
   appData?: any;
 }
 
-/** A React component representing a panel that slides up from the bottom.
+/**
+ * A React component representing a panel that slides up from the bottom.
  * @public
  */
 export const BottomPanel = React.forwardRef((props: BottomPanelProps, forwardedRef: MutableHtmlDivRefOrFunction) => {
@@ -165,13 +173,15 @@ export const BottomPanel = React.forwardRef((props: BottomPanelProps, forwardedR
 });
 BottomPanel.displayName = "BottomPanel";
 
-/** Properties for the [[ResizableBottomPanel]] component.
+/**
+ * Properties for the {@link ResizableBottomPanel} component.
  * @public
  */
 export interface ResizableBottomPanelProps extends BottomPanelProps, Optional<ResizablePanelProps, "heightState"> {
   /** Height at which the panel is closed automaticallay, defaults to 110 pixels. */
   autoCloseHeight?: number;
-  /** Called when the panel should be automatically closed. This must be supplied for the automatic close functionality to work as the callback
+  /**
+   * Called when the panel should be automatically closed. This must be supplied for the automatic close functionality to work as the callback
    * is responsible for setting the state necessary to no longer display the component.
    * @returns true or a non-zero number to automatically close the component (and in turn cancel the resize).
    * When a number is returned, it represents the delay (in milliseconds) before the panel's height
@@ -180,7 +190,8 @@ export interface ResizableBottomPanelProps extends BottomPanelProps, Optional<Re
   onAutoClose?: () => boolean | number;
 }
 
-/** A React component representing a resizable panel that slides up from the bottom.
+/**
+ * A React component representing a resizable panel that slides up from the bottom.
  * @public
  */
 export function ResizableBottomPanel(props: ResizableBottomPanelProps) {
@@ -312,7 +323,8 @@ export function ResizableBottomPanel(props: ResizableBottomPanelProps) {
   );
 }
 
-/** Properties for the [[ResizablePanelWithHeader]] component.
+/**
+ * Properties for the {@link ResizablePanelWithHeader} component.
  * @public
  */
 export interface ResizablePanelWithHeaderProps extends Omit<ResizableBottomPanelProps, "header"> {
@@ -320,7 +332,8 @@ export interface ResizablePanelWithHeaderProps extends Omit<ResizableBottomPanel
   panelHeader: Omit<PanelHeaderProps, "draggable">;
 }
 
-/** A simple wrapper of the ResizableBottomPanel that always has a draggable PanelHeader.
+/**
+ * A simple wrapper of the ResizableBottomPanel that always has a draggable PanelHeader.
  * @public
  */
 export function ResizablePanelWithHeader(props: ResizablePanelWithHeaderProps) {

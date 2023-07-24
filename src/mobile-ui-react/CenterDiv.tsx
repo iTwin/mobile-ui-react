@@ -7,17 +7,19 @@ import classnames from "classnames";
 import { CommonProps } from "@itwin/core-react";
 import "./CenterDiv.scss";
 
-/** Properties for [[CenterDiv]] component
+/**
+ * Properties for {@link CenterDiv} component
  * @public
  */
 interface CenterDivProps extends CommonProps, React.DOMAttributes<HTMLDivElement> {
-  /** Set to true to have the [[CenterDiv]] fill 100% of its parent. Default: no */
+  /** Set to true to have the {@link CenterDiv} fill 100% of its parent. Default: no */
   fill?: boolean;
   /** Children of this node */
   children?: React.ReactNode;
 }
 
-/** A React component that centers its child both horizontally and vertically.
+/**
+ * A React component that centers its child both horizontally and vertically.
  *
  * Note: If there are multiple children, they will be arrayed in a horizontal flex layout.
  * @public

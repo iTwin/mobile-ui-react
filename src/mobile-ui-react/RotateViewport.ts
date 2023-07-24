@@ -63,7 +63,7 @@ function isMatrixFace(matrix: Matrix3d): boolean {
  * Request that the first open viewport (if there is one) rotate to the specified face, if it is not already facing
  * that way.
  * NOTE: This does not perform the actual rotation, but instead emits
- * [[ViewportComponentEvents.onCubeRotationChangeEvent]]. A handler for that event is expected to perform the actual
+ * {@link ViewportComponentEvents.onCubeRotationChangeEvent}. A handler for that event is expected to perform the actual
  * rotation. This always sets complete to true in the event. It always operates on the first open viewport, so the
  * event handler needs to also only operate on the first open viewport.
  * @param face Which Face to rotate to.

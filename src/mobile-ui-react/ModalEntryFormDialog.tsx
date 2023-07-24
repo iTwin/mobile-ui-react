@@ -12,7 +12,8 @@ import { MobileUi } from "./MobileUi";
 
 import "./ModalEntryFormDialog.scss";
 
-/** Properties for each field in a [[ModalEntryFormDialog]] component.
+/**
+ * Properties for each field in a {@link ModalEntryFormDialog} component.
  * @public
  */
 export interface ModalEntryFormFieldProps {
@@ -28,14 +29,16 @@ export interface ModalEntryFormFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-/** One value returned by [[ModalEntryFormDialog]] component.
+/**
+ * One value returned by {@link ModalEntryFormDialog} component.
  * @public
  */
 export interface ModalEntryFormValue {
   value: string | undefined;
 }
 
-/** Properties for the [[ModalDialog]] component.
+/**
+ * Properties for the {@link ModalDialog} component.
  * @public
  */
 export interface ModalDialogProps extends CommonProps {
@@ -47,40 +50,47 @@ export interface ModalDialogProps extends CommonProps {
   cancelTitle?: string;
   /** Text to show on the OK button, default is "OK" (localized). Set to an empty string to hide it. */
   okTitle?: string;
-  /** Callback called when user taps OK button. Return true to accept, or false to fail.
+  /**
+   * Callback called when user taps OK button. Return true to accept, or false to fail.
    * Note: Component owner is responsible for closing the dialog when OK is accepted.
    */
   onOK: () => Promise<boolean>;
-  /** Callback called when user taps Cancel button.
+  /**
+   * Callback called when user taps Cancel button.
    * Note: Component owner is responsible for closing the dialog.
    */
   onCancel: () => void;
 }
 
-/** Properties passed to the [[ModalDialog.run]] function.
- * This just uses [[ModalDialogProps]], but makes onOK and onCancel optional.
+/**
+ * Properties passed to the {@link ModalDialog.run} function.
+ * This just uses {@link ModalDialogProps}, but makes onOK and onCancel optional.
  * @public
  */
 export type ModalDialogRunProps = Optional<ModalDialogProps, "onOK" | "onCancel">;
 
-/** Properties for the [[ModalEntryFormDialog]] component.
+/**
+ * Properties for the {@link ModalEntryFormDialog} component.
  * @public
  */
 export interface ModalEntryFormDialogProps extends Omit<ModalDialogProps, "children" | "onOK"> {
   /** Array of fields to display in the dialog. */
   fields: ModalEntryFormFieldProps[];
-  /** Callback called when user taps OK button. Return true to accept, or false to fail.
+  /**
+   * Callback called when user taps OK button. Return true to accept, or false to fail.
    * Note: Component owner is responsible for closing the dialog when OK is accepted.
    */
   onOK: (values: ModalEntryFormValue[]) => Promise<boolean>;
-  /** Callback called with the user taps OK and there is an error (like one or more required fields is blank).
+  /**
+   * Callback called with the user taps OK and there is an error (like one or more required fields is blank).
    * The callback should show the given error message to the user and wait for them to acknowledge it.
    */
   onError: (message: string) => Promise<void>;
 }
 
-/** Properties passed to the [[ModalEntryFormDialog.run]] function.
- * This just uses [[ModalEntryFormDialogProps]], but makes onOK and onCancel optional.
+/**
+ * Properties passed to the {@link ModalEntryFormDialog.run} function.
+ * This just uses {@link ModalEntryFormDialogProps}, but makes onOK and onCancel optional.
  * @public
  */
 export type ModalEntryFormDialogRunProps = Optional<ModalEntryFormDialogProps, "onOK" | "onCancel">;
@@ -141,7 +151,8 @@ ModalEntryFormField.idForName = (name: string) => {
   return `ModalEntryFormField-${name}`;
 };
 
-/** A React component representing a modal dialog. This fills the screen with a darkening background and centers the dialog.
+/**
+ * A React component representing a modal dialog. This fills the screen with a darkening background and centers the dialog.
  * @public
  */
 export function ModalDialog(props: ModalDialogProps) {
@@ -207,7 +218,8 @@ export function ModalDialog(props: ModalDialogProps) {
   );
 }
 
-/** A React component representing an entry form dialog. This fills the screen with a darkening background
+/**
+ * A React component representing an entry form dialog. This fills the screen with a darkening background
  * and centers the dialog (moving it up to avoid the virtual keyboard).
  * @public
  */
@@ -336,7 +348,8 @@ async function showModalDialog<T, P extends OKCancelHandlers<T>>(props: P, rende
   });
 }
 
-/** A convenience function to open (and close when appropriate) a [[ModalEntryFormDialog]] using [[ModalDialogManager]].
+/**
+ * A convenience function to open (and close when appropriate) a {@link ModalEntryFormDialog} using {@link UiFramework.dialogs.modal}.
  * @public
  * @param props The properties used to create the ModalEntryFormDialog component.
  * @returns An array of ModalEntryFormValue objects.
@@ -350,7 +363,8 @@ ModalEntryFormDialog.run = async (props: ModalEntryFormDialogRunProps) => {
   return showModalDialog<ModalEntryFormValue[], ModalEntryFormDialogProps>(dialogProps, (newProps) => <ModalEntryFormDialog {...newProps} />);
 };
 
-/** A convenience function to open (and close when appropriate) a [[ModalDialog]] using [[ModalDialogManager]].
+/**
+ * A convenience function to open (and close when appropriate) a {@link ModalDialog} using {@link UiFramework.dialogs.modal}.
  * @public
  * @param props The properties used to create the ModalDialog component.
  * @returns True if the OK button was pressed, False otherwise.
@@ -371,7 +385,8 @@ ModalDialog.run = async (props: ModalDialogRunProps) => {
   return okPressed;
 };
 
-/** A convenience function to open (and close when appropriate) a [[ModalDialog]] using [[ModalDialogManager]].
+/**
+ * A convenience function to open (and close when appropriate) a {@link ModalDialog} using {@link UiFramework.dialogs.modal}.
  * @public
  * @param contents The ReactNode to show in the alert dialog.
  * @param title The title for the dialog.
