@@ -99,6 +99,8 @@ export class MobileUi {
           break;
       }
       document.documentElement.setAttribute("data-theme", dataTheme);
+      // The iTwin UI framework relies on the "data-iui-theme" attribute on the body element. Unlike
+      // the imodeljs UI framework (which supports automatic), it only supports "light" and "dark".
       document.body.setAttribute("data-iui-theme", newTheme);
     }
     Messenger.sendMessage("Bentley_ITM_updatePreferredColorScheme", { preferredColorScheme: MobileUi._preferredColorScheme });
