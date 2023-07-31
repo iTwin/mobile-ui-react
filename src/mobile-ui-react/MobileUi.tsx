@@ -82,7 +82,8 @@ export class MobileUi {
   private static reflectColorScheme() {
     const isDark = MobileUi.activeColorSchemeIsDark;
     if (UiFramework.initialized) {
-      UiFramework.setColorTheme(isDark ? ColorTheme.Dark : ColorTheme.Light);
+      const newTheme = isDark ? ColorTheme.Dark : ColorTheme.Light;
+      UiFramework.setColorTheme(newTheme);
       // The imodeljs UI framework relies on the "data-theme" attribute. Since the only two ColorTheme
       // values are Light and Dark, the below handles those and Automatic.
       let dataTheme: string;
@@ -98,6 +99,7 @@ export class MobileUi {
           break;
       }
       document.documentElement.setAttribute("data-theme", dataTheme);
+      document.body.setAttribute("data-iui-theme", newTheme);
     }
     Messenger.sendMessage("Bentley_ITM_updatePreferredColorScheme", { preferredColorScheme: MobileUi._preferredColorScheme });
   }
