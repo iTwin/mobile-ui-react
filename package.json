@@ -45,23 +45,23 @@
   ],
   "dependencies": {
     "@bentley/icons-generic-webfont": "1.0.34",
-    "@itwin/appui-abstract": "4.1.0-dev.75",
+    "@itwin/appui-abstract": "4.1.0",
     "@itwin/appui-react": "4.3.0",
     "@itwin/components-react": "4.3.0",
-    "@itwin/core-bentley": "4.1.0-dev.75",
-    "@itwin/core-common": "4.1.0-dev.75",
-    "@itwin/core-frontend": "4.1.0-dev.75",
-    "@itwin/core-geometry": "4.1.0-dev.75",
-    "@itwin/core-i18n": "4.1.0-dev.75",
-    "@itwin/core-markup": "4.1.0-dev.75",
-    "@itwin/core-orbitgt": "4.1.0-dev.75",
+    "@itwin/core-bentley": "4.1.0",
+    "@itwin/core-common": "4.1.0",
+    "@itwin/core-frontend": "4.1.0",
+    "@itwin/core-geometry": "4.1.0",
+    "@itwin/core-i18n": "4.1.0",
+    "@itwin/core-markup": "4.1.0",
+    "@itwin/core-orbitgt": "4.1.0",
     "@itwin/core-react": "4.3.0",
-    "@itwin/core-quantity": "4.1.0-dev.75",
+    "@itwin/core-quantity": "4.1.0",
     "@itwin/imodel-components-react": "4.3.0",
     "@itwin/mobile-sdk-core": "0.20.0-dev.1",
-    "@itwin/presentation-common": "4.1.0-dev.75",
-    "@itwin/presentation-frontend": "4.1.0-dev.75",
-    "@itwin/webgl-compatibility": "4.1.0-dev.75",
+    "@itwin/presentation-common": "4.1.0",
+    "@itwin/presentation-frontend": "4.1.0",
+    "@itwin/webgl-compatibility": "4.1.0",
     "classnames": "^2.2.6",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
-    "@itwin/eslint-plugin": "4.0.0-dev.46",
+    "@itwin/eslint-plugin": "4.0.0-dev.33",
     "@svgr/cli": "^6.3.1",
     "@types/node": "10.14.1",
     "@types/react": "^16.14.17",
@@ -86,6 +86,14 @@
     "ts-node": "^10.3.0",
     "typedoc": "~0.22.0",
     "typescript": "~5.0.2"
+  },
+  "overrides": {
+    "eslint-plugin-jsdoc": {
+      "eslint": "^8.36.0"
+    },
+    "typedoc": {
+      "typescript": "~5.0.2"
+    }
   },
   "relativeDependencies": {
     "@itwin/mobile-sdk-core": "../mobile-sdk-core"
