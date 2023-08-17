@@ -5,6 +5,7 @@
 import * as React from "react";
 import "./IconImage.scss";
 import { Icon, IconSpec } from "@itwin/core-react";
+import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
 
 /**
  * Properties for {@link IconImage} component

@@ -4,12 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { DragHandleProps } from "@itwin/appui-layout-react";
 import { Point2d, XAndY } from "@itwin/core-geometry";
 import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
 import { ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
+import { PointProps } from "@itwin/appui-abstract";
 
 /**
  * Properties for {@link ResizablePanel} component
@@ -420,7 +420,18 @@ interface TouchDragHandleState {
   isPointerDown: boolean;
 }
 
-type TouchDragHandleProps = Omit<DragHandleProps, "onClick">;
+interface TouchDragHandleProps extends CommonProps {
+  /** Last pointer position of draggable tab. */
+  lastPosition?: PointProps;
+  /** Function called when component is dragged. */
+  onDrag?: (dragged: PointProps) => void;
+  /** Function called when component drag is started.
+   * @param initialPosition Initial pointer position in window coordinates.
+   */
+  onDragStart?: (initialPosition: PointProps) => void;
+  /** Function called when component drag is finished. */
+  onDragEnd?: () => void;
+}
 
 // A copy of the DragHandle class that uses TouchCaptor instead of PointerCaptor and only allows single touches during drags.
 class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDragHandleState> {
