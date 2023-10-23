@@ -5,8 +5,7 @@
 import * as React from "react";
 import { BackendError, Localization } from "@itwin/core-common";
 import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
-import { UiEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
-import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
+import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework, UiSyncEventArgs } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
@@ -385,8 +384,9 @@ export function useBeUiEvent<T>(handler: (args: T) => void, event: BeUiEvent<T>)
  * Note: UiEvent should generally be avoided, since it adds nothing to BeUiEvent.
  * @param handler - The callback function.
  * @param event - The BeUiEvent to handle.
+ * @deprecated in 0.30.0: use useBeUiEvent instead.
  */
-export function useUiEvent<T>(handler: (args: T) => void, event: UiEvent<T>) {
+export function useUiEvent<T>(handler: (args: T) => void, event: BeUiEvent<T>) {
   useBeUiEvent(handler, event);
 }
 
