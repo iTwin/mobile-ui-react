@@ -9,7 +9,6 @@ import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
 import { ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
-import { PointProps } from "@itwin/appui-abstract";
 
 /**
  * Properties for {@link ResizablePanel} component
@@ -422,13 +421,13 @@ interface TouchDragHandleState {
 
 interface TouchDragHandleProps extends CommonProps {
   /** Last pointer position of draggable tab. */
-  lastPosition?: PointProps;
+  lastPosition?: XAndY;
   /** Function called when component is dragged. */
-  onDrag?: (dragged: PointProps) => void;
+  onDrag?: (dragged: XAndY) => void;
   /** Function called when component drag is started.
    * @param initialPosition Initial pointer position in window coordinates.
    */
-  onDragStart?: (initialPosition: PointProps) => void;
+  onDragStart?: (initialPosition: XAndY) => void;
   /** Function called when component drag is finished. */
   onDragEnd?: () => void;
 }

@@ -4,8 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { Point3d, SmoothTransformBetweenFrusta, Transform } from "@itwin/core-geometry";
 import { Easing, Frustum, Tweens } from "@itwin/core-common";
-import { UiSyncEventArgs } from "@itwin/appui-abstract";
-import { SessionStateActionId, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
+import { SessionStateActionId, SyncUiEventDispatcher, UiFramework, UiSyncEventArgs } from "@itwin/appui-react";
 import { Animator, IModelApp, ScreenViewport, ViewAnimationOptions } from "@itwin/core-frontend";
 
 /**
