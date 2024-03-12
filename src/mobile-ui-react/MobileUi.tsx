@@ -344,15 +344,11 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
  */
 export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
   React.useEffect(() => {
-    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args: UiSyncEventArgs) => {
       if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
         handler(args);
       }
-    };
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-    return () => {
-      SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
-    };
+    });
   }, [eventIds, handler]);
 }
 
@@ -363,10 +359,7 @@ export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...even
  */
 export function useBeEvent<T extends Listener>(handler: T, event: BeEvent<T>) {
   React.useEffect(() => {
-    event.addListener(handler);
-    return () => {
-      event.removeListener(handler);
-    };
+    return event.addListener(handler);
   }, [event, handler]);
 }
 
@@ -447,29 +440,19 @@ export function useFirstViewport(): ScreenViewport | undefined {
   const [firstOpenViewport, setFirstOpenViewport] = React.useState(IModelApp.viewManager.getFirstOpenView());
 
   React.useEffect(() => {
-    const onViewOpen = (vp: ScreenViewport) => {
+    return IModelApp.viewManager.onViewOpen.addListener((vp: ScreenViewport) => {
       if (vp === IModelApp.viewManager.getFirstOpenView()) {
         setFirstOpenViewport(vp);
       }
-    };
-
-    IModelApp.viewManager.onViewOpen.addListener(onViewOpen);
-    return () => {
-      IModelApp.viewManager.onViewOpen.removeListener(onViewOpen);
-    };
+    });
   }, []);
 
   React.useEffect(() => {
-    const onViewClose = (vp: ScreenViewport) => {
+    return IModelApp.viewManager.onViewClose.addListener((vp: ScreenViewport) => {
       if (vp === firstOpenViewport) {
         setFirstOpenViewport(undefined);
       }
-    };
-
-    IModelApp.viewManager.onViewClose.addListener(onViewClose);
-    return () => {
-      IModelApp.viewManager.onViewClose.removeListener(onViewClose);
-    };
+    });
   }, [firstOpenViewport]);
 
   return firstOpenViewport;
@@ -482,17 +465,15 @@ export function useFirstViewport(): ScreenViewport | undefined {
  */
 export function useViewports(handler: (viewports: ScreenViewport[]) => void): ScreenViewport[] {
   React.useEffect(() => {
-    const onViewOpen = () => {
+    const callback = () => {
       handler(getAllViewports());
     };
-    const onViewClose = () => {
-      handler(getAllViewports());
-    };
-    IModelApp.viewManager.onViewOpen.addListener(onViewOpen);
-    IModelApp.viewManager.onViewClose.addListener(onViewClose);
+    const removals = [
+      IModelApp.viewManager.onViewOpen.addListener(callback),
+      IModelApp.viewManager.onViewClose.addListener(callback),
+    ];
     return () => {
-      IModelApp.viewManager.onViewOpen.removeListener(onViewOpen);
-      IModelApp.viewManager.onViewClose.removeListener(onViewClose);
+      removals.forEach((removeFn) => removeFn());
     };
   }, [handler]);
   return getAllViewports();
@@ -510,10 +491,7 @@ export function useFeatureOverrides(handler: (alwaysDrawn: Id64Set | undefined) 
   }, [handler]);
 
   React.useEffect(() => {
-    vp?.onFeatureOverridesChanged.addListener(featureOverridesListener);
-    return () => {
-      vp?.onFeatureOverridesChanged.removeListener(featureOverridesListener);
-    };
+    return vp?.onFeatureOverridesChanged.addListener(featureOverridesListener);
   }, [vp, featureOverridesListener]);
 }
 

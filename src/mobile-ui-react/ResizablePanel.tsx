@@ -181,8 +181,7 @@ export function ResizablePanel(props: ResizablePanelProps) {
         }
       }
     };
-    reloadedEvent?.addListener(handleReloaded);
-    return () => { reloadedEvent?.removeListener(handleReloaded); };
+    return reloadedEvent?.addListener(handleReloaded);
   }, [reloadedEvent, getOptimalHeight, height, minInitialHeight, maxInitialHeight, updateMaxHeight, setHeightAndCallOnResized]);
 
   const onDragStart = () => {
