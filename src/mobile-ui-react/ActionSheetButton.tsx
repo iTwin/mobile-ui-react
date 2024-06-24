@@ -37,37 +37,27 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
  * in mobile-sdk-core.
  * @public
  */
-export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
-  constructor(props: ActionSheetButtonProps) {
-    super(props);
-  }
-
-  public static onClick = async (props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
+export function ActionSheetButton(props: ActionSheetButtonProps) {
+  const { className, style, iconSpec, size, width, height, iconSize } = props;
+  const onClick = React.useCallback(async (source: React.MouseEvent | DOMRect) => {
     const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
     props.onSelected?.(result);
-  };
-
-  public override render() {
-    const { iconSpec, size, width, height, iconSize } = this.props;
-    const onClick = async (event: React.MouseEvent) => {
-      return ActionSheetButton.onClick(this.props, event);
-    };
-    let actualIconSize = iconSize;
-    if (this.props.iconSize === undefined && this.props.iconSpec === undefined) {
-      actualIconSize = "16px";
-    }
-    return (
-      <NavigationButton
-        className={this.props.className}
-        style={this.props.style}
-        onClick={onClick}
-        strokeWidth="1px"
-        size={size}
-        width={width}
-        height={height}
-        iconSpec={iconSpec || "icon-more-vertical-2"}
-        iconSize={actualIconSize}
-      />
-    );
+  }, [props]);
+  let actualIconSize = iconSize;
+  if (iconSize === undefined && iconSpec === undefined) {
+    actualIconSize = "16px";
   }
+  return (
+    <NavigationButton
+      className={className}
+      style={style}
+      onClick={onClick}
+      strokeWidth="1px"
+      size={size}
+      width={width}
+      height={height}
+      iconSpec={iconSpec || "icon-more-vertical-2"}
+      iconSize={actualIconSize}
+    />
+  );
 }

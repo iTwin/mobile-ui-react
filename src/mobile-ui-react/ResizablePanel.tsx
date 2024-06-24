@@ -345,7 +345,11 @@ export function DraggableComponent(props: DraggableComponentProps) {
     setLastPosition(undefined);
     props.onDragEnd?.();
   };
-  return <TouchDragHandle className={classnames("mui-draggable-component", props.className)} onDragStart={onDragStart} onDrag={onDrag} lastPosition={lastPosition} onDragEnd={onDragEnd} >
+  return <TouchDragHandle
+    className={classnames("mui-draggable-component", props.className)}
+    onDragStart={onDragStart} onDrag={onDrag}
+    lastPosition={lastPosition} onDragEnd={onDragEnd}
+  >
     {props.children}
   </TouchDragHandle>;
 }
@@ -365,57 +369,50 @@ interface TouchCaptorProps extends CommonProps {
   onTouchStart?: (e: TouchEvent) => void;
   onTouchMove?: (e: TouchEvent) => void;
   onTouchEnd?: (e: TouchEvent) => void;
+  children?: React.ReactNode;
 }
 
 // This is a copy of PointerCaptor that has been changed to work with touch events instead.
-class TouchCaptor extends React.PureComponent<TouchCaptorProps> {
-  public override componentDidMount() {
-    document.addEventListener("touchend", this._handleDocumentTouchEnd);
-    document.addEventListener("touchmove", this._handleDocumentTouchMove);
-  }
-
-  public override componentWillUnmount() {
-    document.removeEventListener("touchend", this._handleDocumentTouchEnd);
-    document.removeEventListener("touchmove", this._handleDocumentTouchMove);
-  }
-
-  public override render() {
-    const className = classnames(
-      "nz-base-pointerCaptor",
-      this.props.isTouchStarted && "nz-captured",
-      this.props.className);
-    return (
-      <div
-        className={className}
-        onTouchStart={this._handleTouchStart}
-        style={this.props.style}
-        role="presentation"
-      >
-        <div className="nz-overlay" />
-        {this.props.children}
-      </div>
-    );
-  }
-
-  private _handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    this.props.onTouchStart && this.props.onTouchStart(e.nativeEvent);
-  };
-
-  private _handleDocumentTouchEnd = (e: TouchEvent) => {
-    if (!this.props.isTouchStarted)
+// 2024-06-24: Converted to a function due to compile errors that I couldn't understand after
+// updating to iTwin 4.7.x.
+function TouchCaptor(props: TouchCaptorProps) {
+  const { className, children, isTouchStarted, onTouchStart, onTouchMove, onTouchEnd } = props;
+  const handleTouchStart = React.useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    onTouchStart?.(e.nativeEvent);
+  }, [onTouchStart]);
+  const handleDocumentTouchEnd = React.useCallback((e: TouchEvent) => {
+    if (!isTouchStarted)
       return;
-    this.props.onTouchEnd && this.props.onTouchEnd(e);
-  };
-
-  private _handleDocumentTouchMove = (e: TouchEvent) => {
-    if (!this.props.isTouchStarted)
+    onTouchEnd?.(e);
+  }, [onTouchEnd, isTouchStarted]);
+  const handleDocumentTouchMove = React.useCallback((e: TouchEvent) => {
+    if (!isTouchStarted)
       return;
-    this.props.onTouchMove && this.props.onTouchMove(e);
-  };
-}
-
-interface TouchDragHandleState {
-  isPointerDown: boolean;
+    onTouchMove?.(e);
+  }, [onTouchMove, isTouchStarted]);
+  React.useEffect(() => {
+    document.addEventListener("touchend", handleDocumentTouchEnd);
+    document.addEventListener("touchmove", handleDocumentTouchMove);
+    return () => {
+      document.removeEventListener("touchend", handleDocumentTouchEnd);
+      document.removeEventListener("touchmove", handleDocumentTouchMove);
+    };
+  }, [handleDocumentTouchEnd, handleDocumentTouchMove]);
+  const fullClassName = classnames(
+    "nz-base-pointerCaptor",
+    isTouchStarted && "nz-captured",
+    className);
+  return (
+    <div
+      className={fullClassName}
+      onTouchStart={handleTouchStart}
+      style={props.style}
+      role="presentation"
+    >
+      <div className="nz-overlay" />
+      {children}
+    </div>
+  );
 }
 
 interface TouchDragHandleProps extends CommonProps {
@@ -429,77 +426,57 @@ interface TouchDragHandleProps extends CommonProps {
   onDragStart?: (initialPosition: XAndY) => void;
   /** Function called when component drag is finished. */
   onDragEnd?: () => void;
+  children?: React.ReactNode;
 }
 
-// A copy of the DragHandle class that uses TouchCaptor instead of PointerCaptor and only allows single touches during drags.
-class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDragHandleState> {
-  private _initial: XAndY | undefined = undefined;
-  // private _isDragged = false;
-
-  public override readonly state: TouchDragHandleState = {
-    isPointerDown: false,
-  };
-
-  public override render() {
-    return (
-      <TouchCaptor
-        children={this.props.children} // eslint-disable-line react/no-children-prop
-        className={this.props.className}
-        isTouchStarted={this.props.lastPosition === undefined ? this.state.isPointerDown : true}
-        // onClick={this._handleClick}
-        onTouchStart={this._handlePointerDown}
-        onTouchEnd={this._handlePointerUp}
-        onTouchMove={this._handlePointerMove}
-        style={this.props.style}
-      />
-    );
-  }
-
-  private _handlePointerDown = (e: TouchEvent) => {
-    // if (e.target instanceof Element) {
-    //   e.target.releasePointerCapture(e.pointerId);
-    // }
-
+// A copy of the DragHandle component that uses TouchCaptor instead of PointerCaptor and only allows single touches during drags.
+// 2024-06-24: Converted to a function due to compile errors that I couldn't understand after
+// updating to iTwin 4.7.x.
+function TouchDragHandle(props: TouchDragHandleProps) {
+  const { className, style, lastPosition, onDrag, onDragStart, onDragEnd, children } = props;
+  const [ isPointerDown, setIsPointerDown ] = React.useState(false);
+  const [ initial, setInitial ] = React.useState<XAndY>();
+  const handlePointerDown = React.useCallback((e: TouchEvent) => {
     if (e.touches.length !== 1)
       return;
-    this.setState({ isPointerDown: true });
+    setIsPointerDown(true);
 
     e.preventDefault();
-    // this._isDragged = false;
     const touch = e.touches[0];
 
-    this._initial = {x: touch.clientX, y: touch.clientY};
-  };
-
-  private _handlePointerMove = (e: TouchEvent) => {
+    setInitial({x: touch.clientX, y: touch.clientY});
+  }, []);
+  const handlePointerMove = React.useCallback((e: TouchEvent) => {
     if (e.touches.length !== 1)
       return;
     const touch = e.touches[0];
     const current = new Point2d(touch.clientX, touch.clientY);
-    if (this.props.lastPosition) {
-      const dragged = current.minus(this.props.lastPosition);
-      this.props.onDrag?.(dragged);
+    if (lastPosition) {
+      const dragged = current.minus(lastPosition);
+      onDrag?.(dragged);
       return;
     }
 
-    if (this._initial && current.distance(this._initial) >= 6) {
-      // this._isDragged = true;
-      this.props.onDragStart?.(this._initial);
+    if (initial && current.distance(initial) >= 6) {
+      onDragStart?.(initial);
     }
-  };
-
-  private _handlePointerUp = () => {
-    this.setState({ isPointerDown: false });
-    this._initial = undefined;
-    if (this.props.lastPosition) {
-      this.props.onDragEnd?.();
-      return;
+  }, [lastPosition, initial, onDragStart, onDrag]);
+  const handlePointerUp = React.useCallback(() => {
+    setIsPointerDown(false);
+    setInitial(undefined);
+    if (lastPosition) {
+      onDragEnd?.();
     }
-  };
-
-  // private _handleClick = () => {
-  //   if (this._isDragged)
-  //     return;
-  //   this.props.onClick?.();
-  // }
+  }, [lastPosition, onDragEnd]);
+  return (
+    <TouchCaptor
+      children={children} // eslint-disable-line react/no-children-prop
+      className={className}
+      isTouchStarted={lastPosition === undefined ? isPointerDown : true}
+      onTouchStart={handlePointerDown}
+      onTouchEnd={handlePointerUp}
+      onTouchMove={handlePointerMove}
+      style={style}
+    />
+  );
 }
