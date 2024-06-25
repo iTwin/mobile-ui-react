@@ -341,9 +341,17 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
  * A custom React hook function for UiSyncEvents.
  * @param handler - The callback function.
  * @param eventIds - The optional event ids to handle.
+ *
+ * __NOTE__: This function should probably be deprecated, but right now there is no obvious way to
+ * replace it. Consequently, the following is for information only:
+ * NOT@deprecated in 0.22.5. UiSyncEventArgs were deprecated in appui-react 4.13.x.
  */
+// @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
+// eslint-disable-next-line deprecation/deprecation
 export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
   React.useEffect(() => {
+    // @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
+    // eslint-disable-next-line deprecation/deprecation
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args: UiSyncEventArgs) => {
       if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
         handler(args);

@@ -70,6 +70,8 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
+  // @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
+  // eslint-disable-next-line deprecation/deprecation
   private _onSyncUi = (args: UiSyncEventArgs) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
