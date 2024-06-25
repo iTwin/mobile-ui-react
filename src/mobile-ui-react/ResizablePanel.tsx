@@ -369,7 +369,6 @@ interface TouchCaptorProps extends CommonProps {
   onTouchStart?: (e: TouchEvent) => void;
   onTouchMove?: (e: TouchEvent) => void;
   onTouchEnd?: (e: TouchEvent) => void;
-  children?: React.ReactNode;
 }
 
 // This is a copy of PointerCaptor that has been changed to work with touch events instead.
@@ -477,7 +476,6 @@ interface TouchDragHandleProps extends CommonProps {
   onDragStart?: (initialPosition: XAndY) => void;
   /** Function called when component drag is finished. */
   onDragEnd?: () => void;
-  children?: React.ReactNode;
 }
 
 // A copy of the DragHandle class that uses TouchCaptor instead of PointerCaptor and only allows single touches during drags.
