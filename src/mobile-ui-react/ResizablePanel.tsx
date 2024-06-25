@@ -553,6 +553,9 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
 }
 
 // @todo Use the functional version of TouchDragHandle below after sufficient testing.
+// NOTE: appui now has usePointerCaptor, which also supports touches. This whole component might
+// be redesigned to use that, but I don't understand usePointerCaptor enough to even know if it is
+// possible. If usePointerCaptor can be used, then the TouchCaptor class above is not needed.
 // // 2024-06-24: Converted to a function.
 // function TouchDragHandle(props: TouchDragHandleProps) {
 //   const { className, style, lastPosition, onDrag, onDragStart, onDragEnd, children } = props;
