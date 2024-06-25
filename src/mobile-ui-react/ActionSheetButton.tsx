@@ -39,10 +39,6 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
  */
 export function ActionSheetButton(props: ActionSheetButtonProps) {
   const { className, style, iconSpec, size, width, height, iconSize } = props;
-  const onClick = React.useCallback(async (source: React.MouseEvent | DOMRect) => {
-    const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
-    props.onSelected?.(result);
-  }, [props]);
   let actualIconSize = iconSize;
   if (iconSize === undefined && iconSpec === undefined) {
     actualIconSize = "16px";
@@ -51,7 +47,7 @@ export function ActionSheetButton(props: ActionSheetButtonProps) {
     <NavigationButton
       className={className}
       style={style}
-      onClick={onClick}
+      onClick={async (event) => { await ActionSheetButton.onClick(props, event); }}
       strokeWidth="1px"
       size={size}
       width={width}
@@ -61,3 +57,8 @@ export function ActionSheetButton(props: ActionSheetButtonProps) {
     />
   );
 }
+
+ActionSheetButton.onClick = async (props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
+  const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
+  props.onSelected?.(result);
+};
