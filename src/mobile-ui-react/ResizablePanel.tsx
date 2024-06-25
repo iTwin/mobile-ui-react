@@ -345,7 +345,11 @@ export function DraggableComponent(props: DraggableComponentProps) {
     setLastPosition(undefined);
     props.onDragEnd?.();
   };
-  return <TouchDragHandle className={classnames("mui-draggable-component", props.className)} onDragStart={onDragStart} onDrag={onDrag} lastPosition={lastPosition} onDragEnd={onDragEnd} >
+  return <TouchDragHandle
+    className={classnames("mui-draggable-component", props.className)}
+    onDragStart={onDragStart} onDrag={onDrag}
+    lastPosition={lastPosition} onDragEnd={onDragEnd}
+  >
     {props.children}
   </TouchDragHandle>;
 }
@@ -414,6 +418,48 @@ class TouchCaptor extends React.PureComponent<TouchCaptorProps> {
   };
 }
 
+// @todo Use the functional version of TouchCaptor below after sufficient testing.
+// // 2024-06-24: Converted to a function.
+// function TouchCaptor(props: TouchCaptorProps) {
+//   const { className, children, isTouchStarted, onTouchStart, onTouchMove, onTouchEnd } = props;
+//   const handleTouchStart = React.useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+//     onTouchStart?.(e.nativeEvent);
+//   }, [onTouchStart]);
+//   const handleDocumentTouchEnd = React.useCallback((e: TouchEvent) => {
+//     if (!isTouchStarted)
+//       return;
+//     onTouchEnd?.(e);
+//   }, [onTouchEnd, isTouchStarted]);
+//   const handleDocumentTouchMove = React.useCallback((e: TouchEvent) => {
+//     if (!isTouchStarted)
+//       return;
+//     onTouchMove?.(e);
+//   }, [onTouchMove, isTouchStarted]);
+//   React.useEffect(() => {
+//     document.addEventListener("touchend", handleDocumentTouchEnd);
+//     document.addEventListener("touchmove", handleDocumentTouchMove);
+//     return () => {
+//       document.removeEventListener("touchend", handleDocumentTouchEnd);
+//       document.removeEventListener("touchmove", handleDocumentTouchMove);
+//     };
+//   }, [handleDocumentTouchEnd, handleDocumentTouchMove]);
+//   const fullClassName = classnames(
+//     "nz-base-pointerCaptor",
+//     isTouchStarted && "nz-captured",
+//     className);
+//   return (
+//     <div
+//       className={fullClassName}
+//       onTouchStart={handleTouchStart}
+//       style={props.style}
+//       role="presentation"
+//     >
+//       <div className="nz-overlay" />
+//       {children}
+//     </div>
+//   );
+// }
+
 interface TouchDragHandleState {
   isPointerDown: boolean;
 }
@@ -441,17 +487,19 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
   };
 
   public override render() {
+    const { style, children, className, lastPosition } = this.props;
     return (
       <TouchCaptor
-        children={this.props.children} // eslint-disable-line react/no-children-prop
-        className={this.props.className}
-        isTouchStarted={this.props.lastPosition === undefined ? this.state.isPointerDown : true}
+        className={className}
+        isTouchStarted={lastPosition === undefined ? this.state.isPointerDown : true}
         // onClick={this._handleClick}
         onTouchStart={this._handlePointerDown}
         onTouchEnd={this._handlePointerUp}
         onTouchMove={this._handlePointerMove}
-        style={this.props.style}
-      />
+        style={style}
+      >
+        {children}
+      </TouchCaptor>
     );
   }
 
@@ -503,3 +551,58 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
   //   this.props.onClick?.();
   // }
 }
+
+// @todo Use the functional version of TouchDragHandle below after sufficient testing.
+// NOTE: appui now has usePointerCaptor, which also supports touches. This whole component might
+// be redesigned to use that, but I don't understand usePointerCaptor enough to even know if it is
+// possible. If usePointerCaptor can be used, then the TouchCaptor class above is not needed.
+// // 2024-06-24: Converted to a function.
+// function TouchDragHandle(props: TouchDragHandleProps) {
+//   const { className, style, lastPosition, onDrag, onDragStart, onDragEnd, children } = props;
+//   const [ isPointerDown, setIsPointerDown ] = React.useState(false);
+//   const [ initial, setInitial ] = React.useState<XAndY>();
+//   const handlePointerDown = React.useCallback((e: TouchEvent) => {
+//     if (e.touches.length !== 1)
+//       return;
+//     setIsPointerDown(true);
+
+//     e.preventDefault();
+//     const touch = e.touches[0];
+
+//     setInitial({x: touch.clientX, y: touch.clientY});
+//   }, []);
+//   const handlePointerMove = React.useCallback((e: TouchEvent) => {
+//     if (e.touches.length !== 1)
+//       return;
+//     const touch = e.touches[0];
+//     const current = new Point2d(touch.clientX, touch.clientY);
+//     if (lastPosition) {
+//       const dragged = current.minus(lastPosition);
+//       onDrag?.(dragged);
+//       return;
+//     }
+
+//     if (initial && current.distance(initial) >= 6) {
+//       onDragStart?.(initial);
+//     }
+//   }, [lastPosition, initial, onDragStart, onDrag]);
+//   const handlePointerUp = React.useCallback(() => {
+//     setIsPointerDown(false);
+//     setInitial(undefined);
+//     if (lastPosition) {
+//       onDragEnd?.();
+//     }
+//   }, [lastPosition, onDragEnd]);
+//   return (
+//     <TouchCaptor
+//       className={className}
+//       isTouchStarted={lastPosition === undefined ? isPointerDown : true}
+//       onTouchStart={handlePointerDown}
+//       onTouchEnd={handlePointerUp}
+//       onTouchMove={handlePointerMove}
+//       style={style}
+//     >
+//       {children}
+//     </TouchCaptor>
+//   );
+// }

@@ -37,37 +37,36 @@ export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
  * in mobile-sdk-core.
  * @public
  */
-export class ActionSheetButton extends React.Component<ActionSheetButtonProps> {
-  constructor(props: ActionSheetButtonProps) {
-    super(props);
+export function ActionSheetButton(props: ActionSheetButtonProps) {
+  const { className, style, iconSpec, size, width, height, iconSize } = props;
+  let actualIconSize = iconSize;
+  if (iconSize === undefined && iconSpec === undefined) {
+    actualIconSize = "16px";
   }
-
-  public static onClick = async (props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
-    const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
-    props.onSelected?.(result);
-  };
-
-  public override render() {
-    const { iconSpec, size, width, height, iconSize } = this.props;
-    const onClick = async (event: React.MouseEvent) => {
-      return ActionSheetButton.onClick(this.props, event);
-    };
-    let actualIconSize = iconSize;
-    if (this.props.iconSize === undefined && this.props.iconSpec === undefined) {
-      actualIconSize = "16px";
-    }
-    return (
-      <NavigationButton
-        className={this.props.className}
-        style={this.props.style}
-        onClick={onClick}
-        strokeWidth="1px"
-        size={size}
-        width={width}
-        height={height}
-        iconSpec={iconSpec || "icon-more-vertical-2"}
-        iconSize={actualIconSize}
-      />
-    );
-  }
+  return (
+    <NavigationButton
+      className={className}
+      style={style}
+      onClick={async (event) => { await ActionSheetButton.onClick(props, event); }}
+      strokeWidth="1px"
+      size={size}
+      width={width}
+      height={height}
+      iconSpec={iconSpec || "icon-more-vertical-2"}
+      iconSize={actualIconSize}
+    />
+  );
 }
+
+/**
+ * Act as though an {@link ActionSheetButton} with the given props had been clicked. This will show
+ * an action sheet using the native UI and call `props.onSelected` with the user's selection.
+ * @param props The {@link ActionSheetButtonProps} to use to show the action sheet.
+ * @param source The mouse event that triggered the click (whose target's rectangle will be used
+ * for the action sheet), or the DOM rectangle of the source component that wants to show the action
+ * sheet.
+ */
+ActionSheetButton.onClick = async (props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
+  const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
+  props.onSelected?.(result);
+};

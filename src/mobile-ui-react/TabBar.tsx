@@ -137,7 +137,7 @@ export interface TabsAndStandAlonePanelsAPI {
    * Renders the TabBar and stand-alone panels, this should be called in the parent's rendering section of code.
    * @returns A React fragment with the TabBar and the stand-alone panels.
    */
-  renderTabBarAndPanels: () => JSX.Element;
+  renderTabBarAndPanels: () => React.JSX.Element;
   /** The --mui-bottom-panel-animation-duration CSS variable value in milliseconds. */
   openCloseTiming: number;
   /** The onAutoClose handler for a resizable panel. */
