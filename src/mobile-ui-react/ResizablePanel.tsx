@@ -419,8 +419,7 @@ class TouchCaptor extends React.PureComponent<TouchCaptorProps> {
 }
 
 // @todo Use the functional version of TouchCaptor below after sufficient testing.
-// // 2024-06-24: Converted to a function due to compile errors that I couldn't understand after
-// // updating to iTwin 4.7.x.
+// // 2024-06-24: Converted to a function.
 // function TouchCaptor(props: TouchCaptorProps) {
 //   const { className, children, isTouchStarted, onTouchStart, onTouchMove, onTouchEnd } = props;
 //   const handleTouchStart = React.useCallback((e: React.TouchEvent<HTMLDivElement>) => {
@@ -554,8 +553,7 @@ class TouchDragHandle extends React.PureComponent<TouchDragHandleProps, TouchDra
 }
 
 // @todo Use the functional version of TouchDragHandle below after sufficient testing.
-// // 2024-06-24: Converted to a function due to compile errors that I couldn't understand after
-// // updating to iTwin 4.7.x.
+// // 2024-06-24: Converted to a function.
 // function TouchDragHandle(props: TouchDragHandleProps) {
 //   const { className, style, lastPosition, onDrag, onDragStart, onDragEnd, children } = props;
 //   const [ isPointerDown, setIsPointerDown ] = React.useState(false);
