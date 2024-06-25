@@ -58,6 +58,14 @@ export function ActionSheetButton(props: ActionSheetButtonProps) {
   );
 }
 
+/**
+ * Act as though an {@link ActionSheetButton} with the given props had been clicked. This will show
+ * an action sheet using the native UI and call `props.onSelected` with the user's selection.
+ * @param props The {@link ActionSheetButtonProps} to use to show the action sheet.
+ * @param source The mouse event that triggered the click (whose target's rectangle will be used
+ * for the action sheet), or the DOM rectangle of the source component that wants to show the action
+ * sheet.
+ */
 ActionSheetButton.onClick = async (props: ActionSheetButtonProps, source: React.MouseEvent | DOMRect) => {
   const result = await presentActionSheet(props, "currentTarget" in source ? source.currentTarget.getBoundingClientRect() : source);
   props.onSelected?.(result);
