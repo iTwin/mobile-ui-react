@@ -4,8 +4,17 @@
 *--------------------------------------------------------------------------------------------*/
 import { Point3d, SmoothTransformBetweenFrusta, Transform } from "@itwin/core-geometry";
 import { Easing, Frustum, Tweens } from "@itwin/core-common";
-import { SessionStateActionId, SyncUiEventDispatcher, UiFramework, UiSyncEventArgs } from "@itwin/appui-react";
+import { SessionStateActionId, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
 import { Animator, IModelApp, ScreenViewport, ViewAnimationOptions } from "@itwin/core-frontend";
+import { BeEvent, Listener } from "@itwin/core-bentley";
+
+// NOTE: All of the below is what AppUI says we need to do to avoid using the deprecated
+// UiSyncEventArgs type from AppUI. We can't do this in one file and reference from others,
+// because that would require US to export UiSyncEventArgs, and we definitely don't want to do that.
+// So every file where we need to use this type, we must include all three of the below lines.
+type ListenerType<TEvent extends BeEvent<Listener>> = TEvent extends BeEvent<infer TListener> ? TListener : never;
+type UiSyncEventListener = ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>;
+type UiSyncEventArgs = Parameters<UiSyncEventListener>[0];
 
 /**
  * Custom animator to animate the 8 corners of a view frustum change.
@@ -54,6 +63,7 @@ class InterpolateFrustumAnimator implements Animator {
 export class PanTracker {
   private static _panTrackers: { [key: string]: PanTracker } = {};
   private _vpParentDivId: string;
+  private _removeSyncUiListener: () => void | undefined;
   public x = 0;
   public y = 0;
   public nextX = 0;
@@ -63,15 +73,13 @@ export class PanTracker {
     this._vpParentDivId = vpParentDivId;
     IModelApp.viewManager.onViewOpen.addListener(this._onViewOpen);
     IModelApp.viewManager.onViewClose.addListener(this._onViewClose);
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(this._onSyncUi);
+    this._removeSyncUiListener = SyncUiEventDispatcher.onSyncUiEvent.addListener(this._onSyncUi);
   }
 
   public get vpParentDivId() {
     return this._vpParentDivId;
   }
 
-  // @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
-  // eslint-disable-next-line deprecation/deprecation
   private _onSyncUi = (args: UiSyncEventArgs) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
@@ -119,7 +127,8 @@ export class PanTracker {
   private detach() {
     IModelApp.viewManager.onViewOpen.removeListener(this._onViewOpen);
     IModelApp.viewManager.onViewClose.removeListener(this._onViewClose);
-    SyncUiEventDispatcher.onSyncUiEvent.removeListener(this._onSyncUi);
+    this._removeSyncUiListener?.();
+    this._removeSyncUiListener = undefined;
     delete PanTracker._panTrackers[this._vpParentDivId];
   }
 
