@@ -12,13 +12,13 @@ import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError }
 
 import "./MobileUi.scss";
 
-// NOTE: All of the below is what AppUI says we need to do to avoid using the deprecated
-// UiSyncEventArgs type from AppUI. We can't do this in one file and reference from others,
-// because that would require US to export UiSyncEventArgs, and we definitely don't want to do that.
-// So every file where we need to use this type, we must include all three of the below lines.
-type ListenerType<TEvent extends BeEvent<Listener>> = TEvent extends BeEvent<infer TListener> ? TListener : never;
-type UiSyncEventListener = ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>;
-type UiSyncEventArgs = Parameters<UiSyncEventListener>[0];
+// @todo: Import this from @itwin/core-bentley in iTwin 4.8.
+/**
+ * Convenience type to extract the listener type from a specific BeEvent. This will go away when the
+ * same type is exported from @itwin/core-bentley in iTwin 4.8.
+ * @internal
+ */
+export type ListenerType<TEvent extends BeEvent<Listener>> = TEvent extends BeEvent<infer TListener> ? TListener : never;
 
 /** Type used for MobileUi.onClose BeEvent. */
 export declare type CloseListener = () => void;
@@ -342,7 +342,7 @@ export const useScrolling = (scrollable: HTMLElement | undefined | null) => {
  * @param eventIds - The optional event ids to handle. Note: if these are missing, ALL SyncUi events
  * will be handled.
  */
-export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: string[]) {
+export function useSyncUiEvent(handler: ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>, ...eventIds: string[]) {
   React.useEffect(() => {
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
       if (eventIds.length === 0 || SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, eventIds)) {

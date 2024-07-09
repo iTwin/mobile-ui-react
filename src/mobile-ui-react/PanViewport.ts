@@ -6,15 +6,7 @@ import { Point3d, SmoothTransformBetweenFrusta, Transform } from "@itwin/core-ge
 import { Easing, Frustum, Tweens } from "@itwin/core-common";
 import { SessionStateActionId, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
 import { Animator, IModelApp, ScreenViewport, ViewAnimationOptions } from "@itwin/core-frontend";
-import { BeEvent, Listener } from "@itwin/core-bentley";
-
-// NOTE: All of the below is what AppUI says we need to do to avoid using the deprecated
-// UiSyncEventArgs type from AppUI. We can't do this in one file and reference from others,
-// because that would require US to export UiSyncEventArgs, and we definitely don't want to do that.
-// So every file where we need to use this type, we must include all three of the below lines.
-type ListenerType<TEvent extends BeEvent<Listener>> = TEvent extends BeEvent<infer TListener> ? TListener : never;
-type UiSyncEventListener = ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>;
-type UiSyncEventArgs = Parameters<UiSyncEventListener>[0];
+import { ListenerType } from "./MobileUi";
 
 /**
  * Custom animator to animate the 8 corners of a view frustum change.
@@ -80,7 +72,7 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
-  private _onSyncUi = (args: UiSyncEventArgs) => {
+  private _onSyncUi = (args: Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>[0]) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;
