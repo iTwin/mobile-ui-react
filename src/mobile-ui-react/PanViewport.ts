@@ -72,7 +72,7 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
-  private _onSyncUi = (args: Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>[0]) => {
+  private _onSyncUi = (...[args]: Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;
