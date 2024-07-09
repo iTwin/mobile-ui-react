@@ -6,7 +6,7 @@ import { Point3d, SmoothTransformBetweenFrusta, Transform } from "@itwin/core-ge
 import { Easing, Frustum, Tweens } from "@itwin/core-common";
 import { SessionStateActionId, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
 import { Animator, IModelApp, ScreenViewport, ViewAnimationOptions } from "@itwin/core-frontend";
-import { ListenerType } from "./MobileUi";
+import { ListenerArgs } from "./MobileUi";
 
 /**
  * Custom animator to animate the 8 corners of a view frustum change.
@@ -72,7 +72,7 @@ export class PanTracker {
     return this._vpParentDivId;
   }
 
-  private _onSyncUi = (...[args]: Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>) => {
+  private _onSyncUi = (...[args]: ListenerArgs<typeof SyncUiEventDispatcher.onSyncUiEvent>) => {
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;

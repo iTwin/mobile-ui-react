@@ -20,6 +20,21 @@ import "./MobileUi.scss";
  */
 export type ListenerType<TEvent extends BeEvent<Listener>> = TEvent extends BeEvent<infer TListener> ? TListener : never;
 
+/**
+ * Convenience type to extract the parameters for a specific BeEvent.
+ *
+ * Example usage:
+ *
+ *     const onSyncUi = (...[args]: ListenerArgs<typeof SyncUiEventDispatcher.onSyncUiEvent>) => {
+ *       if (args.eventIds.has(someEvent)) {
+ *         // process event
+ *       }
+ *     }
+ *
+ * @internal
+ */
+export type ListenerArgs<TEvent extends BeEvent<Listener>> = Parameters<ListenerType<TEvent>>;
+
 /** Type used for MobileUi.onClose BeEvent. */
 export declare type CloseListener = () => void;
 
