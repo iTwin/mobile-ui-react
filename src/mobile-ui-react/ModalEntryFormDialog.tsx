@@ -41,6 +41,8 @@ export interface ModalEntryFormValue {
  * Properties for the {@link ModalDialog} component.
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface ModalDialogProps extends CommonProps {
   /** Content. */
   children: React.ReactNode;
