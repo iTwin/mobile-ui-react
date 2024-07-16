@@ -4,9 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
 import { withoutClassName } from "@itwin/mobile-sdk-core";
 import { DraggableComponent, DraggableComponentCallbackProps } from "./ResizablePanel";
+import { CommonProps } from "./MobileUi";
 
 import "./PanelHeader.scss";
 

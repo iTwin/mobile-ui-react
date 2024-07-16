@@ -5,9 +5,15 @@
 import * as React from "react";
 import classnames from "classnames";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
 import { Optional } from "@itwin/mobile-sdk-core";
-import { makeRefHandler, MutableHtmlDivRefOrFunction, useBeUiEvent, useWindowEvent } from "./MobileUi";
+import {
+  CommonProps,
+  getCssVariableAsNumber,
+  makeRefHandler,
+  MutableHtmlDivRefOrFunction,
+  useBeUiEvent,
+  useWindowEvent,
+} from "./MobileUi";
 import { PanelHeader, PanelHeaderProps } from "./PanelHeader";
 import { ResizablePanel, ResizablePanelProps } from "./ResizablePanel";
 import "./BottomPanel.scss";

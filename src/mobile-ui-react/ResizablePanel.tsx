@@ -5,9 +5,8 @@
 import * as React from "react";
 import classnames from "classnames";
 import { Point2d, XAndY } from "@itwin/core-geometry";
-import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
 import { ReloadedEvent } from "@itwin/mobile-sdk-core";
-import { ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
+import { CommonProps, getCssVariableAsNumber, ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
 
 /**

@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
 import "./CenterDiv.scss";
+import { CommonProps } from "./MobileUi";
 
 /**
  * Properties for {@link CenterDiv} component

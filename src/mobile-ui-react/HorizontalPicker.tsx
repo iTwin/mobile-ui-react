@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps } from "./MobileUi";
 
 import "./HorizontalPicker.scss";
 

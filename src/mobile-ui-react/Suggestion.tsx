@@ -5,10 +5,10 @@
 import * as React from "react";
 import classnames from "classnames";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { getCssVariableAsNumber, useOnOutsideClick } from "@itwin/core-react";
 import { ToolAssistanceInstructions } from "@itwin/core-frontend";
 import { IconImage } from "./IconImage";
-import { useBeUiEvent } from "./MobileUi";
+import { getCssVariableAsNumber, useBeUiEvent } from "./MobileUi";
+import { useOnOutsideClick } from "./useOnOutsideClick";
 import "./Suggestion.scss";
 
 /**

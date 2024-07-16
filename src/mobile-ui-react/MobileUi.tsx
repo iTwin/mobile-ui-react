@@ -4,13 +4,36 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { BackendError, Localization } from "@itwin/core-common";
-import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
 import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework, UiSyncEventArgs } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
+
+/** Props used by components that expect class name to be passed in.
+ *
+ * __Note__: Copied from @itwin/core-react, where it is being deprecated. It will **not ever** be
+ * deprecated from @itwin/mobile-ui-react.
+ * @public
+ */
+export interface ClassNameProps {
+  /** Custom CSS class name */
+  className?: string;
+}
+
+/** Common props used by components.
+ *
+ * __Note__: Copied from @itwin/core-react, where it is being deprecated. It will **not ever** be
+ * deprecated from @itwin/mobile-ui-react.
+ * @public
+ */
+export interface CommonProps extends ClassNameProps {
+  /** Custom CSS style properties */
+  style?: React.CSSProperties;
+  /** Optional unique identifier for item. If defined it will be added to DOM Element attribute as data-item-id */
+  itemId?: string;
+}
 
 /** Type used for MobileUi.onClose BeEvent. */
 export declare type CloseListener = () => void;
@@ -668,4 +691,36 @@ export function useActiveColorSchemeIsDark() {
     }, 0);
   }, [isMountedRef]), MobileUi.onColorSchemeChanged);
   return isDark;
+}
+
+/** Get CSS variable
+ * @public
+ *
+ * __Note__: Copied from @itwin/core-react, where it is being deprecated. It will **not ever** be
+ * deprecated from @itwin/mobile-ui-react.
+ */
+export function getCssVariable(
+  variableName: string,
+  htmlElement?: HTMLElement,
+): string {
+  const element = htmlElement ?? document.documentElement;
+  const cssStyles = getComputedStyle(element, null);
+  const cssVal = String(cssStyles.getPropertyValue(variableName)).trim();
+  return cssVal;
+}
+
+/** Get CSS variable as number
+ * @public
+ *
+ * __Note__: Copied from @itwin/core-react, where it is being deprecated. It will **not ever** be
+ * deprecated from @itwin/mobile-ui-react.
+ */
+export function getCssVariableAsNumber(
+  variableName: string,
+  htmlElement?: HTMLElement,
+): number {
+  let cssValNum: number = NaN;
+  const cssValStr = getCssVariable(variableName, htmlElement);
+  if (cssValStr) cssValNum = parseFloat(cssValStr);
+  return cssValNum;
 }
