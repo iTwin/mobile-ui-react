@@ -5,12 +5,35 @@
 import * as React from "react";
 import { BackendError, Localization } from "@itwin/core-common";
 import { getCssVariable, getCssVariableAsNumber } from "@itwin/core-react";
-import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework, UiSyncEventArgs } from "@itwin/appui-react";
+import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
+
+// @todo: Import this from @itwin/core-bentley in iTwin 4.8.
+/**
+ * Convenience type to extract the listener type from a specific BeEvent. This will go away when the
+ * same type is exported from @itwin/core-bentley in iTwin 4.8.
+ * @internal
+ */
+export type ListenerType<TEvent extends BeEvent<Listener>> = TEvent extends BeEvent<infer TListener> ? TListener : never;
+
+/**
+ * Convenience type to extract the parameters for a specific BeEvent.
+ *
+ * Example usage:
+ *
+ *     const onSyncUi = (...[args]: ListenerArgs<typeof SyncUiEventDispatcher.onSyncUiEvent>) => {
+ *       if (args.eventIds.has(someEvent)) {
+ *         // process event
+ *       }
+ *     }
+ *
+ * @internal
+ */
+export type ListenerArgs<TEvent extends BeEvent<Listener>> = Parameters<ListenerType<TEvent>>;
 
 /** Type used for MobileUi.onClose BeEvent. */
 export declare type CloseListener = () => void;
@@ -328,32 +351,16 @@ export const useScrolling = (scrollable: HTMLElement | undefined | null) => {
   return scrolling;
 };
 
-function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
-  for (const value of values) {
-    if (set.has(value)) {
-      return true;
-    }
-  }
-  return false;
-}
-
 /**
  * A custom React hook function for UiSyncEvents.
  * @param handler - The callback function.
- * @param eventIds - The optional event ids to handle.
- *
- * __NOTE__: This function should probably be deprecated, but right now there is no obvious way to
- * replace it. Consequently, the following is for information only:
- * NOT@deprecated in 0.22.5. UiSyncEventArgs were deprecated in appui-react 4.13.x.
+ * @param eventIds - The optional event ids to handle. Note: if these are missing, ALL SyncUi events
+ * will be handled.
  */
-// @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
-// eslint-disable-next-line deprecation/deprecation
-export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
+export function useSyncUiEvent(handler: ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>, ...eventIds: string[]) {
   React.useEffect(() => {
-    // @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
-    // eslint-disable-next-line deprecation/deprecation
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args: UiSyncEventArgs) => {
-      if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
+      if (eventIds.length === 0 || SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, eventIds)) {
         handler(args);
       }
     });
