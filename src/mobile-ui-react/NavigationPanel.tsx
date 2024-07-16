@@ -21,6 +21,8 @@ import {
  * Properties for the {@link NavigationPanel} component.
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface NavigationPanelProps extends ClassNameProps {
   /** The left side components. */
   left?: React.ReactNode;
@@ -44,6 +46,8 @@ export function NavigationPanel(props: NavigationPanelProps) {
  * Properties for the {@link NavigationButton} component.
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface NavigationButtonProps extends CommonProps {
   /** The icon. */
   iconSpec: IconSpec;

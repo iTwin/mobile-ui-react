@@ -11,6 +11,8 @@ import { NavigationButton } from "./NavigationPanel";
  * Properties for {@link ActionSheetButton}
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   /** The icon to show on the {@link ActionSheetButton}, default is three vertical dots. */
   iconSpec?: IconSpec;

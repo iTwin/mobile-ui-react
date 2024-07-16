@@ -25,6 +25,8 @@ export interface GridTileSize {
  * Properties for {@link TileGrid} component.
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface TileGridProps extends CommonProps {
   /** [[GridTile]] children of this node */
   children?: Array<React.ReactElement<GridTileProps>>;
@@ -53,6 +55,8 @@ export interface GridTileInjectedProps {
  * Properties for {@link GridTile} component.
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface GridTileProps extends CommonProps {
   /** onClick handler for this GridTile. */
   onClick?: (e: React.MouseEvent) => void;

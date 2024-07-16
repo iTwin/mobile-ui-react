@@ -89,6 +89,8 @@ export function useBottomPanelTop() {
  * Properties for the {@link BottomPanel} component.
  * @public
  */
+// @todo AppUI deprecation
+// eslint-disable-next-line deprecation/deprecation
 export interface BottomPanelProps extends CommonProps {
   children?: React.ReactNode;
   /** Displayed when true. */
@@ -293,6 +295,8 @@ export function ResizableBottomPanel(props: ResizableBottomPanelProps) {
     }
     setTimeout(() => {
       setFlickingDown(false);
+      // @todo AppUI deprecation
+      // eslint-disable-next-line deprecation/deprecation
     }, 50 + (typeof autoCloseResult === "number" ? autoCloseResult : getCssVariableAsNumber("--mui-bottom-panel-animation-duration") * 1000));
     return result;
   });

@@ -5,10 +5,12 @@
 import * as React from "react";
 import classnames from "classnames";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { getCssVariableAsNumber, useOnOutsideClick } from "@itwin/core-react";
+import { useOnOutsideClick } from "@itwin/core-react";
 import { ToolAssistanceInstructions } from "@itwin/core-frontend";
 import { IconImage } from "./IconImage";
 import { useBeUiEvent } from "./MobileUi";
+import { getCssVariableAsNumber } from "@itwin/mobile-sdk-core";
+
 import "./Suggestion.scss";
 
 /**
@@ -37,6 +39,8 @@ export function SuggestionContainer(props: React.HTMLAttributes<HTMLDivElement>)
  * @public
  */
 export function Suggestion(props: SuggestionProps) {
+  // @todo AppUI deprecation
+  // eslint-disable-next-line deprecation/deprecation
   const ref = useOnOutsideClick<HTMLDivElement>(() => props.onOutsideClick?.());
   // To ensure the icon is properly centered when the label not displayed, calculate the icon's margin so that its height and width match the pill height.
   const pillHeight = React.useRef(getCssVariableAsNumber("--mui-pill-height"));
