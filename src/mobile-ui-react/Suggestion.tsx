@@ -7,8 +7,10 @@ import classnames from "classnames";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { ToolAssistanceInstructions } from "@itwin/core-frontend";
 import { IconImage } from "./IconImage";
-import { getCssVariableAsNumber, useBeUiEvent } from "./MobileUi";
+import { useBeUiEvent } from "./MobileUi";
 import { useOnOutsideClick } from "./useOnOutsideClick";
+import { getCssVariableAsNumber } from "@itwin/mobile-sdk-core";
+
 import "./Suggestion.scss";
 
 /**

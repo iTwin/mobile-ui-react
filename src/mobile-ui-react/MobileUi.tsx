@@ -7,7 +7,15 @@ import { BackendError, Localization } from "@itwin/core-common";
 import { ColorTheme, SessionStateActionId, SyncUiEventDispatcher, SyncUiEventId, SYSTEM_PREFERRED_COLOR_THEME, UiFramework, UiSyncEventArgs } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
-import { getAllViewports, getEmphasizeElements, Messenger, MobileCore, UIError } from "@itwin/mobile-sdk-core";
+import {
+  getAllViewports,
+  getCssVariable,
+  getCssVariableAsNumber,
+  getEmphasizeElements,
+  Messenger,
+  MobileCore,
+  UIError,
+} from "@itwin/mobile-sdk-core";
 
 import "./MobileUi.scss";
 
@@ -105,6 +113,8 @@ export class MobileUi {
     const isDark = MobileUi.activeColorSchemeIsDark;
     if (UiFramework.initialized) {
       const newTheme = isDark ? ColorTheme.Dark : ColorTheme.Light;
+      // @todo AppUI deprecation
+      // eslint-disable-next-line deprecation/deprecation
       UiFramework.setColorTheme(newTheme);
       // The imodeljs UI framework relies on the "data-theme" attribute. Since the only two ColorTheme
       // values are Light and Dark, the below handles those and Automatic.
@@ -570,6 +580,8 @@ export function useIsolatedCount(): number {
 export function useIModel(handler: (iModel: IModelConnection | undefined) => void) {
   useSyncUiEvent(React.useCallback(() => {
     handler(UiFramework.getIModelConnection());
+    // @todo AppUI deprecation
+    // eslint-disable-next-line deprecation/deprecation
   }, [handler]), SessionStateActionId.SetIModelConnection);
 }
 
@@ -691,36 +703,4 @@ export function useActiveColorSchemeIsDark() {
     }, 0);
   }, [isMountedRef]), MobileUi.onColorSchemeChanged);
   return isDark;
-}
-
-/** Get CSS variable
- * @public
- *
- * __Note__: Copied from @itwin/core-react, where it is being deprecated. It will **not ever** be
- * deprecated from @itwin/mobile-ui-react.
- */
-export function getCssVariable(
-  variableName: string,
-  htmlElement?: HTMLElement,
-): string {
-  const element = htmlElement ?? document.documentElement;
-  const cssStyles = getComputedStyle(element, null);
-  const cssVal = String(cssStyles.getPropertyValue(variableName)).trim();
-  return cssVal;
-}
-
-/** Get CSS variable as number
- * @public
- *
- * __Note__: Copied from @itwin/core-react, where it is being deprecated. It will **not ever** be
- * deprecated from @itwin/mobile-ui-react.
- */
-export function getCssVariableAsNumber(
-  variableName: string,
-  htmlElement?: HTMLElement,
-): number {
-  let cssValNum: number = NaN;
-  const cssValStr = getCssVariable(variableName, htmlElement);
-  if (cssValStr) cssValNum = parseFloat(cssValStr);
-  return cssValNum;
 }

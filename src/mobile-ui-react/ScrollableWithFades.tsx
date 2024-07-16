@@ -5,7 +5,8 @@
 import * as React from "react";
 import classnames from "classnames";
 import { ColorDef } from "@itwin/core-common";
-import { ClassNameProps, getCssVariable, useScroll, useWindowEvent } from "./MobileUi";
+import { ClassNameProps, useScroll, useWindowEvent } from "./MobileUi";
+import { getCssVariable } from "@itwin/mobile-sdk-core";
 
 import "./ScrollableWithFades.scss";
 

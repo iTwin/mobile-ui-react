@@ -73,6 +73,8 @@ export class PanTracker {
   // @todo FIX Remove deprecated usage once appui-react provides a reasonable solution.
   // eslint-disable-next-line deprecation/deprecation
   private _onSyncUi = (args: UiSyncEventArgs) => {
+    // @todo AppUI deprecation
+    // eslint-disable-next-line deprecation/deprecation
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;

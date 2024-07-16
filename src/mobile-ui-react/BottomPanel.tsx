@@ -5,10 +5,9 @@
 import * as React from "react";
 import classnames from "classnames";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { Optional } from "@itwin/mobile-sdk-core";
+import { getCssVariableAsNumber, Optional } from "@itwin/mobile-sdk-core";
 import {
   CommonProps,
-  getCssVariableAsNumber,
   makeRefHandler,
   MutableHtmlDivRefOrFunction,
   useBeUiEvent,

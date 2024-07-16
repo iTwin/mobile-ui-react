@@ -7,7 +7,8 @@ import classnames from "classnames";
 import { ColorDef } from "@itwin/core-common";
 import { BottomPanelProps } from "./BottomPanel";
 import { HorizontalScrollableWithFades } from "./ScrollableWithFades";
-import { getCssVariable, getCssVariableAsNumber, useHorizontalScrollChildVisibleOnResize } from "./MobileUi";
+import { useHorizontalScrollChildVisibleOnResize } from "./MobileUi";
+import { getCssVariable, getCssVariableAsNumber } from "@itwin/mobile-sdk-core";
 
 import "./TabBar.scss";
 
