@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
+import { getCssVariable, getCssVariableAsNumber } from "@itwin/mobile-sdk-core";
 import { ColorDef } from "@itwin/core-common";
 import { BottomPanelProps } from "./BottomPanel";
 import { HorizontalScrollableWithFades } from "./ScrollableWithFades";
 import { useHorizontalScrollChildVisibleOnResize } from "./MobileUi";
-import { getCssVariable, getCssVariableAsNumber } from "@itwin/mobile-sdk-core";
 
 import "./TabBar.scss";
 
