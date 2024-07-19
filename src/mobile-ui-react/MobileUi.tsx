@@ -6,12 +6,12 @@ import * as React from "react";
 import { BackendError, Localization } from "@itwin/core-common";
 import {
   ColorTheme,
-  SessionStateActionId,
   SyncUiEventDispatcher,
   SyncUiEventId,
   SYSTEM_PREFERRED_COLOR_THEME,
   UiFramework,
   UiSyncEventArgs,
+  useActiveIModelConnection,
 } from "@itwin/appui-react";
 import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
@@ -582,11 +582,10 @@ export function useIsolatedCount(): number {
  * @param handler - The callback function.
  */
 export function useIModel(handler: (iModel: IModelConnection | undefined) => void) {
-  useSyncUiEvent(React.useCallback(() => {
-    handler(UiFramework.getIModelConnection());
-    // @todo AppUI deprecation
-    // eslint-disable-next-line deprecation/deprecation
-  }, [handler]), SessionStateActionId.SetIModelConnection);
+  const iModelConnection = useActiveIModelConnection();
+  React.useMemo(() => {
+    handler(iModelConnection);
+  }, [iModelConnection, handler]);
 }
 
 /**
