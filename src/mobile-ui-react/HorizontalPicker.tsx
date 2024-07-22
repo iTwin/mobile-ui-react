@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps } from "./MobileUi";
 
 import "./HorizontalPicker.scss";
 
@@ -12,8 +12,6 @@ import "./HorizontalPicker.scss";
  * Properties for {@link HorizontalPicker} component
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface HorizontalPickerProps extends CommonProps {
   /** The items in the picker. */
   items: React.ReactNode[];
@@ -23,8 +21,6 @@ export interface HorizontalPickerProps extends CommonProps {
   onItemSelected: (item: number) => void;
 }
 
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 interface HorizontalPickerItemProps extends CommonProps {
   itemNode: React.ReactNode;
   onClick: () => void;

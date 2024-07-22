@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps, IconSpec } from "@itwin/core-react";
+import { IconSpec } from "@itwin/core-react";
 import { AlertAction } from "@itwin/mobile-sdk-core";
 import { ActionSheetButton } from "./ActionSheetButton";
 import { IconImage } from "./IconImage";
-import { MobileUi } from "./MobileUi";
+import { CommonProps, MobileUi } from "./MobileUi";
 
 import "./CountNotification.scss";
 
@@ -40,8 +40,6 @@ export interface CountNotificationMoreProps {
  * Properties for {@link CountNotification} component
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface CountNotificationProps extends CommonProps {
   /** Count to display */
   count: number;
@@ -67,8 +65,6 @@ export interface CountNotificationProps extends CommonProps {
  * Properties for {@link CloseableCountNotification} component
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface CloseableCountNotificationProps extends CommonProps {
   /** Count to display */
   count: number;

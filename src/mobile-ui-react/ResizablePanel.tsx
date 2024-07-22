@@ -5,17 +5,14 @@
 import * as React from "react";
 import classnames from "classnames";
 import { Point2d, XAndY } from "@itwin/core-geometry";
-import { CommonProps } from "@itwin/core-react";
 import { getCssVariableAsNumber, ReloadedEvent } from "@itwin/mobile-sdk-core";
-import { ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
+import { CommonProps, ReactUseState, useIsMountedRef, useWindowEvent } from "./MobileUi";
 import "./ResizablePanel.scss";
 
 /**
  * Properties for {@link ResizablePanel} component
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface ResizablePanelProps extends CommonProps {
   /** The children */
   children?: React.ReactNode;
@@ -356,8 +353,6 @@ export function DraggableComponent(props: DraggableComponentProps) {
   </TouchDragHandle>;
 }
 
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 interface VerticalScrollProps extends CommonProps {
   children?: React.ReactNode;
 }
@@ -368,8 +363,6 @@ export function VerticalScroll(props: VerticalScrollProps) {
   return <div {...otherProps} className={classnames("mui-vertical-scroll", className)}>{children}</div>;
 }
 
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 interface TouchCaptorProps extends CommonProps {
   isTouchStarted: boolean;
   onTouchStart?: (e: TouchEvent) => void;
@@ -470,8 +463,6 @@ interface TouchDragHandleState {
   isPointerDown: boolean;
 }
 
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 interface TouchDragHandleProps extends CommonProps {
   /** Last pointer position of draggable tab. */
   lastPosition?: XAndY;

@@ -4,8 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
-import { useMediaQuery, useScrolling } from "./MobileUi";
+import { CommonProps, useMediaQuery, useScrolling } from "./MobileUi";
 import "./TileGrid.scss";
 
 /**
@@ -25,8 +24,6 @@ export interface GridTileSize {
  * Properties for {@link TileGrid} component.
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface TileGridProps extends CommonProps {
   /** [[GridTile]] children of this node */
   children?: Array<React.ReactElement<GridTileProps>>;
@@ -55,8 +52,6 @@ export interface GridTileInjectedProps {
  * Properties for {@link GridTile} component.
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface GridTileProps extends CommonProps {
   /** onClick handler for this GridTile. */
   onClick?: (e: React.MouseEvent) => void;
