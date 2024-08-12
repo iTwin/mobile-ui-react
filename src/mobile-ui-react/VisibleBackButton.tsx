@@ -15,7 +15,7 @@ import { Back as BackSvg } from "./images-tsx";
  * Override NavigationButtonProps without iconSpec, then add iconSpec back in as optional.
  */
 export interface VisibleBackButtonProps extends Omit<NavigationButtonProps, "iconSpec"> {
-  iconSpec?: IconSpec;
+  iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation
 }
 
 /**

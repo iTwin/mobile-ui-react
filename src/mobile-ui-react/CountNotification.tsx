@@ -52,7 +52,7 @@ export interface CountNotificationProps extends CommonProps {
   /** Click handler: ignored if moreButtonProps is set. */
   onClick?: () => void;
   /** IconSpec for icon to use on the right side: ignored if moreButtonProps is set. */
-  iconSpec?: IconSpec;
+  iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation
   /** The icon size, if iconSpec is specified, default is "24px". */
   iconSize?: string;
   /**
