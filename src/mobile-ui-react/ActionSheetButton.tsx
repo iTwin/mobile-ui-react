@@ -15,7 +15,7 @@ import { NavigationButton } from "./NavigationPanel";
 // eslint-disable-next-line deprecation/deprecation
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   /** The icon to show on the {@link ActionSheetButton}, default is three vertical dots. */
-  iconSpec?: IconSpec;
+  iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation
   /** The size of the {@link ActionSheetButton}, default is "42px". */
   size?: string;
   /** The width of the {@link ActionSheetButton}, default is size if specified, "42px" otherwise. */

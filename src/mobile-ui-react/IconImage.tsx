@@ -21,7 +21,7 @@ export interface IconImageProps {
   /** Optional font size used if [[iconSpec]] specifies a glyph from the Bentley icon font, default is [[size]]. */
   fontSize?: string;
   /** [[IconSpec]] of the icon to be shown. */
-  iconSpec: IconSpec;
+  iconSpec: IconSpec; // eslint-disable-line deprecation/deprecation
   /** Optional CSS id. */
   id?: string;
   /** Optional CSS margin. */
@@ -48,6 +48,7 @@ export function IconImage(props: IconImageProps) {
   }
   return (
     <div id={props.id} className="mui-icon-image" style={divStyle}>
+      {/* eslint-disable-next-line deprecation/deprecation */}
       <Icon iconSpec={props.iconSpec} />
     </div>
   );

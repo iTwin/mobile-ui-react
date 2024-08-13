@@ -26,7 +26,7 @@ export interface CircularButtonProps {
   /** The size of the circle, defaults to 50 pixels */
   size?: number;
   /** The icon to display in the circle */
-  iconSpec?: IconSpec;
+  iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation
   /** The icon size, defalts to 29 pixels */
   iconSize?: string;
   /** The icon color, defaults to white */

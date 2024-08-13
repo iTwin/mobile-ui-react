@@ -50,7 +50,7 @@ export function NavigationPanel(props: NavigationPanelProps) {
 // eslint-disable-next-line deprecation/deprecation
 export interface NavigationButtonProps extends CommonProps {
   /** The icon. */
-  iconSpec: IconSpec;
+  iconSpec: IconSpec; // eslint-disable-line deprecation/deprecation
   /** The button size, default is "42px". */
   size?: string;
   /** The width, default is size if specified, "42px" otherwise. */
@@ -152,6 +152,7 @@ export interface ConditionalNavigationButtonProps extends NavigationButtonProps 
 export function ConditionalNavigationButton(props: ConditionalNavigationButtonProps) {
   const { isVisible = true, iconSpec, ...others } = props;
   const [displayed, setDisplayed] = React.useState<boolean>();
+  // eslint-disable-next-line deprecation/deprecation
   const [localIconSpec, setLocalIconSpec] = React.useState<IconSpec>();
 
   React.useEffect(() => {
