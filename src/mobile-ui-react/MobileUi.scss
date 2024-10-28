@@ -73,6 +73,8 @@ $max-small-screen-size: 600px;
   --muic-background-circle-default-chip: white;
   --muic-icon-circle: white;
   --muic-icon-selected-circle: black;
+  --muic-disabled: var(--muic-gray-7);
+  --muic-background-disabled: var(--muic-gray-a);
   // Don't show tap highlights by default.
   -webkit-tap-highlight-color: transparent;
 }
@@ -112,6 +114,8 @@ $max-small-screen-size: 600px;
   --muic-background-circle-default-chip: black;
   --muic-icon-circle: black;
   --muic-icon-selected-circle: white;
+  --muic-disabled: var(--muic-gray-6);
+  --muic-background-disabled: var(--muic-gray-3);
 }
 
 body {
