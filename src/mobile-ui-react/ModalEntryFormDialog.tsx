@@ -160,6 +160,7 @@ ModalEntryFormField.idForName = (name: string) => {
 export function ModalDialog(props: ModalDialogProps) {
   const { title, className, onCancel, onOK, cancelTitle, okTitle, children } = props;
   const [fadedOut, setFadedOut] = React.useState(true);
+  const [waitingForOK, setWaitingForOK] = React.useState(false);
 
   React.useEffect(() => {
     // Create the dialog with fadedOut set, then switch it off after it has been created, which will trigger the half
@@ -169,19 +170,27 @@ export function ModalDialog(props: ModalDialogProps) {
     }, 0);
   }, []);
 
-  const handleOK = async () => {
+  const handleOK = React.useCallback(async () => {
+    if (waitingForOK)
+      return false;
+    setWaitingForOK(true);
     if (await onOK()) {
       setFadedOut(true);
       return true;
     }
+    setWaitingForOK(false);
     return false;
-  };
+  }, [onOK, waitingForOK]);
 
-  const handleCancel = () => {
+  const handleCancel = React.useCallback(() => {
+    if (waitingForOK)
+      return;
     setFadedOut(true);
     onCancel();
-  };
+  }, [onCancel, waitingForOK]);
 
+  const cancelClassName = classnames("mui-modal-button", waitingForOK && "mui-modal-button-disabled");
+  const okClassName = classnames("mui-modal-button", "mui-default", waitingForOK && "mui-modal-button-disabled");
   return (
     <div className={classnames("mui-modal-dialog-screen-cover", fadedOut && "mui-faded-out")}>
       <div className="mui-modal-dialog-parent">
@@ -196,7 +205,7 @@ export function ModalDialog(props: ModalDialogProps) {
           {children}
           <div className="mui-modal-button-row">
             {cancelTitle !== "" && <div
-              className="mui-modal-button"
+              className={cancelClassName}
               onClick={(e: React.MouseEvent) => {
                 e.stopPropagation();
                 handleCancel();
@@ -205,7 +214,7 @@ export function ModalDialog(props: ModalDialogProps) {
               {cancelTitle ?? MobileCore.translate("general.cancel")}
             </div>}
             {okTitle !== "" && <div
-              className="mui-modal-button mui-default"
+              className={okClassName}
               onClick={async (e: React.MouseEvent) => {
                 e.stopPropagation();
                 await handleOK();

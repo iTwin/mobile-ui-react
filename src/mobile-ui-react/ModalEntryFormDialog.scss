@@ -56,7 +56,7 @@
     box-sizing: border-box;
     margin-top: 2px;
     margin-bottom: 10px;
-    font-family: OpenSans;
+    font-family: "Open Sans", sans-serif;
     font-size: 14px;
     background-color: var(--muic-background);
     color: var(--muic-foreground-2);
@@ -126,5 +126,11 @@
 .mui-default {
   background-color: var(--muic-active);
   color: var(--muic-active-contrast);
+  border-width: 0px;
+}
+
+.mui-modal-button-disabled {
+  color: var(--muic-gray-6);
+  background-color: var(--muic-gray-3);
   border-width: 0px;
 }
