@@ -160,7 +160,7 @@ ModalEntryFormField.idForName = (name: string) => {
 export function ModalDialog(props: ModalDialogProps) {
   const { title, className, onCancel, onOK, cancelTitle, okTitle, children } = props;
   const [fadedOut, setFadedOut] = React.useState(true);
-  const [waitingForOK, setWaitingForOK] = React.useState(false);
+  const [waitingToClose, setWaitingToClose] = React.useState(false);
 
   React.useEffect(() => {
     // Create the dialog with fadedOut set, then switch it off after it has been created, which will trigger the half
@@ -171,26 +171,27 @@ export function ModalDialog(props: ModalDialogProps) {
   }, []);
 
   const handleOK = React.useCallback(async () => {
-    if (waitingForOK)
+    if (waitingToClose)
       return false;
-    setWaitingForOK(true);
+    setWaitingToClose(true);
     if (await onOK()) {
       setFadedOut(true);
       return true;
     }
-    setWaitingForOK(false);
+    setWaitingToClose(false);
     return false;
-  }, [onOK, waitingForOK]);
+  }, [onOK, waitingToClose]);
 
   const handleCancel = React.useCallback(() => {
-    if (waitingForOK)
+    if (waitingToClose)
       return;
+    setWaitingToClose(true);
     setFadedOut(true);
     onCancel();
-  }, [onCancel, waitingForOK]);
+  }, [onCancel, waitingToClose]);
 
-  const cancelClassName = classnames("mui-modal-button", waitingForOK && "mui-modal-button-disabled");
-  const okClassName = classnames("mui-modal-button", "mui-default", waitingForOK && "mui-modal-button-disabled");
+  const cancelClassName = classnames("mui-modal-button", waitingToClose && "mui-modal-button-disabled");
+  const okClassName = classnames("mui-modal-button", "mui-default", waitingToClose && "mui-modal-button-disabled");
   return (
     <div className={classnames("mui-modal-dialog-screen-cover", fadedOut && "mui-faded-out")}>
       <div className="mui-modal-dialog-parent">
