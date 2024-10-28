@@ -174,11 +174,14 @@ export function ModalDialog(props: ModalDialogProps) {
     if (waitingToClose)
       return false;
     setWaitingToClose(true);
-    if (await onOK()) {
-      setFadedOut(true);
-      return true;
+    try {
+      if (await onOK()) {
+        setFadedOut(true);
+        return true;
+      }
+    } finally {
+      setWaitingToClose(false);
     }
-    setWaitingToClose(false);
     return false;
   }, [onOK, waitingToClose]);
 
