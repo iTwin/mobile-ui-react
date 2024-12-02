@@ -3,16 +3,15 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { CommonProps, IconSpec } from "@itwin/core-react";
+import { IconSpec } from "@itwin/core-react";
 import { ActionSheetProps, presentActionSheet } from "@itwin/mobile-sdk-core";
 import { NavigationButton } from "./NavigationPanel";
+import { CommonProps } from "./MobileUi";
 
 /**
  * Properties for {@link ActionSheetButton}
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   /** The icon to show on the {@link ActionSheetButton}, default is three vertical dots. */
   iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation

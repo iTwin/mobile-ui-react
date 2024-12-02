@@ -5,9 +5,14 @@
 import * as React from "react";
 import classnames from "classnames";
 import { BeUiEvent } from "@itwin/core-bentley";
-import { CommonProps, getCssVariableAsNumber } from "@itwin/core-react";
-import { Optional } from "@itwin/mobile-sdk-core";
-import { makeRefHandler, MutableHtmlDivRefOrFunction, useBeUiEvent, useWindowEvent } from "./MobileUi";
+import { getCssVariableAsNumber, Optional } from "@itwin/mobile-sdk-core";
+import {
+  CommonProps,
+  makeRefHandler,
+  MutableHtmlDivRefOrFunction,
+  useBeUiEvent,
+  useWindowEvent,
+} from "./MobileUi";
 import { PanelHeader, PanelHeaderProps } from "./PanelHeader";
 import { ResizablePanel, ResizablePanelProps } from "./ResizablePanel";
 import "./BottomPanel.scss";
@@ -89,8 +94,6 @@ export function useBottomPanelTop() {
  * Properties for the {@link BottomPanel} component.
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface BottomPanelProps extends CommonProps {
   children?: React.ReactNode;
   /** Displayed when true. */
@@ -295,8 +298,6 @@ export function ResizableBottomPanel(props: ResizableBottomPanelProps) {
     }
     setTimeout(() => {
       setFlickingDown(false);
-      // @todo AppUI deprecation
-      // eslint-disable-next-line deprecation/deprecation
     }, 50 + (typeof autoCloseResult === "number" ? autoCloseResult : getCssVariableAsNumber("--mui-bottom-panel-animation-duration") * 1000));
     return result;
   });

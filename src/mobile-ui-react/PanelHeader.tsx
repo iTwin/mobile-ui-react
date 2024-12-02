@@ -4,9 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
 import { withoutClassName } from "@itwin/mobile-sdk-core";
 import { DraggableComponent, DraggableComponentCallbackProps } from "./ResizablePanel";
+import { CommonProps } from "./MobileUi";
 
 import "./PanelHeader.scss";
 
@@ -35,8 +35,6 @@ function PanelHeaderDraggableDiv(props: PanelHeaderDraggableDivProps) {
  * Properties for the {@link PanelHeaderButton} component.
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface PanelHeaderButtonProps extends CommonProps {
   /** The button's text label. */
   label: string;

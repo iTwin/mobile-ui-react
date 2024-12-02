@@ -4,15 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
 import "./CenterDiv.scss";
+import { CommonProps } from "./MobileUi";
 
 /**
  * Properties for {@link CenterDiv} component
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 interface CenterDivProps extends CommonProps, React.DOMAttributes<HTMLDivElement> {
   /** Set to true to have the {@link CenterDiv} fill 100% of its parent. Default: no */
   fill?: boolean;

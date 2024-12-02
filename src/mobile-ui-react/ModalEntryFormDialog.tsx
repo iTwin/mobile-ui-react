@@ -4,11 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
 import { UiFramework } from "@itwin/appui-react";
 import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-sdk-core";
 import { CloseButton } from "./NavigationPanel";
-import { MobileUi } from "./MobileUi";
+import { CommonProps, MobileUi } from "./MobileUi";
 
 import "./ModalEntryFormDialog.scss";
 
@@ -41,8 +40,6 @@ export interface ModalEntryFormValue {
  * Properties for the {@link ModalDialog} component.
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface ModalDialogProps extends CommonProps {
   /** Content. */
   children: React.ReactNode;

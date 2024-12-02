@@ -5,8 +5,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { ColorDef } from "@itwin/core-common";
-import { ClassNameProps } from "@itwin/core-react";
-import { useScroll, useWindowEvent } from "./MobileUi";
+import { ClassNameProps, useScroll, useWindowEvent } from "./MobileUi";
 import { getCssVariable } from "@itwin/mobile-sdk-core";
 
 import "./ScrollableWithFades.scss";
@@ -17,8 +16,6 @@ import "./ScrollableWithFades.scss";
  * Properties for the {@link HorizontalScrollableWithFades} component.
  * @public
  */
-// @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
 export interface ScrollableWithFadesProps extends ClassNameProps {
   backgroundColor?: ColorDef;
   /** The views to go into the scrollable element */
