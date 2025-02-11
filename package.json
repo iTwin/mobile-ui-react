@@ -39,16 +39,13 @@
     "@itwin/core-orbitgt": "4.10.3",
     "@itwin/core-quantity": "4.10.3",
     "@itwin/core-react": "4.17.6",
+    "@itwin/ecschema-metadata": "4.10.3",
     "@itwin/imodel-components-react": "4.17.6",
     "@itwin/mobile-sdk-core": "0.22.19",
     "@itwin/presentation-common": "4.10.3",
     "@itwin/presentation-frontend": "4.10.3",
     "@itwin/webgl-compatibility": "4.10.3",
-    "classnames": "^2.2.6",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-redux": "^7.2.4",
-    "redux": "^4.1.1"
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -63,11 +60,20 @@
     "cpx2": "^4.2.0",
     "eslint": "^8.36.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.1",
     "relative-deps": "^1.0.7",
     "sass": "^1.39.0",
     "ts-node": "^10.3.0",
     "typedoc": "~0.22.0",
     "typescript": "~5.0.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-redux": "^7.2.4"
   },
   "overrides": {
     "eslint-plugin-jsdoc": {
