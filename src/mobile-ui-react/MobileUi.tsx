@@ -6,14 +6,13 @@ import * as React from "react";
 import { BackendError, Localization } from "@itwin/core-common";
 import {
   ColorTheme,
-  SessionStateActionId,
   SyncUiEventDispatcher,
   SyncUiEventId,
   SYSTEM_PREFERRED_COLOR_THEME,
   UiFramework,
   UiSyncEventArgs,
 } from "@itwin/appui-react";
-import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
+import { EmphasizeElements, IModelApp, IModelConnection, ScreenViewport, SelectedViewportChangedArgs, SelectionSet, Tool, Viewport } from "@itwin/core-frontend";
 import { BeEvent, BeUiEvent, BriefcaseStatus, Id64Set, Listener } from "@itwin/core-bentley";
 import {
   getAllViewports,
@@ -385,6 +384,17 @@ export function useBeEvent<T extends Listener>(handler: T, event: BeEvent<T>) {
 }
 
 /**
+ * A custom React hook function for BeEvents.
+ * @param handler - The callback function.
+ * @param event - The BeEvent to handle or undefined.
+ */
+export function useOptionalBeEvent<T extends Listener>(handler: T, event: BeEvent<T> | undefined) {
+  React.useEffect(() => {
+    return event?.addListener(handler);
+  }, [event, handler]);
+}
+
+/**
  * A custom React hook function for BeUiEvents.
  * @param handler - The callback function.
  * @param event - The BeUiEvent to handle.
@@ -435,10 +445,41 @@ export function useSelectionSetChanged(handler: (selectionSet?: SelectionSet) =>
  * A custom React hook function for handling selection set count changes.
  * @param handler - The callback function.
  */
-export function useSelectionSetCount(handler: (count: number) => void) {
+export function useSelectionSetCountChanged(handler: (count: number) => void) {
   useSelectionSetChanged(React.useCallback((selSet?: SelectionSet) => {
     handler(selSet?.size ?? 0);
   }, [handler]));
+}
+
+/**
+ * A custom React hook function for keeping track of the current selection set.
+ * @returns The current selection set.
+ */
+export function useSelectionSet(): Set<string> {
+  const firstVp = useFirstViewport();
+  const emptySet = React.useMemo(() => new Set<string>(), []);
+  const [selectionSet, setSelectionSet] = React.useState(firstVp?.iModel.selectionSet.elements ?? emptySet);
+
+  const updateSelectionSet = React.useCallback(() => {
+    const view = IModelApp.viewManager.getFirstOpenView()?.view;
+    if (view) {
+      setSelectionSet(view.iModel.selectionSet.elements);
+    } else {
+      setSelectionSet(emptySet);
+    }
+  }, [emptySet]);
+  useOptionalBeEvent(updateSelectionSet, firstVp?.iModel.selectionSet.onChanged);
+  useOptionalBeEvent(updateSelectionSet, IModelApp.viewManager.onViewOpen);
+  useOptionalBeEvent(updateSelectionSet, IModelApp.viewManager.onViewClose);
+  return selectionSet;
+}
+
+/**
+ * A custom React hook function for keeping track of the current selection set count.
+ * @returns The number of elements in the current selection set.
+ */
+export function useSelectionSetCount(): number {
+  return useSelectionSet().size;
 }
 
 /**
@@ -480,11 +521,23 @@ export function useFirstViewport(): ScreenViewport | undefined {
 }
 
 /**
- * A custom React hook function for tracking viewports.
+ * A custom React hook function for getting the selected viewport that reacts to open view changes.
+ * @returns The first open viewport, or undefined when there is no viewport open.
+ */
+export function useSelectedViewport(): ScreenViewport | undefined {
+  const [selectedViewport, setSelectedViewport] = React.useState(IModelApp.viewManager.selectedView);
+  useBeEvent(React.useCallback((args: SelectedViewportChangedArgs) => {
+    setSelectedViewport(args.current);
+  }, [setSelectedViewport]), IModelApp.viewManager.onSelectedViewportChanged);
+  return selectedViewport;
+}
+
+/**
+ * A custom React hook function for tracking viewports changes.
  * @param handler - The callback function. Any time a viewport opens or closes, this is called with the new list of all
  * open viewports.
  */
-export function useViewports(handler: (viewports: ScreenViewport[]) => void): ScreenViewport[] {
+export function useViewportsChanged(handler: (viewports: ScreenViewport[]) => void): ScreenViewport[] {
   React.useEffect(() => {
     const callback = () => {
       handler(getAllViewports());
@@ -501,19 +554,25 @@ export function useViewports(handler: (viewports: ScreenViewport[]) => void): Sc
 }
 
 /**
+ * A custom React hook function for keeping track of the current active viewports.
+ * @returns The current active viewports.
+ */
+export function useViewports(): ScreenViewport[] {
+  const [viewports, setViewports] = React.useState(getAllViewports());
+  useViewportsChanged(setViewports);
+  return viewports;
+}
+
+/**
  * A custom React hook function for handling viewport "feature overrides" changes.
  * @param handler - The callback function.
  */
-export function useFeatureOverrides(handler: (alwaysDrawn: Id64Set | undefined) => void) {
+export function useFeatureOverridesChanged(handler: (alwaysDrawn: Id64Set | undefined) => void) {
   const vp = useFirstViewport();
 
-  const featureOverridesListener = React.useCallback((listenerVp: Viewport) => {
+  useOptionalBeEvent(React.useCallback((listenerVp: Viewport) => {
     handler(listenerVp.alwaysDrawn);
-  }, [handler]);
-
-  React.useEffect(() => {
-    return vp?.onFeatureOverridesChanged.addListener(featureOverridesListener);
-  }, [vp, featureOverridesListener]);
+  }, [handler]), vp?.onFeatureOverridesChanged);
 }
 
 function getEmphasisCount(getElements: (vp: ScreenViewport, ee: EmphasizeElements) => Id64Set | undefined): number {
@@ -525,7 +584,7 @@ function getEmphasisCount(getElements: (vp: ScreenViewport, ee: EmphasizeElement
 function useEmphasisCount(getElements: (vp: ScreenViewport, ee: EmphasizeElements) => Id64Set | undefined): number {
   const [emphasisCount, setEmphasisCount] = React.useState(getEmphasisCount(getElements));
 
-  useFeatureOverrides(React.useCallback(() => {
+  useFeatureOverridesChanged(React.useCallback(() => {
     setEmphasisCount(getEmphasisCount(getElements));
   }, [getElements]));
 
@@ -554,15 +613,21 @@ export function useIsolatedCount(): number {
 }
 
 /**
- * A custom React hook function for tracking the UiFramework's current iModel.
+ * A custom React hook function for handling UiFramework iModelConnection changes.
  * @param handler - The callback function.
  */
-export function useIModel(handler: (iModel: IModelConnection | undefined) => void) {
-  useSyncUiEvent(React.useCallback(() => {
-    handler(UiFramework.getIModelConnection());
-    // @todo AppUI deprecation
-    // eslint-disable-next-line deprecation/deprecation
-  }, [handler]), SessionStateActionId.SetIModelConnection);
+export function useIModelChanged(handler: (iModel: IModelConnection | undefined) => void) {
+  useBeEvent(React.useCallback(handler, [handler]), UiFramework.onIModelConnectionChanged);
+}
+
+/**
+ * A custom React hook function for keeping track of the current UiFramework iModelConnection.
+ * @returns The current UiFramework IModelConnection.
+ */
+export function useIModel(): IModelConnection | undefined {
+  const [iModel, setIModel] = React.useState(UiFramework.getIModelConnection());
+  useIModelChanged(setIModel);
+  return iModel;
 }
 
 /**
@@ -663,7 +728,7 @@ export function makeRefHandler<T>(ref: MutableRefOrFunction<T>, mutableRef?: Rea
  * Returns a function that when called forces an update of the calling functional React component.
  * @returns - A function that when called forces an update of the calling functional React component.
  */
-export function useForceUpdate() {
+export function useForceUpdate(): () => void {
   const [_value, setValue] = React.useState(0); // integer state
   return () => setValue((valueParam) => valueParam + 1); // update the state to force render
 }
@@ -672,7 +737,7 @@ export function useForceUpdate() {
  * React hook indicating if the active color scheme is dark.
  * @returns true if the active color scheme is dark, fals otherwise.
  */
-export function useActiveColorSchemeIsDark() {
+export function useActiveColorSchemeIsDark(): boolean {
   const [isDark, setIsDark] = React.useState(MobileUi.activeColorSchemeIsDark);
   const isMountedRef = useIsMountedRef();
   useBeEvent(React.useCallback((newIsDark) => {
