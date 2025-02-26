@@ -3,6 +3,7 @@
     "99+": "99+"
   },
   "modal-entry-form": {
+    "restricted-characters": "Field cannot contain following symbols: ",
     "required-field": "The required field \"{{field}}\" is blank.",
     "required-fields": "The following required fields are blank: {{fields}}."
   }
