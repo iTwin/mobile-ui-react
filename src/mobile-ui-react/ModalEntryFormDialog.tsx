@@ -6,6 +6,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@itwin/core-react";
 import { UiFramework } from "@itwin/appui-react";
+import { SvgStatusWarning } from "@itwin/itwinui-icons-react";
 import { getCssVariableAsNumberOrDefault, MobileCore, Optional } from "@itwin/mobile-sdk-core";
 import { CloseButton } from "./NavigationPanel";
 import { MobileUi } from "./MobileUi";
@@ -25,6 +26,8 @@ export interface ModalEntryFormFieldProps {
   isRequired?: boolean;
   /** Whether or not white space should be trimmed off the beginning and end of entered text, default is false. */
   autoTrim?: boolean;
+  /** The characters that are not allowed to be entered. */
+  forbiddenCharacters?: string[];
   /** Callback every time the field value changes. */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -34,7 +37,10 @@ export interface ModalEntryFormFieldProps {
  * @public
  */
 export interface ModalEntryFormValue {
+  /** The current value */
   value: string | undefined;
+  /** Warning to to show under `value`'s field */
+  warning?: string;
 }
 
 /**
@@ -106,13 +112,14 @@ interface ModalEntryFormFieldPropsInternal extends ModalEntryFormFieldProps {
   index: number;
   isFocused?: boolean;
   value: string;
+  warning?: string;
 }
 
 /**
  * @internal
  */
 function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
-  const { name, value, isRequired = false, onEnter, onFocus, index, isFocused } = props;
+  const { name, value, isRequired = false, onEnter, onFocus, index, isFocused, warning } = props;
   const labelClassNames = classnames("mui-modal-entry-form-field-label", isRequired && "mui-required");
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -129,7 +136,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
         {isRequired && <div className={classnames(labelClassNames, "mui-required-red")}>&nbsp;*</div>}
       </div>
       <input
-        className="mui-modal-entry-form-field-input"
+        className={classnames("mui-modal-entry-form-field-input", warning && "mui-modal-entry-form-field-input-warning")}
         id={ModalEntryFormField.idForName(name)}
         type="text"
         onChange={props.onChange}
@@ -142,6 +149,9 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
         tabIndex={index + 1}
         value={value}
       />
+      {warning && <div className="mui-modal-entry-form-warning">
+        <span><SvgStatusWarning className="mui-modal-entry-form-warning-icon"/>{warning}</span>
+      </div>}
     </div>
   );
 }
@@ -249,8 +259,15 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
     // set to empty string when undefined is passed in.
     // https://reactjs.org/docs/forms.html#controlled-components
     const input = e.currentTarget;
-    // Note: empty string evaluates to false when checked for ?:. This uses undefined instead of empty string.
-    const newValue = { value: input.value ? input.value : undefined };
+
+    const valueContainsForbiddenChars = fields[index].forbiddenCharacters?.some((x) => input.value?.includes(x));
+    const newValue = valueContainsForbiddenChars ? {
+      ...values[index],
+      warning: MobileUi.translate("modal-entry-form.forbidden-characters", { symbols: fields[index].forbiddenCharacters?.join(" "), interpolation: { escapeValue: false } }),
+    } : {
+      // Note: empty string evaluates to false when checked for ?:. This uses undefined instead of empty string.
+      value: input.value ? input.value : undefined,
+    };
     setValues((prevValues) => prevValues.map((prevValue, prevIndex) => prevIndex === index ? newValue : prevValue));
     onChange?.(e);
   };
@@ -301,6 +318,7 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
             index={index}
             {...fieldProps}
             value={values[index].value ?? ""}
+            warning={values[index].warning}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               handleChange(e, index, fieldProps.onChange);
             }}

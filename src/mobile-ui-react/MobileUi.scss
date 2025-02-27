@@ -75,6 +75,7 @@ $max-small-screen-size: 600px;
   --muic-icon-selected-circle: black;
   --muic-disabled: var(--muic-gray-7);
   --muic-background-disabled: var(--muic-gray-a);
+  --muic-warning: rgb(255, 102, 0);
   // Don't show tap highlights by default.
   -webkit-tap-highlight-color: transparent;
 }

@@ -85,6 +85,10 @@
   white-space: nowrap;
 }
 
+.mui-modal-entry-form-field-input-warning {
+  border-bottom-color: var(--muic-warning) !important;
+}
+
 .mui-modal-entry-form-field-label-row {
   margin-top: 10px;
   display: flex;
@@ -94,6 +98,19 @@
   margin-top: 2px;
   font-size: 14px;
   font-weight: 600; // Semi-bold
+}
+
+.mui-modal-entry-form-warning {
+  font-size: 12px;
+  color: var(--muic-warning);
+}
+
+.mui-modal-entry-form-warning-icon {
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 8px;
+  fill: var(--muic-warning);
 }
 
 .mui-required {
