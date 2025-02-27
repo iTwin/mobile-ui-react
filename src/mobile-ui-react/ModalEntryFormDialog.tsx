@@ -37,7 +37,9 @@ export interface ModalEntryFormFieldProps {
  * @public
  */
 export interface ModalEntryFormValue {
+  /** The current value */
   value: string | undefined;
+  /** Warning to to show under `value`'s field */
   warning?: string;
 }
 
