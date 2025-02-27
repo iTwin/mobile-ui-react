@@ -26,8 +26,14 @@ export interface ModalEntryFormFieldProps {
   isRequired?: boolean;
   /** Whether or not white space should be trimmed off the beginning and end of entered text, default is false. */
   autoTrim?: boolean;
-  /** The characters that are not allowed to be entered. */
-  forbiddenCharacters?: string[];
+  /**
+   * The characters that are not allowed to be entered.
+   *
+   * **Note:** When passing a string, each character in the string will be considered forbidden.
+   * When passing an array of strings, each element of the array must be a single forbidden
+   * character. If you need to include compound characters, pass them using a string array.
+   */
+  forbiddenCharacters?: string[] | string;
   /** Callback every time the field value changes. */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -260,10 +266,12 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
     // https://reactjs.org/docs/forms.html#controlled-components
     const input = e.currentTarget;
 
-    const valueContainsForbiddenChars = fields[index].forbiddenCharacters?.some((x) => input.value?.includes(x));
+    const rawForbiddenCharacters = fields[index].forbiddenCharacters;
+    const forbiddenCharacters = typeof rawForbiddenCharacters === "string" ? [...rawForbiddenCharacters] : rawForbiddenCharacters;
+    const valueContainsForbiddenChars = forbiddenCharacters?.some((x) => input.value?.includes(x));
     const newValue = valueContainsForbiddenChars ? {
       ...values[index],
-      warning: MobileUi.translate("modal-entry-form.forbidden-characters", { symbols: fields[index].forbiddenCharacters?.join(" "), interpolation: { escapeValue: false } }),
+      warning: MobileUi.translate("modal-entry-form.forbidden-characters", { symbols: forbiddenCharacters?.join(" "), interpolation: { escapeValue: false } }),
     } : {
       // Note: empty string evaluates to false when checked for ?:. This uses undefined instead of empty string.
       value: input.value ? input.value : undefined,
