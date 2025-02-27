@@ -26,8 +26,8 @@ export interface ModalEntryFormFieldProps {
   isRequired?: boolean;
   /** Whether or not white space should be trimmed off the beginning and end of entered text, default is false. */
   autoTrim?: boolean;
-  /** The characters that are not allowed to be inputted. */
-  restrictedCharacters?: string[];
+  /** The characters that are not allowed to be entered. */
+  forbiddenCharacters?: string[];
   /** Callback every time the field value changes. */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -258,10 +258,10 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
     // https://reactjs.org/docs/forms.html#controlled-components
     const input = e.currentTarget;
 
-    const valueContainsRestrictedChars = fields[index].restrictedCharacters?.some((x) => input.value && input.value?.includes(x));
-    const newValue = valueContainsRestrictedChars ? {
+    const valueContainsForbiddenChars = fields[index].forbiddenCharacters?.some((x) => input.value?.includes(x));
+    const newValue = valueContainsForbiddenChars ? {
       ...values[index],
-      warning: `${MobileUi.translate("modal-entry-form.restricted-characters")}${fields[index].restrictedCharacters?.join(" ")}`,
+      warning: MobileUi.translate("modal-entry-form.forbidden-characters", { symbols: fields[index].forbiddenCharacters?.join(" "), interpolation: { escapeValue: false } }),
     } : {
       // Note: empty string evaluates to false when checked for ?:. This uses undefined instead of empty string.
       value: input.value ? input.value : undefined,
