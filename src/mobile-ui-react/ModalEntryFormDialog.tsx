@@ -31,7 +31,7 @@ export interface ModalEntryFormFieldProps {
    *
    * **Note:** When passing a string, each character in the string will be considered forbidden.
    * When passing an array of strings, each element of the array must be a single forbidden
-   * character. If you need to include compound characters, pass them as separate strings.
+   * character. If you need to include compound characters, pass them using a string array.
    */
   forbiddenCharacters?: string[] | string;
   /** Callback every time the field value changes. */
