@@ -116,6 +116,7 @@ interface ModalEntryFormFieldPropsInternal extends ModalEntryFormFieldProps {
   onEnter: () => void;
   onFocus: () => void;
   index: number;
+  isDisabled?: boolean;
   isFocused?: boolean;
   value: string;
   warning?: string;
@@ -125,7 +126,7 @@ interface ModalEntryFormFieldPropsInternal extends ModalEntryFormFieldProps {
  * @internal
  */
 function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
-  const { name, value, isRequired = false, onEnter, onFocus, index, isFocused, warning } = props;
+  const { name, value, isRequired = false, onEnter, onFocus, index, isDisabled, isFocused, warning } = props;
   const labelClassNames = classnames("mui-modal-entry-form-field-label", isRequired && "mui-required");
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -152,6 +153,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
         autoComplete="off"
         autoCapitalize="off"
         autoCorrect="off"
+        disabled={isDisabled}
         tabIndex={index + 1}
         value={value}
       />
@@ -257,6 +259,7 @@ export function ModalDialog(props: ModalDialogProps) {
 export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
   const { onOK, onError: showError, fields, ...theRest } = props;
   const [values, setValues] = React.useState<ModalEntryFormValue[]>(fields.map((field) => ({ value: field.initialValue })));
+  const [waitingToClose, setWaitingToClose] = React.useState(false);
   const [focusIndex, setFocusIndex] = React.useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number, onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void) => {
@@ -281,6 +284,9 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
   };
 
   const handleOK = async () => {
+    if (waitingToClose) {
+      return false;
+    }
     const missingValues: string[] = [];
     for (let i = 0; i < fields.length; ++i) {
       const field = fields[i];
@@ -302,10 +308,12 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
       }
       return false;
     }
-    if (await onOK(values)) {
-      return true;
+    setWaitingToClose(true);
+    try {
+      return await onOK(values);
+    } finally {
+      setWaitingToClose(false);
     }
-    return false;
   };
 
   const handleEnter = async () => {
@@ -322,6 +330,7 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
         return (
           <ModalEntryFormField
             key={index}
+            isDisabled={waitingToClose}
             isFocused={focusIndex === index}
             index={index}
             {...fieldProps}
