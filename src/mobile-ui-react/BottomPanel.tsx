@@ -70,17 +70,17 @@ export class BottomPanelEvents {
 export function useBottomPanelTop() {
   const [top, setTop] = React.useState<number>();
 
-  useBeUiEvent((args: BottomPanelResizeArgs) => {
+  useBeUiEvent(React.useCallback((args: BottomPanelResizeArgs) => {
     setTop(args.top);
-  }, BottomPanelEvents.onResize);
+  }, []), BottomPanelEvents.onResize);
 
-  useBeUiEvent((args: BottomPanelOpenCloseArgs) => {
+  useBeUiEvent(React.useCallback((args: BottomPanelOpenCloseArgs) => {
     setTop(args.top);
-  }, BottomPanelEvents.onOpen);
+  }, []), BottomPanelEvents.onOpen);
 
-  useBeUiEvent((_args: BottomPanelOpenCloseArgs) => {
+  useBeUiEvent(React.useCallback((_args: BottomPanelOpenCloseArgs) => {
     setTop(undefined);
-  }, BottomPanelEvents.onClose);
+  }, []), BottomPanelEvents.onClose);
 
   return top;
 }
