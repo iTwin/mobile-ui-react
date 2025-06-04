@@ -70,17 +70,17 @@ export class BottomPanelEvents {
 export function useBottomPanelTop() {
   const [top, setTop] = React.useState<number>();
 
-  useBeUiEvent((args: BottomPanelResizeArgs) => {
+  useBeUiEvent(React.useCallback((args: BottomPanelResizeArgs) => {
     setTop(args.top);
-  }, BottomPanelEvents.onResize);
+  }, []), BottomPanelEvents.onResize);
 
-  useBeUiEvent((args: BottomPanelOpenCloseArgs) => {
+  useBeUiEvent(React.useCallback((args: BottomPanelOpenCloseArgs) => {
     setTop(args.top);
-  }, BottomPanelEvents.onOpen);
+  }, []), BottomPanelEvents.onOpen);
 
-  useBeUiEvent((_args: BottomPanelOpenCloseArgs) => {
+  useBeUiEvent(React.useCallback((_args: BottomPanelOpenCloseArgs) => {
     setTop(undefined);
-  }, BottomPanelEvents.onClose);
+  }, []), BottomPanelEvents.onClose);
 
   return top;
 }
@@ -124,38 +124,45 @@ export interface BottomPanelProps extends CommonProps {
 export const BottomPanel = React.forwardRef((props: BottomPanelProps, forwardedRef: MutableHtmlDivRefOrFunction) => {
   const { className, style, children, isOpen, onOpen, onClose, isSplitScreen, isStandAlone, opacity, blur, appData } = props;
   const ref = React.useRef<HTMLDivElement | null>(null);
-  const [opened, setOpened] = React.useState(false);
-  // NOTE: This MUST be here. If it is inside the useEffect call, the actual value will not be read
-  // until after the animation has already started.
-  const oldTop = ref.current?.getBoundingClientRect().top;
+  const [opened, setOpened] = React.useState<boolean>();
+  const topWhenClosed = React.useRef<number>();
+
+  React.useLayoutEffect(() => {
+    if (!ref.current)
+      return;
+
+    const { height, top } = ref.current.getBoundingClientRect();
+    if (topWhenClosed.current === undefined && isOpen) {
+      // Panel initially rendered as open
+      topWhenClosed.current = top + height;
+    } else {
+      topWhenClosed.current = isOpen ? top : top + height;
+    }
+  }, [isOpen]);
 
   React.useEffect(() => {
     if (!opened && ref.current && isOpen) {
-      const height = ref.current.clientHeight;
-      onOpen?.(height);
+      onOpen?.(ref.current.clientHeight);
       setOpened(true);
-      // If we get this far oldTop will not be undefined, but the compiler doesn't know that.
-      if (oldTop !== undefined) {
-        // The 0ms setTimeout below is used to ensure that when one tab opening causes another tab to close, the onOpen
-        // event will always be emitted after the onClose event.
-        setTimeout(() => {
-          BottomPanelEvents.onOpen.emit({ div: ref.current, height, top: oldTop - height, appData });
-        }, 0);
-      }
+
+      // The 0ms setTimeout below is used to ensure that when one tab opening causes another tab to close, the onOpen
+      // event will always be emitted after the onClose event.
+      setTimeout(() => {
+        // Panel height might have changed during the timeout.
+        const height = ref.current.clientHeight;
+        BottomPanelEvents.onOpen.emit({ div: ref.current, height, top: topWhenClosed.current - height, appData });
+      }, 0);
     }
-  }, [isOpen, appData, onOpen, ref, opened, oldTop]);
+  }, [isOpen, appData, onOpen, opened]);
 
   React.useEffect(() => {
     if (opened && ref.current && !isOpen) {
       const height = ref.current.clientHeight;
       onClose?.(height);
       setOpened(false);
-      // If we get this far oldTop will not be undefined, but the compiler doesn't know that.
-      if (oldTop !== undefined) {
-        BottomPanelEvents.onClose.emit({ div: ref.current, height, top: oldTop + height, appData });
-      }
+      BottomPanelEvents.onClose.emit({ div: ref.current, height, top: topWhenClosed.current, appData });
     }
-  }, [isOpen, appData, onClose, ref, opened, oldTop]);
+  }, [isOpen, appData, onClose, opened]);
 
   const bodyStyle: any = {
     "--bottom-panel-opacity": opacity,
