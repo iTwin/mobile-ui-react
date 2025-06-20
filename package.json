@@ -22,7 +22,7 @@
     "clean": "rimraf lib",
     "copy:assets": "cpx \"./src/**/*.{*css,svg}\" ./lib && cpx \"./public/**/*\" ./lib/public",
     "images:gen": "rimraf src/mobile-ui-react/images-tsx && svgr --typescript src/mobile-ui-react/images --out-dir src/mobile-ui-react/images-tsx --no-svgo --no-prettier --memo --svg-props className=\"core-icons-svgSprite\"",
-    "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" 1>&2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -44,7 +44,7 @@
     "@itwin/core-quantity": "5.0.0",
     "@itwin/core-react": "5.10.0",
     "@itwin/ecschema-metadata": "5.0.0",
-    "@itwin/eslint-plugin": "4.0.0-dev.48",
+    "@itwin/eslint-plugin": "5.2.1",
     "@itwin/imodel-components-react": "5.10.0",
     "@itwin/itwinui-icons-react": "^2.10.0",
     "@itwin/mobile-sdk-core": "0.24.0",
@@ -56,16 +56,17 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-redux": "^7.1.19",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
     "cpx2": "^4.2.0",
-    "eslint": "^8.36.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint": "^9.11.1",
+    "eslint-plugin-react-hooks": "^6.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-redux": "^7.2.4",
     "redux": "^4.1.1",
     "relative-deps": "^1.0.7",
+    "rimraf": "^6.0.1",
     "sass": "^1.39.0",
     "ts-node": "^10.3.0",
     "typedoc": "~0.22.0",
@@ -87,9 +88,6 @@
     "react-redux": "^7.2.4"
   },
   "overrides": {
-    "eslint-plugin-jsdoc": {
-      "eslint": "^8.36.0"
-    },
     "typedoc": {
       "typescript": "~5.0.2"
     }

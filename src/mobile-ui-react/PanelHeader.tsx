@@ -36,7 +36,7 @@ function PanelHeaderDraggableDiv(props: PanelHeaderDraggableDivProps) {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PanelHeaderButtonProps extends CommonProps {
   /** The button's text label. */
   label: string;

@@ -13,7 +13,7 @@ import "./HorizontalPicker.scss";
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface HorizontalPickerProps extends CommonProps {
   /** The items in the picker. */
   items: React.ReactNode[];
@@ -24,7 +24,7 @@ export interface HorizontalPickerProps extends CommonProps {
 }
 
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface HorizontalPickerItemProps extends CommonProps {
   itemNode: React.ReactNode;
   onClick: () => void;

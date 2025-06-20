@@ -22,7 +22,7 @@ export interface BottomPanelResizeArgs {
   /** The location of the new top of the panel */
   top: number;
   /** App-specific data attached to the associated bottom panel. */
-  appData: any | undefined;
+  appData: any;
 }
 
 /**
@@ -33,7 +33,7 @@ export interface BottomPanelResizingArgs {
   /** The new location of the top of the panel */
   top: number;
   /** App-specific data attached to the associated bottom panel. */
-  appData: any | undefined;
+  appData: any;
 }
 
 /**
@@ -48,7 +48,7 @@ export interface BottomPanelOpenCloseArgs {
   /** The top of the open panel */
   top: number;
   /** App-specific data attached to the associated bottom panel. */
-  appData: any | undefined;
+  appData: any;
 }
 
 /**
@@ -90,7 +90,7 @@ export function useBottomPanelTop() {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface BottomPanelProps extends CommonProps {
   children?: React.ReactNode;
   /** Displayed when true. */
@@ -303,7 +303,7 @@ export function ResizableBottomPanel(props: ResizableBottomPanelProps) {
     setTimeout(() => {
       setFlickingDown(false);
       // @todo AppUI deprecation
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
     }, 50 + (typeof autoCloseResult === "number" ? autoCloseResult : getCssVariableAsNumber("--mui-bottom-panel-animation-duration") * 1000));
     return result;
   });

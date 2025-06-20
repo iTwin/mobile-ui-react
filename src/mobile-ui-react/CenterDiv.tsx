@@ -12,7 +12,7 @@ import "./CenterDiv.scss";
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface CenterDivProps extends CommonProps, React.DOMAttributes<HTMLDivElement> {
   /** Set to true to have the {@link CenterDiv} fill 100% of its parent. Default: no */
   fill?: boolean;

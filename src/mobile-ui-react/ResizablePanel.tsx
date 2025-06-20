@@ -15,7 +15,7 @@ import "./ResizablePanel.scss";
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ResizablePanelProps extends CommonProps {
   /** The children */
   children?: React.ReactNode;
@@ -351,7 +351,7 @@ export function DraggableComponent(props: DraggableComponentProps) {
 }
 
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface VerticalScrollProps extends CommonProps {
   children?: React.ReactNode;
 }
@@ -363,7 +363,7 @@ export function VerticalScroll(props: VerticalScrollProps) {
 }
 
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface TouchCaptorProps extends CommonProps {
   isTouchStarted: boolean;
   onTouchStart?: (e: TouchEvent) => void;
@@ -466,7 +466,7 @@ interface TouchDragHandleState {
 }
 
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 interface TouchDragHandleProps extends CommonProps {
   /** Last pointer position of draggable tab. */
   lastPosition?: XAndY;
