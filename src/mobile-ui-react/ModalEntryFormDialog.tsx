@@ -54,7 +54,7 @@ export interface ModalEntryFormValue {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ModalDialogProps extends CommonProps {
   /** Content. */
   children: React.ReactNode;
@@ -129,7 +129,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
   const { name, value, isRequired = false, onEnter, onFocus, index, isDisabled, isFocused, warning } = props;
   const labelClassNames = classnames("mui-modal-entry-form-field-label", isRequired && "mui-required");
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onEnter();
       e.currentTarget.blur();
@@ -147,7 +147,7 @@ function ModalEntryFormField(props: ModalEntryFormFieldPropsInternal) {
         id={ModalEntryFormField.idForName(name)}
         type="text"
         onChange={props.onChange}
-        onKeyPress={handleKeyPress}
+        onKeyUp={handleKeyUp}
         onFocus={onFocus}
         autoFocus={isFocused && !MobileCore.isIosPlatform} // eslint-disable-line jsx-a11y/no-autofocus
         autoComplete="off"

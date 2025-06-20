@@ -41,7 +41,7 @@ export interface CountNotificationMoreProps {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CountNotificationProps extends CommonProps {
   /** Count to display */
   count: number;
@@ -52,7 +52,7 @@ export interface CountNotificationProps extends CommonProps {
   /** Click handler: ignored if moreButtonProps is set. */
   onClick?: () => void;
   /** IconSpec for icon to use on the right side: ignored if moreButtonProps is set. */
-  iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation
+  iconSpec?: IconSpec; // eslint-disable-line @typescript-eslint/no-deprecated
   /** The icon size, if iconSpec is specified, default is "24px". */
   iconSize?: string;
   /**
@@ -68,7 +68,7 @@ export interface CountNotificationProps extends CommonProps {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface CloseableCountNotificationProps extends CommonProps {
   /** Count to display */
   count: number;

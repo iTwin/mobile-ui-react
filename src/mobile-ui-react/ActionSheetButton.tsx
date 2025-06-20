@@ -12,10 +12,10 @@ import { NavigationButton } from "./NavigationPanel";
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ActionSheetButtonProps extends ActionSheetProps, CommonProps {
   /** The icon to show on the {@link ActionSheetButton}, default is three vertical dots. */
-  iconSpec?: IconSpec; // eslint-disable-line deprecation/deprecation
+  iconSpec?: IconSpec; // eslint-disable-line @typescript-eslint/no-deprecated
   /** The size of the {@link ActionSheetButton}, default is "42px". */
   size?: string;
   /** The width of the {@link ActionSheetButton}, default is size if specified, "42px" otherwise. */

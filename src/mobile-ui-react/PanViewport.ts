@@ -71,10 +71,10 @@ export class PanTracker {
   }
 
   // @todo AppUI deprecation
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   private _onSyncUi = (args: UiSyncEventArgs) => {
     // @todo AppUI deprecation
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if (args.eventIds.has(SessionStateActionId.SetIModelConnection) && this._vpParentDivId) {
       let panTracker = PanTracker.getWithKey(this._vpParentDivId);
       const nextX = panTracker.nextX;

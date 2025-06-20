@@ -40,7 +40,7 @@ export function SuggestionContainer(props: React.HTMLAttributes<HTMLDivElement>)
  */
 export function Suggestion(props: SuggestionProps) {
   // @todo AppUI deprecation
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const ref = useOnOutsideClick<HTMLDivElement>(() => props.onOutsideClick?.());
   // To ensure the icon is properly centered when the label not displayed, calculate the icon's margin so that its height and width match the pill height.
   const pillHeight = React.useRef(getCssVariableAsNumber("--mui-pill-height"));

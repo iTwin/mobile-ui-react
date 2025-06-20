@@ -22,7 +22,7 @@ import {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface NavigationPanelProps extends ClassNameProps {
   /** The left side components. */
   left?: React.ReactNode;
@@ -47,10 +47,10 @@ export function NavigationPanel(props: NavigationPanelProps) {
  * @public
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface NavigationButtonProps extends CommonProps {
   /** The icon. */
-  iconSpec: IconSpec; // eslint-disable-line deprecation/deprecation
+  iconSpec: IconSpec; // eslint-disable-line @typescript-eslint/no-deprecated
   /** The button size, default is "42px". */
   size?: string;
   /** The width, default is size if specified, "42px" otherwise. */
@@ -152,7 +152,7 @@ export interface ConditionalNavigationButtonProps extends NavigationButtonProps 
 export function ConditionalNavigationButton(props: ConditionalNavigationButtonProps) {
   const { isVisible = true, iconSpec, ...others } = props;
   const [displayed, setDisplayed] = React.useState<boolean>();
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const [localIconSpec, setLocalIconSpec] = React.useState<IconSpec>();
 
   React.useEffect(() => {

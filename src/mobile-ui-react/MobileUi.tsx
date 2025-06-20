@@ -97,7 +97,7 @@ export class MobileUi {
     if (UiFramework.initialized) {
       const newTheme = isDark ? ColorTheme.Dark : ColorTheme.Light;
       // @todo AppUI deprecation
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.setColorTheme(newTheme);
       // The imodeljs UI framework relies on the "data-theme" attribute. Since the only two ColorTheme
       // values are Light and Dark, the below handles those and Automatic.
@@ -147,9 +147,9 @@ export class MobileUi {
     this.setupUIError();
     try {
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", MobileUi._colorSchemeListener);
-    } catch (e) {
+    } catch {
       // Safari didn't support the above BASIC functionality until version 14.
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       window.matchMedia("(prefers-color-scheme: dark)").addListener(MobileUi._colorSchemeListener);
     }
     const isDark = MobileUi.activeColorSchemeIsDark;
@@ -160,7 +160,7 @@ export class MobileUi {
   private static setupUIError() {
     UIError.create = (error) => {
       const uiError = UIError.defaultCreate(error);
-      if (error instanceof BackendError && error.errorNumber === BriefcaseStatus.DownloadCancelled) {
+      if (error instanceof BackendError && error.errorNumber === (BriefcaseStatus.DownloadCancelled as number)) {
         uiError.WasCanceled = true;
       }
       return uiError;
@@ -171,9 +171,9 @@ export class MobileUi {
   public static close() {
     try {
       window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", MobileUi._colorSchemeListener);
-    } catch (e) {
+    } catch {
       // Safari didn't support the above BASIC functionality until version 14.
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       window.matchMedia("(prefers-color-scheme: dark)").removeListener(MobileUi._colorSchemeListener);
     }
     this.onClose.raiseEvent();
@@ -269,10 +269,10 @@ export const useMediaQuery = (query: string) => {
     try {
       mediaMatch.addEventListener("change", listener);
       return () => mediaMatch.removeEventListener("change", listener);
-    } catch (e) {
+    } catch {
       // Safari didn't support the above BASIC functionality until version 14.
-      mediaMatch.addListener(listener); // eslint-disable-line deprecation/deprecation
-      return () => mediaMatch.removeListener(listener); // eslint-disable-line deprecation/deprecation
+      mediaMatch.addListener(listener); // eslint-disable-line @typescript-eslint/no-deprecated
+      return () => mediaMatch.removeListener(listener); // eslint-disable-line @typescript-eslint/no-deprecated
     }
   });
   return matches;
@@ -359,11 +359,11 @@ function stringSetHas(set: Set<string>, values: ReadonlyArray<string>) {
  * @param eventIds - The optional event ids to handle.
  */
 // @todo AppUI deprecation
-// eslint-disable-next-line deprecation/deprecation
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function useSyncUiEvent(handler: (args: UiSyncEventArgs) => void, ...eventIds: ReadonlyArray<string>) {
   React.useEffect(() => {
     // @todo AppUI deprecation
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args: UiSyncEventArgs) => {
       if (eventIds.length === 0 || stringSetHas(args.eventIds, eventIds)) {
         handler(args);
