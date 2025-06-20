@@ -24,7 +24,6 @@ module.exports = [
   },
   {
     rules: {
-      "nonblock-statement-body-position": "off",
       "@itwin/no-internal-barrel-imports": "off",
       "jsx-a11y/click-events-have-key-events": "off",
       "jsx-a11y/no-static-element-interactions": "off"
