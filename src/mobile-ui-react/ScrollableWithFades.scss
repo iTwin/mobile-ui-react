@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "./MobileUi";
+@use "./MobileUi";
 
 .mui-horizontal-scrollable-with-fades-relative {
   position: relative;
@@ -36,11 +36,11 @@
 .mui-fade-left {
   @extend .mui-fade;
   left: 0px;
-  @include mui-fade-gradient(right, var(--background-r), var(--background-g), var(--background-b));
+  @include MobileUi.mui-fade-gradient(right, var(--background-r), var(--background-g), var(--background-b));
 }
 
 .mui-fade-right {
   @extend .mui-fade;
   right: 0px;
-  @include mui-fade-gradient(left, var(--background-r), var(--background-g), var(--background-b));
+  @include MobileUi.mui-fade-gradient(left, var(--background-r), var(--background-g), var(--background-b));
 }
