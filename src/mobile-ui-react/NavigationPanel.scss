@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "MobileUI";
+@use "./MobileUi";
 
 :root {
   --mui-navigation-gradient-height: 80px;
@@ -47,6 +47,6 @@
   height: var(--mui-navigation-gradient-height);
   opacity: 0.5;
   pointer-events: none;
-  @include mui-navigation-background-gradient;
+  @include MobileUi.mui-navigation-background-gradient;
   padding-top: var(--itm-safe-area-top);
 }
