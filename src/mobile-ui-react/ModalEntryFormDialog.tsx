@@ -294,7 +294,7 @@ export function ModalEntryFormDialog(props: ModalEntryFormDialogProps) {
       if (!!field.autoTrim && value.value !== undefined) {
         value.value = value.value.trim();
       }
-      if (!!field.isRequired) {
+      if (field.isRequired) {
         if (!value.value || value.value.length === 0) {
           missingValues.push(field.name);
         }
