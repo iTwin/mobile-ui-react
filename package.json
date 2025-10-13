@@ -1,6 +1,6 @@
 {
   "name": "@itwin/mobile-ui-react",
-  "version": "0.31.0",
+  "version": "0.31.1",
   "description": "Bentley iTwin Mobile UI module",
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "@itwin/eslint-plugin": "5.2.1",
     "@itwin/imodel-components-react": "5.17.0",
     "@itwin/itwinui-icons-react": "^2.10.0",
-    "@itwin/mobile-sdk-core": "0.31.0",
+    "@itwin/mobile-sdk-core": "0.31.1",
     "@itwin/presentation-common": "5.2.2",
     "@itwin/presentation-frontend": "5.2.2",
     "@itwin/webgl-compatibility": "5.2.2",
@@ -82,7 +82,7 @@
     "@itwin/core-react": "5.17.0",
     "@itwin/imodel-components-react": "5.17.0",
     "@itwin/itwinui-icons-react": "^2.10.0",
-    "@itwin/mobile-sdk-core": "0.31.0",
+    "@itwin/mobile-sdk-core": "0.31.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-redux": "^7.2.4"
