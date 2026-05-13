@@ -25,6 +25,7 @@ module.exports = [
   {
     rules: {
       "@itwin/no-internal-barrel-imports": "off",
+      "@typescript-eslint/no-deprecated": "warn",
       "jsx-a11y/click-events-have-key-events": "off",
       "jsx-a11y/no-static-element-interactions": "off"
     }
